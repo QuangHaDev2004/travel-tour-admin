@@ -9,6 +9,8 @@ import {
   Legend,
 } from "chart.js";
 import { Line } from "react-chartjs-2";
+import { useRevenueChart } from "../hooks/useRevenueChart";
+import { useEffect, useMemo, useState } from "react";
 
 ChartJS.register(
   CategoryScale,
@@ -32,31 +34,100 @@ const options = {
       text: "Biểu đồ doanh thu theo tháng",
     },
   },
-};
-
-const data = {
-  labels: ["Tháng 1", "Tháng 2", "Tháng 3", "Tháng 4", "Tháng 5"],
-  datasets: [
-    {
-      label: "Doanh thu (VNĐ)",
-      data: [12000000, 19000000, 30000000, 25000000, 40000000],
-      borderColor: "rgb(255, 99, 132)",
-      backgroundColor: "rgba(255, 99, 132, 0.5)",
-    },
-    {
-      label: "Chi phí (VNĐ)",
-      data: [8000000, 12000000, 20000000, 18000000, 26000000],
-      borderColor: "rgb(53, 162, 235)",
-      backgroundColor: "rgba(53, 162, 235, 0.5)",
-    },
-  ],
+  scales: {
+    x: { title: { display: true, text: "Ngày" } },
+    y: { title: { display: true, text: "Doanh thu (VNĐ)" } },
+  },
 };
 
 export const RevenueChart = () => {
+  const [dataMonthCurrent, setDataMonthCurrent] = useState<number[]>([]);
+  const [dataMonthPrevious, setDataMonthPrevious] = useState<number[]>([]);
+  const [now, setNow] = useState<Date>(() => new Date());
+  const { mutate } = useRevenueChart({
+    setDataMonthCurrent,
+    setDataMonthPrevious,
+  });
+
+  // Ngày hiện tại
+  // const now = new Date();
+
+  // Thông tin tháng hiện tại
+  const currentMonth = now.getMonth() + 1;
+  const currentYear = now.getFullYear();
+
+  // Thông tin tháng trước
+  const previousMonthDate = new Date(currentYear, now.getMonth() - 1, 1); // chi tiết tháng trước
+  const previousMonth = previousMonthDate.getMonth() + 1;
+  const previousYear = previousMonthDate.getFullYear();
+
+  // Lấy ra tổng số ngày
+  const daysInMonthCurrent = new Date(currentYear, currentMonth, 0).getDate(); // (2025, 12, 0) 0 => 2025/11/ngày cuối cùng
+  const daysInMonthPrevious = new Date(
+    previousYear,
+    previousMonth,
+    0,
+  ).getDate();
+  const days =
+    daysInMonthCurrent > daysInMonthPrevious
+      ? daysInMonthCurrent
+      : daysInMonthPrevious;
+
+  const arrayDay = useMemo(() => {
+    const arr = [];
+    for (let i = 1; i <= days; i++) {
+      arr.push(i);
+    }
+
+    return arr;
+  }, [days]);
+
+  useEffect(() => {
+    const dataFinal = {
+      currentMonth,
+      currentYear,
+      previousMonth,
+      previousYear,
+      arrayDay,
+    };
+
+    mutate(dataFinal);
+  }, [
+    arrayDay,
+    currentMonth,
+    currentYear,
+    mutate,
+    previousMonth,
+    previousYear,
+  ]);
+
+  const handleFilterMonth = (value: string) => {
+    const dateFilter = value ? new Date(value) : new Date();
+    setNow(dateFilter);
+  };
+
+  const data = {
+    labels: arrayDay,
+    datasets: [
+      {
+        label: `Tháng ${currentMonth}/${currentYear}`,
+        data: dataMonthCurrent,
+        borderColor: "rgb(53, 162, 235)",
+        borderWidth: 1.5,
+      },
+      {
+        label: `Tháng ${previousMonth}/${previousYear}`,
+        data: dataMonthPrevious,
+        borderColor: "rgb(255, 99, 132)",
+        borderWidth: 1.5,
+      },
+    ],
+  };
+
   return (
     <>
       <div
-        className="mb-[30px] rounded-[14px] bg-white p-6 sm:p-8"
+        className="mb-[30px] rounded-[14px] bg-white p-6 shadow-md sm:p-8"
         style={{
           boxShadow: "6px 6px 54px 0px #0000000D",
         }}
@@ -66,8 +137,10 @@ export const RevenueChart = () => {
             Biểu đồ doanh thu
           </h1>
           <input
-            className="border-four rounded-sm border px-4 py-2 text-xs font-semibold text-[#2B303466]"
+            value={now.toISOString().slice(0, 7)}
+            onChange={(e) => handleFilterMonth(e.target.value)}
             type="month"
+            className="border-four rounded-sm border px-4 py-2 text-xs font-semibold text-[#2B303466]"
           />
         </div>
         <div className="h-[350px]">
