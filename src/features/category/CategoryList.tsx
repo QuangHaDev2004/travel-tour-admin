@@ -7,7 +7,9 @@ import { pathAdmin } from "@/config/path";
 import { useCategoryList } from "./hooks/useCategoryList";
 
 export const CategoryList = () => {
-  const { pagination, categoryList } = useCategoryList();
+  const { data } = useCategoryList();
+  const categoryList = data?.categoryList ?? [];
+  const pagination = data?.pagination ?? {};
 
   return (
     <>

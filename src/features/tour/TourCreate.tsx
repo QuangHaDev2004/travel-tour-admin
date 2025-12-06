@@ -20,7 +20,8 @@ import { FileUploader } from "@/components/form/FileUploader";
 import { FileMultiUploader } from "@/components/form/FileMultiUploader";
 
 export const TourCreate = () => {
-  const { categoryTree } = useCategoryList();
+  const { data } = useCategoryList();
+  const categoryTree = data?.categoryTree ?? [];
   const { cityList } = useCityList();
   const { account } = useAuthStore();
   const permissions = account?.permissions;

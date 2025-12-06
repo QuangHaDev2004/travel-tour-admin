@@ -4,24 +4,29 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { categoryFormSchema, type CategoryFormInputs } from "@/types";
 import { PageTitle } from "@/components/pageTitle/PageTitle";
 import { FormInput } from "@/components/form/FormInput";
-import { FormFileUpload } from "@/components/form/FormFileUpload";
 import { ButtonSubmit } from "@/components/button/ButtonSubmit";
 import { ContextLink } from "@/components/common/ContextLink";
 import { pathAdmin } from "@/config/path";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { useCategoryList } from "./hooks/useCategoryList";
 import { renderOptions } from "@/utils/renderOptions";
 import { useNavigate, useParams } from "react-router";
 import { EditorMCE } from "@/components/editor/EditorMCE";
 import { useCategoryDetail } from "./hooks/useCategoryDetail";
 import { useCategoryEdit } from "./hooks/useCategoryEdit";
+import { FileUploader } from "@/components/form/FileUploader";
+import { SelectField } from "@/components/form/SelectField";
 
 export const CategoryEdit = () => {
   const { id } = useParams();
+  const navigate = useNavigate();
   const editorRef = useRef<any>(null);
   const [avatars, setAvatars] = useState<any[]>([]);
-  const navigate = useNavigate();
-  const { categoryTree } = useCategoryList();
+  const { data } = useCategoryList();
+  const categoryTree = useMemo(
+    () => data?.categoryTree ?? [],
+    [data?.categoryTree],
+  );
   const { categoryDetail, isError } = useCategoryDetail(id);
   const { mutate, isPending } = useCategoryEdit(id);
 
@@ -96,21 +101,14 @@ export const CategoryEdit = () => {
               isRequired
             />
 
-            <div>
-              <label
-                htmlFor="parent"
-                className="text-travel-label mb-1 block text-sm font-semibold"
-              >
-                Danh mục cha
-              </label>
-              <select
-                {...register("parent")}
-                className="select bg-travel-three text-travel-secondary h-12 w-full px-5 text-sm font-medium"
-              >
-                <option value="">-- Chọn danh mục --</option>
-                {renderOptions(categoryTree)}
-              </select>
-            </div>
+            <SelectField
+              name="parent"
+              label="Danh mục cha"
+              register={register("parent")}
+            >
+              <option value="">-- Chọn danh mục --</option>
+              {renderOptions(categoryTree)}
+            </SelectField>
 
             <FormInput
               id="position"
@@ -121,24 +119,18 @@ export const CategoryEdit = () => {
               placeholder="Note: Tự động tăng"
             />
 
-            <div>
-              <label
-                htmlFor="status"
-                className="text-travel-label mb-1 block text-sm font-semibold"
-              >
-                Trạng thái
-              </label>
-              <select
-                {...register("status")}
-                className="select bg-travel-three text-travel-secondary h-12 w-full px-5 text-sm font-medium"
-              >
-                <option value="active">Hoạt động</option>
-                <option value="inactive">Tạm dừng</option>
-              </select>
-            </div>
+            <SelectField
+              name="status"
+              label="Trạng thái"
+              register={register("status")}
+              options={[
+                { label: "Hoạt động", value: "active" },
+                { label: "Tạm dừng", value: "inactive" },
+              ]}
+            />
 
-            <FormFileUpload
-              name="avatar"
+            <FileUploader
+              id="avatar"
               label="Ảnh đại diện"
               files={avatars}
               setFiles={setAvatars}
