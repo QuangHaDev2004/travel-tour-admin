@@ -45,7 +45,7 @@ export const FormInput = ({
         value={value}
         onWheel={(e) => e.currentTarget.blur()}
         min={0}
-        className={`${error ? "border-travel-error" : "border-travel-four"} text-travel-secondary bg-travel-three h-12 w-full rounded-sm border px-5 text-sm font-medium`}
+        className={`text-travel-secondary bg-travel-three h-12 w-full rounded-sm border px-5 text-sm font-medium ${error ? "border-travel-error" : "border-travel-four focus:border-travel-primary"} `}
       />
       {error && (
         <p className="text-travel-error mt-1 text-sm font-medium">

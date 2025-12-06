@@ -13,7 +13,9 @@ import { Search } from "@/components/common/Search";
 import { useCategoryChangeMulti } from "../hooks/useCategoryChangeMulti";
 
 export const CategoryTable = () => {
-  const { categoryList } = useCategoryList();
+  const { data } = useCategoryList();
+  const categoryList = data?.categoryList ?? [];
+
   const { mutate, isPending } = useCategoryDelete();
   const { mutate: changeMulti } = useCategoryChangeMulti();
   const [selectedIds, setSelectedIds] = useState<string[]>([]);
@@ -81,7 +83,7 @@ export const CategoryTable = () => {
               <th className="border-travel-four border-b p-4 text-center">
                 <input
                   type="checkbox"
-                  className="checkbox checkbox-primary border-travel-secondary/20 hover:border-travel-primary border"
+                  className="checkbox checkbox-primary border-travel-secondary/20 hover:border-travel-primary h-5 w-5 rounded-md border"
                   checked={
                     categoryList.length > 0 &&
                     selectedIds.length === categoryList.length
@@ -120,7 +122,7 @@ export const CategoryTable = () => {
                     <td className="border-travel-four border-b px-4 py-2 text-center">
                       <input
                         type="checkbox"
-                        className="checkbox checkbox-primary border-travel-secondary/20 hover:border-travel-primary border"
+                        className="checkbox checkbox-primary border-travel-secondary/20 hover:border-travel-primary h-5 w-5 rounded-md border"
                         value={item.id}
                         checked={selectedIds.includes(item.id)}
                         onChange={(event) => handleCheckItem(item.id, event)}

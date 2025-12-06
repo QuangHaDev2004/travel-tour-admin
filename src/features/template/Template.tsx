@@ -7,10 +7,14 @@ import { useCategoryList } from "../category/hooks/useCategoryList";
 import { renderOptions } from "@/utils/renderOptions";
 import { useTemplateEdit } from "./hook/useTemplateEdit";
 import { useTemplateDetail } from "./hook/useTemplateDetail";
-import { useEffect } from "react";
+import { useEffect, useMemo } from "react";
 
 export const Template = () => {
-  const { categoryTree } = useCategoryList();
+  const { data } = useCategoryList();
+  const categoryTree = useMemo(
+    () => data?.categoryTree ?? [],
+    [data?.categoryTree],
+  );
   const { templateDetail } = useTemplateDetail();
   const { mutate: mutateTemplateEdit, isPending: pendingTemplateEdit } =
     useTemplateEdit();

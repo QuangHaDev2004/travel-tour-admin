@@ -5,7 +5,8 @@ import { useCategoryList } from "../hooks/useCategoryList";
 import type { AccountAdminItem } from "@/types/account";
 
 export const CategoryFilterBar = () => {
-  const { accountAdminList } = useCategoryList();
+  const { data } = useCategoryList();
+  const accountAdminList = data?.accountAdminList ?? [];
   const [searchParams, setSearchParams] = useSearchParams();
   const status = searchParams.get("status") || "";
   const createdBy = searchParams.get("createdBy") || "";

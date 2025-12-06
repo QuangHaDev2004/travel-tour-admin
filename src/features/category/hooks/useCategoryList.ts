@@ -1,6 +1,6 @@
-import { getCategoryListService } from "@/services/category";
-import { keepPreviousData, useQuery } from "@tanstack/react-query";
 import { useSearchParams } from "react-router";
+import { getCategoryList } from "@/services/category";
+import { keepPreviousData, useQuery } from "@tanstack/react-query";
 
 export const useCategoryList = () => {
   const [searchParams] = useSearchParams();
@@ -10,21 +10,9 @@ export const useCategoryList = () => {
     if (value) params[key] = value;
   });
 
-  const { data } = useQuery({
+  return useQuery({
     queryKey: ["categoryList", params],
-    queryFn: () => getCategoryListService(params),
+    queryFn: () => getCategoryList(params),
     placeholderData: keepPreviousData,
   });
-
-  const categoryTree = data?.categoryTree ?? [];
-  const categoryList = data?.categoryList ?? [];
-  const accountAdminList = data?.accountAdminList ?? [];
-  const pagination = data?.pagination ?? {};
-
-  return {
-    categoryTree,
-    categoryList,
-    accountAdminList,
-    pagination,
-  };
 };

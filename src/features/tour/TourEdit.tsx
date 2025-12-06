@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { pathAdmin } from "@/config/path";
 import { useForm, type SubmitHandler } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -34,7 +34,11 @@ export const TourEdit = () => {
       isHidden: false,
     },
   ]);
-  const { categoryTree } = useCategoryList();
+  const { data } = useCategoryList();
+  const categoryTree = useMemo(
+    () => data?.categoryTree ?? [],
+    [data?.categoryTree],
+  );
   const { cityList } = useCityList();
   const { tourDetail } = useTourDetail(id!);
   const { mutate: mutateTourEdit, isPending: isPendingTourEdit } = useTourEdit({
