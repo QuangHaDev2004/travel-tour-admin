@@ -7,7 +7,7 @@ import { pathAdmin } from "@/config/path";
 import { useCategoryList } from "./hooks/useCategoryList";
 
 export const CategoryList = () => {
-  const { data } = useCategoryList();
+  const { data, isLoading } = useCategoryList();
   const categoryList = data?.categoryList ?? [];
   const pagination = data?.pagination ?? {};
 
@@ -18,7 +18,7 @@ export const CategoryList = () => {
         <ButtonCreate to={`/${pathAdmin}/category/create`} />
       </div>
       <CategoryFilterBar />
-      <CategoryTable />
+      <CategoryTable categoryList={categoryList} isLoading={isLoading} />
       {categoryList.length > 0 && (
         <Pagination pagination={pagination} list={categoryList} />
       )}

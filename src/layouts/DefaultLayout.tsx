@@ -15,7 +15,7 @@ export const DefaultLayout = () => {
       <Sidebar isOpen={isSidebarOpen} onClose={() => setIsSidebarOpen(false)} />
 
       {/* Main */}
-      <div className="absolute top-[70px] left-0 min-h-[calc(100vh-70px)] w-full bg-[#F5F6FA] px-[15px] py-[30px] sm:p-[30px] lg:left-60 lg:w-[calc(100%-240px)]">
+      <div className="absolute top-[70px] left-0 min-h-[calc(100vh-70px)] w-full bg-travel-gray-200 px-[15px] py-[30px] sm:p-[30px] lg:left-60 lg:w-[calc(100%-240px)]">
         <Outlet />
       </div>
     </>

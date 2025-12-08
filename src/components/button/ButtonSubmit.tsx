@@ -1,8 +1,8 @@
 export const ButtonSubmit = ({
-  text = "Tạo mới",
+  text,
   isPending,
 }: {
-  text?: string;
+  text: string;
   isPending: boolean;
 }) => {
   return (

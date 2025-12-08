@@ -21,7 +21,7 @@ export const PasswordInput = ({
     <div>
       <label
         htmlFor={id}
-        className="text-travel-secondary/80 mb-1 inline-block text-sm font-semibold"
+        className="text-travel-secondary/80 mb-1 inline-block text-lg font-semibold"
       >
         {label}
       </label>
@@ -30,7 +30,7 @@ export const PasswordInput = ({
           id={id}
           type={visible ? "text" : "password"}
           {...register}
-          className={`bg-travel-three h-11 w-full rounded-lg border p-4 text-sm font-semibold ${error ? "border-travel-error" : "border-travel-four"}`}
+          className={`bg-travel-three h-11 w-full rounded-lg border p-4 text-sm font-semibold ${error ? "border-travel-error" : "border-travel-four focus:border-travel-primary"}`}
         />
         <div
           onClick={() => setVisible(!visible)}

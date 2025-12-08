@@ -76,7 +76,7 @@ export const CategoryFilterBar = () => {
 
         <button
           onClick={handleReset}
-          className="text-travel-red border-travel-red flex h-10 cursor-pointer items-center gap-3 rounded-4xl border bg-white px-4 text-sm font-semibold shadow-md"
+          className="flex h-10 cursor-pointer items-center gap-3 rounded-4xl border border-[#EF3826] bg-white px-4 text-sm font-semibold text-[#EF3826] shadow-md hover:bg-red-50"
         >
           <FaRotateLeft className="size-4" />
           Xóa bộ lọc

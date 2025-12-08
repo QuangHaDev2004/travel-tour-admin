@@ -72,7 +72,7 @@ export const FormLogin = () => {
           <input
             type="checkbox"
             {...register("rememberPassword")}
-            className="checkbox checkbox-primary"
+            className="checkbox checkbox-primary w-5 h-5 rounded-md"
           />
           Nhớ mật khẩu
         </label>

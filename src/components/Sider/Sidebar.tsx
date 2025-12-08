@@ -1,18 +1,19 @@
-import { Link, useNavigate } from "react-router";
-import { FaPowerOff } from "react-icons/fa6";
+import { pathAdmin } from "@/config/path";
 import { useLocation } from "react-router";
-import { mainMenus, settingMenus } from "@/constants/menus";
+import { FaPowerOff } from "react-icons/fa6";
+import { Link, useNavigate } from "react-router";
 import { checkActive } from "@/helpers/checkActive";
 import { useAuthStore } from "@/stores/useAuthStore";
-import { pathAdmin } from "@/config/path";
+import { mainMenus, settingMenus } from "@/constants/menus";
 import { menuPermissionsMap } from "@/constants/menuPermissionsMap";
 
-type SidebarProps = {
+export const Sidebar = ({
+  isOpen,
+  onClose,
+}: {
   isOpen: boolean;
   onClose: () => void;
-};
-
-export const Sidebar = ({ isOpen, onClose }: SidebarProps) => {
+}) => {
   const { pathname } = useLocation();
   const navigate = useNavigate();
   const { logout, account } = useAuthStore();
@@ -26,7 +27,7 @@ export const Sidebar = ({ isOpen, onClose }: SidebarProps) => {
   return (
     <>
       <nav
-        className={`sider fixed overflow-y-auto border-r border-[#E0E0E0] bg-white py-[11px] ${isOpen ? "top-0 left-0 z-[999] h-full w-[280px]" : "top-[70px] left-0 hidden h-[calc(100vh-70px)] w-60 lg:block"}`}
+        className={`border-travel-gray-300 fixed overflow-y-auto border-r bg-white py-4 transition-transform duration-300 ease-in-out ${isOpen ? "top-0 left-0 z-[999] h-full w-[280px]" : "top-[70px] left-0 h-[calc(100vh-70px)] w-60 -translate-x-full lg:translate-x-0"}`}
       >
         <ul>
           {mainMenus.map((item) => {
@@ -40,7 +41,7 @@ export const Sidebar = ({ isOpen, onClose }: SidebarProps) => {
               <li key={item.to}>
                 <Link
                   to={item.to}
-                  className={`nav-item ${isActive ? "active bg-travel-primary text-white" : "text-travel-secondary"}`}
+                  className={`nav-item ${isActive ? "active bg-travel-primary text-white" : "text-travel-dark"}`}
                 >
                   <item.icon className="text-lg" />
                   {item.label}
@@ -49,7 +50,7 @@ export const Sidebar = ({ isOpen, onClose }: SidebarProps) => {
             );
           })}
         </ul>
-        <hr className="my-4 border border-[#E0E0E0]" />
+        <hr className="border-travel-gray-300 my-4 border" />
         <ul>
           {settingMenus.map((item) => {
             const isActive = checkActive(pathname, item.to);
@@ -57,7 +58,7 @@ export const Sidebar = ({ isOpen, onClose }: SidebarProps) => {
               <li key={item.to}>
                 <Link
                   to={item.to}
-                  className={`nav-item ${isActive ? "active bg-travel-primary text-white" : "text-travel-secondary"}`}
+                  className={`nav-item ${isActive ? "active bg-travel-primary text-white" : "text-travel-dark"}`}
                 >
                   <item.icon className="text-lg" />
                   {item.label}
@@ -67,7 +68,7 @@ export const Sidebar = ({ isOpen, onClose }: SidebarProps) => {
           })}
           <button
             onClick={handleLogout}
-            className="nav-item cursor-pointer text-[#F93C65]"
+            className="nav-item text-travel-pink cursor-pointer"
           >
             <FaPowerOff className="text-lg" /> Đăng xuất
           </button>
