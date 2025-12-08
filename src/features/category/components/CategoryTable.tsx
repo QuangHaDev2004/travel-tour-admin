@@ -4,18 +4,22 @@ import { ButtonEdit } from "@/components/button/ButtonEdit";
 import { ButtonDelete } from "@/components/button/ButtonDelete";
 import { pathAdmin } from "@/config/path";
 import { EmptyTableRow } from "@/components/table/EmptyTableRow";
-import { useCategoryList } from "../hooks/useCategoryList";
 import type { CategoryItem } from "@/types/category";
 import dayjs from "dayjs";
 import { useCategoryDelete } from "../hooks/useCategoryDelete";
 import { useState } from "react";
 import { Search } from "@/components/common/Search";
 import { useCategoryChangeMulti } from "../hooks/useCategoryChangeMulti";
+import { SpinnerTable } from "@/components/common/SpinnerTable";
+import { imageDefault } from "@/constants/common";
 
-export const CategoryTable = () => {
-  const { data } = useCategoryList();
-  const categoryList = data?.categoryList ?? [];
-
+export const CategoryTable = ({
+  categoryList,
+  isLoading,
+}: {
+  categoryList: CategoryItem[];
+  isLoading: boolean;
+}) => {
   const { mutate, isPending } = useCategoryDelete();
   const { mutate: changeMulti } = useCategoryChangeMulti();
   const [selectedIds, setSelectedIds] = useState<string[]>([]);
@@ -115,7 +119,11 @@ export const CategoryTable = () => {
             </tr>
           </thead>
           <tbody>
-            {categoryList.length > 0 ? (
+            {isLoading ? (
+              <SpinnerTable colSpan={8} />
+            ) : categoryList.length === 0 ? (
+              <EmptyTableRow colSpan={8} />
+            ) : (
               <>
                 {categoryList.map((item: CategoryItem) => (
                   <tr key={item.id} className="last:[&>td]:border-0">
@@ -133,10 +141,7 @@ export const CategoryTable = () => {
                     </td>
                     <td className="border-travel-four border-b px-4 py-2 text-center text-sm font-semibold">
                       <img
-                        src={
-                          item.avatar ||
-                          "https://placehold.co/60x60/white/black?text=No+Image"
-                        }
+                        src={item.avatar || imageDefault}
                         className="border-travel-four mx-auto h-[60px] w-[60px] rounded-md border object-cover"
                       />
                     </td>
@@ -177,8 +182,6 @@ export const CategoryTable = () => {
                   </tr>
                 ))}
               </>
-            ) : (
-              <EmptyTableRow colSpan={8} />
             )}
           </tbody>
         </table>

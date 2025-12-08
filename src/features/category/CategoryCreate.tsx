@@ -134,7 +134,7 @@ export const CategoryCreate = () => {
             <EditorMCE editorRef={editorRef} value="" id="description" />
           </div>
 
-          <ButtonSubmit isPending={isPending} />
+          <ButtonSubmit isPending={isPending} text="Tạo mới" />
         </form>
       </div>
     </>
