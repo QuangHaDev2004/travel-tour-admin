@@ -126,21 +126,16 @@ export const RevenueChart = () => {
 
   return (
     <>
-      <div
-        className="mb-[30px] rounded-[14px] bg-white p-6 shadow-md sm:p-8"
-        style={{
-          boxShadow: "6px 6px 54px 0px #0000000D",
-        }}
-      >
+      <div className="mb-[30px] rounded-md bg-white p-6 sm:p-8">
         <div className="mb-8 flex flex-wrap items-center justify-between gap-2.5">
-          <h1 className="text-travel-secondary text-2xl font-bold">
+          <h1 className="text-travel-dark text-2xl font-semibold">
             Biểu đồ doanh thu
           </h1>
           <input
             value={now.toISOString().slice(0, 7)}
             onChange={(e) => handleFilterMonth(e.target.value)}
             type="month"
-            className="border-four rounded-sm border px-4 py-2 text-xs font-semibold text-[#2B303466]"
+            className="border-four rounded-sm border px-4 py-2 text-xs font-medium text-[#2B303466]"
           />
         </div>
         <div className="h-[350px]">
