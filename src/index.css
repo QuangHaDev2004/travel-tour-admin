@@ -14,17 +14,9 @@
   --color-travel-red: #ef3826;
   --color-travel-table-head: #f1f4f9;
 
-  /* Brand */
   --color-travel-primary: #4880ff;
-
-  /* Text */
   --color-travel-dark: #202224;
-
-  /* Background */
-  --color-travel-bg: #fafbfd;
-  --color-travel-bg-soft: #f5f6fa;
-
-  /* Gray Scale */
+  --color-travel-gray-50: #f1f4f9;
   --color-travel-gray-100: #fafbfd;
   --color-travel-gray-200: #f5f6fa;
   --color-travel-gray-300: #e0e0e0;
@@ -32,8 +24,6 @@
   --color-travel-gray-500: #d5d5d5;
   --color-travel-gray-600: #a6a6a6;
   --color-travel-gray-700: #979797;
-
-  /* Status */
   --color-travel-danger: #ea0234;
   --color-travel-danger-soft: #ef3826;
   --color-travel-warning: #ffa756;
