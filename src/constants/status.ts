@@ -18,5 +18,3 @@ export const statusList = [
     colorBg: "rgba(255, 167, 86, 0.2)",
   },
 ];
-
-export const ACTIVE_STATUS_LIST = []

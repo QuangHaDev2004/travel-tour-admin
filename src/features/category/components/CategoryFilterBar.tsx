@@ -32,13 +32,13 @@ export const CategoryFilterBar = () => {
   return (
     <>
       <div className="mb-6 flex flex-wrap items-center gap-4">
-        <div className="text-travel-secondary flex items-center gap-3 text-lg font-semibold italic">
+        <div className="text-travel-secondary flex items-center gap-3 text-lg font-medium italic">
           <FaSliders className="size-5" /> Bộ lọc
         </div>
         <select
           value={status}
           onChange={(event) => handleCategoryFilter("status", event)}
-          className="select border-travel-secondary/20 text-travel-secondary h-10 w-[140px] rounded-4xl border bg-white px-4 text-sm font-semibold shadow-md"
+          className="select border-travel-secondary/20 text-travel-secondary h-10 w-[140px] rounded-4xl border bg-white px-4 text-sm font-medium"
         >
           <option value="">Trạng thái</option>
           <option value="active">Hoạt động</option>
@@ -48,7 +48,7 @@ export const CategoryFilterBar = () => {
         <select
           value={createdBy}
           onChange={(event) => handleCategoryFilter("createdBy", event)}
-          className="select border-travel-secondary/20 text-travel-secondary h-10 w-[160px] rounded-4xl border bg-white px-4 text-sm font-semibold shadow-md"
+          className="select border-travel-secondary/20 text-travel-secondary h-10 w-[160px] rounded-4xl border bg-white px-4 text-sm font-medium"
         >
           <option value="">Người tạo</option>
           {accountAdminList.map((item: AccountAdminItem) => (
@@ -58,17 +58,17 @@ export const CategoryFilterBar = () => {
           ))}
         </select>
 
-        <div className="border-travel-secondary/20 text-travel-secondary flex h-10 items-center gap-4 rounded-4xl border bg-white px-4 text-sm font-semibold shadow-md">
+        <div className="border-travel-secondary/20 text-travel-secondary flex h-10 items-center gap-4 rounded-4xl border bg-white px-4 text-sm font-medium">
           <input
             type="date"
-            className="w-28"
+            className="w-32"
             value={startDate}
             onChange={(event) => handleCategoryFilter("startDate", event)}
           />
           <span>-</span>
           <input
             type="date"
-            className="w-28"
+            className="w-32"
             value={endDate}
             onChange={(event) => handleCategoryFilter("endDate", event)}
           />
@@ -76,7 +76,7 @@ export const CategoryFilterBar = () => {
 
         <button
           onClick={handleReset}
-          className="flex h-10 cursor-pointer items-center gap-3 rounded-4xl border border-[#EF3826] bg-white px-4 text-sm font-semibold text-[#EF3826] shadow-md hover:bg-red-50"
+          className="flex h-10 cursor-pointer items-center gap-3 rounded-4xl border border-travel-danger-soft bg-white px-4 text-sm font-semibold text-travel-danger-soft hover:bg-red-50"
         >
           <FaRotateLeft className="size-4" />
           Xóa bộ lọc

@@ -29,7 +29,7 @@ export const FormInput = ({
     <div>
       <label
         htmlFor={id}
-        className="text-travel-label mb-1 block text-sm font-semibold"
+        className="text-travel-label mb-1 block text-sm font-medium"
       >
         <span>{label}</span>
         {isRequired && <span className="text-travel-error ml-1">*</span>}

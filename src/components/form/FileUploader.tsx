@@ -18,7 +18,7 @@ export const FileUploader = ({
       <div className="file-uploader sm:col-span-2">
         <label
           htmlFor={id}
-          className="mb-[5px] block text-sm font-medium text-black"
+          className="mb-[5px] block text-sm font-medium text-travel-gray-800"
         >
           {label}
         </label>

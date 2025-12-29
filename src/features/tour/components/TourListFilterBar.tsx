@@ -2,7 +2,7 @@
 import { useCategoryList } from "@/features/category/hooks/useCategoryList";
 import { useAccountAdminList } from "@/hooks/useAccountAdminList";
 import { renderOptions } from "@/utils/renderOptions";
-import { FaRotateLeft, FaSliders } from "react-icons/fa6";
+import { FaRotateLeft } from "react-icons/fa6";
 import { useSearchParams } from "react-router";
 
 export const TourListFilterBar = () => {
@@ -36,13 +36,10 @@ export const TourListFilterBar = () => {
   return (
     <>
       <div className="mb-6 flex flex-wrap items-center gap-4">
-        <div className="text-travel-secondary flex items-center gap-3 text-lg font-semibold italic">
-          <FaSliders className="size-5" /> Bộ lọc
-        </div>
         <select
           value={status}
           onChange={(event) => handleCategoryFilter("status", event)}
-          className="select border-travel-secondary/20 text-travel-secondary h-10 w-[140px] rounded-4xl border bg-white px-4 text-sm font-semibold shadow-md"
+          className="select border-travel-secondary/20 text-travel-secondary h-10 w-[140px] rounded-4xl border bg-white px-4 text-sm font-medium"
         >
           <option value="">Trạng thái</option>
           <option value="active">Hoạt động</option>
@@ -52,7 +49,7 @@ export const TourListFilterBar = () => {
         <select
           value={createdBy}
           onChange={(event) => handleCategoryFilter("createdBy", event)}
-          className="select border-travel-secondary/20 text-travel-secondary h-10 w-[160px] rounded-4xl border bg-white px-4 text-sm font-semibold shadow-md"
+          className="select border-travel-secondary/20 text-travel-secondary h-10 w-[160px] rounded-4xl border bg-white px-4 text-sm font-medium"
         >
           <option value="">Người tạo</option>
           {fullAccountAdminList.map((item) => (
@@ -62,17 +59,17 @@ export const TourListFilterBar = () => {
           ))}
         </select>
 
-        <div className="border-travel-secondary/20 text-travel-secondary flex h-10 items-center gap-4 rounded-4xl border bg-white px-4 text-sm font-semibold shadow-md">
+        <div className="border-travel-secondary/20 text-travel-secondary flex h-10 items-center gap-4 rounded-4xl border bg-white px-4 text-sm font-medium">
           <input
             type="date"
-            className="w-28"
+            className="w-32"
             value={startDate}
             onChange={(event) => handleCategoryFilter("startDate", event)}
           />
           <span>-</span>
           <input
             type="date"
-            className="w-28"
+            className="w-32"
             value={endDate}
             onChange={(event) => handleCategoryFilter("endDate", event)}
           />
@@ -81,7 +78,7 @@ export const TourListFilterBar = () => {
         <select
           value={category}
           onChange={(event) => handleCategoryFilter("category", event)}
-          className="select border-travel-secondary/20 text-travel-secondary h-10 w-[140px] rounded-4xl border bg-white px-4 text-sm font-semibold shadow-md"
+          className="select border-travel-secondary/20 text-travel-secondary h-10 w-[140px] rounded-4xl border bg-white px-4 text-sm font-medium"
         >
           <option value="">Danh mục</option>
           {renderOptions(categoryTree)}
@@ -90,7 +87,7 @@ export const TourListFilterBar = () => {
         <select
           value={price}
           onChange={(event) => handleCategoryFilter("price", event)}
-          className="select border-travel-secondary/20 text-travel-secondary h-10 w-[210px] rounded-4xl border bg-white px-4 text-sm font-semibold shadow-md"
+          className="select border-travel-secondary/20 text-travel-secondary h-10 w-[210px] rounded-4xl border bg-white px-4 text-sm font-medium"
         >
           <option value="">Mức giá</option>
           <option value="0-4999999">Dưới 5 triệu</option>
@@ -101,7 +98,7 @@ export const TourListFilterBar = () => {
 
         <button
           onClick={handleReset}
-          className="text-travel-red border-travel-red flex h-10 cursor-pointer items-center gap-3 rounded-4xl border bg-white px-4 text-sm font-semibold shadow-md"
+          className="text-travel-red border-travel-red flex h-10 cursor-pointer items-center gap-3 rounded-4xl border bg-white px-4 text-sm font-medium"
         >
           <FaRotateLeft className="size-4" />
           Xóa bộ lọc

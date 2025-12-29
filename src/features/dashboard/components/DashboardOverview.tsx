@@ -8,8 +8,6 @@ export const DashboardOverview = ({
   overview: Overview;
   isLoading: boolean;
 }) => {
-  console.log(overview);
-
   return (
     <>
       {isLoading ? (
@@ -95,17 +93,6 @@ export const DashboardOverview = ({
                 </span>
               </div>
             </div>
-            {/* <div className="text-travel-dark/60 mt-1.5 flex items-center justify-center gap-2 text-center text-sm font-medium">
-              {overview?.totalRevenue?.growth > 0 ? (
-                <img src="/assets/images/icon-growth-up.svg" alt="Icon Up" />
-              ) : (
-                <img src="/assets/images/icon-growth-down.svg" alt="Icon Up" />
-              )}
-              <span className="text-travel-pink">
-                {Math.abs(overview?.totalRevenue?.growth)}%
-              </span>
-              so với tháng trước
-            </div> */}
           </div>
         </div>
       )}

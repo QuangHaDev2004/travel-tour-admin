@@ -1,7 +1,6 @@
-import { getTourListService } from "@/services/tour";
-import type { TourItem } from "@/types/tour";
-import { keepPreviousData, useQuery } from "@tanstack/react-query";
 import { useSearchParams } from "react-router";
+import { getTourListService } from "@/services/tour";
+import { keepPreviousData, useQuery } from "@tanstack/react-query";
 
 export const useTourList = () => {
   const [searchParams] = useSearchParams();
@@ -11,17 +10,9 @@ export const useTourList = () => {
     if (value) params[key] = value;
   });
 
-  const { data } = useQuery({
+  return useQuery({
     queryKey: ["tourList", params],
     queryFn: () => getTourListService(params),
-    placeholderData: keepPreviousData
+    placeholderData: keepPreviousData,
   });
-
-  const tourList: TourItem[] = data?.tourList ?? [];
-  const pagination = data?.pagination ?? {}
-
-  return {
-    tourList,
-    pagination
-  };
 };

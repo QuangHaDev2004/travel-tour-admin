@@ -23,7 +23,7 @@ export const SelectField = ({
     <div>
       <label
         htmlFor={name}
-        className="text-travel-label mb-1 block text-sm font-semibold"
+        className="text-travel-label mb-1 block text-sm font-medium"
       >
         {label}
       </label>

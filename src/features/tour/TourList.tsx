@@ -1,18 +1,21 @@
 import { PageTitle } from "@/components/pageTitle/PageTitle";
 import { TourListFilterBar } from "./components/TourListFilterBar";
 import { TourListTable } from "./components/TourListTable";
-import { Pagination } from "@/components/pagination/Pagination";
 import { ButtonCreate } from "@/components/button/ButtonCreate";
 import { ButtonTrash } from "@/components/button/ButtonTrash";
 import { pathAdmin } from "@/config/path";
 import { useTourList } from "./hooks/useTourList";
 import { useAuthStore } from "@/stores/useAuthStore";
 import { NoPermission } from "@/components/common/NoPermission";
+import type { TourItem } from "@/types/tour";
 
 export const TourList = () => {
-  const { pagination, tourList } = useTourList();
   const { account } = useAuthStore();
   const permissions = account?.permissions;
+
+  const { data, isLoading } = useTourList();
+  const tourList: TourItem[] = data?.tourList ?? [];
+  const pagination = data?.pagination ?? {};
 
   return (
     <>
@@ -30,8 +33,7 @@ export const TourList = () => {
             </div>
           </div>
           <TourListFilterBar />
-          <TourListTable />
-          <Pagination pagination={pagination} list={tourList} />
+          <TourListTable tourList={tourList} pagination={pagination} isLoading={isLoading} />
         </>
       ) : (
         <NoPermission />

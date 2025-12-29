@@ -88,7 +88,7 @@ export const CategoryEdit = () => {
         />
       </div>
       {categoryDetail && categoryTree && (
-        <div className="border-travel-secondary/20 overflow-hidden rounded-md border bg-white p-6 shadow-md">
+        <div className="border-travel-secondary/20 overflow-hidden rounded-md border bg-white p-6">
           <form
             onSubmit={handleSubmit(handleCategoryForm)}
             className="grid grid-cols-1 gap-6 md:grid-cols-2"
@@ -139,7 +139,7 @@ export const CategoryEdit = () => {
             <div className="col-span-1 md:col-span-2">
               <label
                 htmlFor="description"
-                className="text-travel-label mb-1 block text-sm font-semibold"
+                className="text-travel-gray-800 mb-1 block text-sm font-medium"
               >
                 Mô tả
               </label>

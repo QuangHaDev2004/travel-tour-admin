@@ -31,7 +31,7 @@ export const Search = ({ placeholder }: { placeholder: string }) => {
   };
 
   return (
-    <div className="border-travel-secondary/20 inline-flex h-10 w-[366px] items-center gap-4 rounded-4xl border bg-white px-4 text-sm font-bold shadow-md">
+    <div className="border-travel-gray-300 has-focus:border-travel-primary hover:border-travel-primary inline-flex h-9 w-[366px] items-center gap-4 rounded-sm border bg-white px-4 text-sm font-semibold transition-all duration-300 hover:shadow-md has-focus:shadow-md">
       <FaMagnifyingGlass className="text-travel-secondary/60 size-4" />
       <input
         type="text"
@@ -39,7 +39,7 @@ export const Search = ({ placeholder }: { placeholder: string }) => {
         onChange={(e) => setKeyword(e.target.value)}
         onKeyUp={handleSearch}
         placeholder={placeholder}
-        className="flex-1"
+        className="h-full flex-1"
       />
       {keyword && (
         <FaRegCircleXmark

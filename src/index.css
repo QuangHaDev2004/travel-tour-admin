@@ -5,7 +5,6 @@
 }
 
 @theme {
-  /* --color-travel-primary: #4880ff; */
   --color-travel-secondary: #202224;
   --color-travel-three: #f5f6fa;
   --color-travel-four: #d5d5d5;
@@ -13,6 +12,7 @@
   --color-travel-error: #ef3826;
   --color-travel-red: #ef3826;
   --color-travel-table-head: #f1f4f9;
+  --color-travel-body: #ebecef;
 
   --color-travel-primary: #4880ff;
   --color-travel-dark: #202224;
@@ -24,6 +24,7 @@
   --color-travel-gray-500: #d5d5d5;
   --color-travel-gray-600: #a6a6a6;
   --color-travel-gray-700: #979797;
+  --color-travel-gray-800: #606060;
   --color-travel-danger: #ea0234;
   --color-travel-danger-soft: #ef3826;
   --color-travel-warning: #ffa756;
@@ -35,10 +36,6 @@
   font-family: "Be Vietnam Pro", sans-serif;
 }
 
-body {
-  background-color: #f0f1f5;
-}
-
 button,
 input,
 select,
@@ -48,13 +45,14 @@ textarea {
 
 /* Scrollbar */
 ::-webkit-scrollbar {
-  width: 4px;
-  height: 4px;
-  background-color: #d9d9d9;
+  width: 8px;
+  height: 8px;
+  background-color: #fff;
 }
 
 ::-webkit-scrollbar-thumb {
-  background-color: #b1b1b1;
+  background-color: #d9d9d9;
+  border-radius: 16px;
 }
 
 .nav-item {

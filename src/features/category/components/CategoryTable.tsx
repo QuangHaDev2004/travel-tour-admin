@@ -1,17 +1,18 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { Badge } from "@/components/badge/Badge";
-import { ButtonEdit } from "@/components/button/ButtonEdit";
-import { ButtonDelete } from "@/components/button/ButtonDelete";
-import { pathAdmin } from "@/config/path";
-import { EmptyTableRow } from "@/components/table/EmptyTableRow";
-import type { CategoryItem } from "@/types/category";
 import dayjs from "dayjs";
-import { useCategoryDelete } from "../hooks/useCategoryDelete";
 import { useState } from "react";
-import { Search } from "@/components/common/Search";
-import { useCategoryChangeMulti } from "../hooks/useCategoryChangeMulti";
-import { SpinnerTable } from "@/components/common/SpinnerTable";
+import { pathAdmin } from "@/config/path";
+import { statusList } from "@/constants/status";
 import { imageDefault } from "@/constants/common";
+import { Search } from "@/components/common/Search";
+import type { CategoryItem } from "@/types/category";
+import { StatusBadge } from "@/components/ui/StatusBadge";
+import { ButtonEdit } from "@/components/button/ButtonEdit";
+import { useCategoryDelete } from "../hooks/useCategoryDelete";
+import { ButtonDelete } from "@/components/button/ButtonDelete";
+import { SpinnerTable } from "@/components/common/SpinnerTable";
+import { EmptyTableRow } from "@/components/table/EmptyTableRow";
+import { useCategoryChangeMulti } from "../hooks/useCategoryChangeMulti";
 
 export const CategoryTable = ({
   categoryList,
@@ -58,7 +59,7 @@ export const CategoryTable = ({
   return (
     <>
       <div className="mb-4 flex flex-wrap gap-4">
-        <div className="border-travel-secondary/20 text-travel-secondary flex h-10 items-center overflow-hidden rounded-4xl border bg-white text-sm font-semibold shadow-md">
+        <div className="border-travel-secondary/20 text-travel-secondary flex h-10 items-center overflow-hidden rounded-4xl border bg-white text-sm font-medium">
           <select
             value={action}
             onChange={(event) => setAction(event.target.value)}
@@ -80,7 +81,7 @@ export const CategoryTable = ({
         <Search placeholder="Nhập tên danh mục..." />
       </div>
 
-      <div className="srcoll-table border-travel-four mb-[15px] overflow-hidden overflow-x-auto rounded-[14px] border bg-white shadow-md">
+      <div className="srcoll-table border-travel-four mb-[15px] overflow-hidden overflow-x-auto rounded-[14px] border bg-white">
         <table className="text-travel-secondary w-full min-w-[1141px] border-collapse">
           <thead>
             <tr>
@@ -95,25 +96,25 @@ export const CategoryTable = ({
                   onChange={(event) => handleCheckAll(event)}
                 />
               </th>
-              <th className="border-travel-four border-b p-4 text-left text-sm font-extrabold">
+              <th className="border-travel-four border-b p-4 text-left text-sm font-bold">
                 Tên danh mục
               </th>
-              <th className="border-travel-four border-b p-4 text-center text-sm font-extrabold">
+              <th className="border-travel-four border-b p-4 text-center text-sm font-bold">
                 Ảnh đại diện
               </th>
-              <th className="border-travel-four border-b p-4 text-center text-sm font-extrabold">
+              <th className="border-travel-four border-b p-4 text-center text-sm font-bold">
                 Vị trí
               </th>
-              <th className="border-travel-four border-b p-4 text-center text-sm font-extrabold">
+              <th className="border-travel-four border-b p-4 text-center text-sm font-bold">
                 Trạng thái
               </th>
-              <th className="border-travel-four border-b p-4 text-left text-sm font-extrabold">
+              <th className="border-travel-four border-b p-4 text-left text-sm font-bold">
                 Tạo bởi
               </th>
-              <th className="border-travel-four border-b p-4 text-left text-sm font-extrabold">
+              <th className="border-travel-four border-b p-4 text-left text-sm font-bold">
                 Cập nhật bởi
               </th>
-              <th className="border-travel-four border-b p-4 text-left text-sm font-extrabold">
+              <th className="border-travel-four border-b p-4 text-left text-sm font-bold">
                 Hành động
               </th>
             </tr>
@@ -125,62 +126,64 @@ export const CategoryTable = ({
               <EmptyTableRow colSpan={8} />
             ) : (
               <>
-                {categoryList.map((item: CategoryItem) => (
-                  <tr key={item.id} className="last:[&>td]:border-0">
-                    <td className="border-travel-four border-b px-4 py-2 text-center">
-                      <input
-                        type="checkbox"
-                        className="checkbox checkbox-primary border-travel-secondary/20 hover:border-travel-primary h-5 w-5 rounded-md border"
-                        value={item.id}
-                        checked={selectedIds.includes(item.id)}
-                        onChange={(event) => handleCheckItem(item.id, event)}
-                      />
-                    </td>
-                    <td className="border-travel-four border-b px-4 py-2 text-left text-sm font-semibold">
-                      {item.name}
-                    </td>
-                    <td className="border-travel-four border-b px-4 py-2 text-center text-sm font-semibold">
-                      <img
-                        src={item.avatar || imageDefault}
-                        className="border-travel-four mx-auto h-[60px] w-[60px] rounded-md border object-cover"
-                      />
-                    </td>
-                    <td className="border-travel-four border-b px-4 py-2 text-center text-sm font-semibold">
-                      {item.position}
-                    </td>
-                    <td className="border-travel-four border-b px-4 py-2 text-center text-sm font-semibold">
-                      {item.status === "active" ? (
-                        <Badge className="badge-green" content="Hoạt động" />
-                      ) : (
-                        <Badge className="badge-red" content="Tạm dừng" />
-                      )}
-                    </td>
-                    <td className="border-travel-four border-b px-4 py-2 text-left text-sm font-semibold">
-                      <div>{item.createdByFullName}</div>
-                      <div>
-                        {dayjs(item.createdAt).format("HH:mm - DD/MM/YYYY")}
-                      </div>
-                    </td>
-                    <td className="border-travel-four border-b px-4 py-2 text-left text-sm font-semibold">
-                      <div>{item.updatedByFullName}</div>
-                      <div>
-                        {dayjs(item.updatedAt).format("HH:mm - DD/MM/YYYY")}
-                      </div>
-                    </td>
-                    <td className="border-travel-four border-b px-4 py-2 text-left text-sm font-semibold">
-                      <div className="border-travel-four inline-flex items-center rounded-lg border bg-[#FAFBFD]">
-                        <ButtonEdit
-                          to={`/${pathAdmin}/category/edit/${item.id}`}
+                {categoryList.map((item: CategoryItem) => {
+                  const status = statusList.find(
+                    (st) => st.value === item.status,
+                  );
+
+                  return (
+                    <tr key={item.id} className="last:[&>td]:border-0">
+                      <td className="border-travel-four border-b px-4 py-2 text-center">
+                        <input
+                          type="checkbox"
+                          className="checkbox checkbox-primary border-travel-secondary/20 hover:border-travel-primary h-5 w-5 rounded-md border"
+                          value={item.id}
+                          checked={selectedIds.includes(item.id)}
+                          onChange={(event) => handleCheckItem(item.id, event)}
                         />
-                        <ButtonDelete
-                          id={item.id}
-                          isPending={isPending}
-                          onDelete={(id) => mutate(id)}
+                      </td>
+                      <td className="border-travel-four border-b px-4 py-2 text-left text-sm font-medium">
+                        {item.name}
+                      </td>
+                      <td className="border-travel-four border-b px-4 py-2 text-center text-sm font-medium">
+                        <img
+                          src={item.avatar || imageDefault}
+                          className="border-travel-four mx-auto h-[60px] w-[60px] rounded-md border object-cover"
                         />
-                      </div>
-                    </td>
-                  </tr>
-                ))}
+                      </td>
+                      <td className="border-travel-four border-b px-4 py-2 text-center text-sm font-medium">
+                        {item.position}
+                      </td>
+                      <td className="border-travel-four border-b px-4 py-2 text-center text-sm font-medium">
+                        <StatusBadge status={status} />
+                      </td>
+                      <td className="border-travel-four border-b px-4 py-2 text-left text-sm font-medium">
+                        <div>{item.createdByFullName}</div>
+                        <div>
+                          {dayjs(item.createdAt).format("HH:mm - DD/MM/YYYY")}
+                        </div>
+                      </td>
+                      <td className="border-travel-four border-b px-4 py-2 text-left text-sm font-medium">
+                        <div>{item.updatedByFullName}</div>
+                        <div>
+                          {dayjs(item.updatedAt).format("HH:mm - DD/MM/YYYY")}
+                        </div>
+                      </td>
+                      <td className="border-travel-four border-b px-4 py-2 text-left text-sm font-medium">
+                        <div className="border-travel-four inline-flex items-center rounded-lg border bg-[#FAFBFD]">
+                          <ButtonEdit
+                            to={`/${pathAdmin}/category/edit/${item.id}`}
+                          />
+                          <ButtonDelete
+                            id={item.id}
+                            isPending={isPending}
+                            onDelete={(id) => mutate(id)}
+                          />
+                        </div>
+                      </td>
+                    </tr>
+                  );
+                })}
               </>
             )}
           </tbody>

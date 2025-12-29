@@ -14,22 +14,22 @@ export const DashboardTable = ({ orderNew }: { orderNew: OrderDetail[] }) => {
           <table className="text-travel-secondary w-full min-w-[1076px] border-collapse">
             <thead>
               <tr>
-                <th className="bg-travel-gray-50 rounded-tl-xl rounded-bl-xl px-6 py-4 text-left text-sm font-semibold">
+                <th className="bg-travel-gray-50 rounded-tl-xl rounded-bl-xl px-4 py-4 text-left text-sm font-semibold">
                   Mã
                 </th>
-                <th className="bg-travel-gray-50 px-6 py-4 text-left text-sm font-semibold">
+                <th className="bg-travel-gray-50 px-4 py-4 text-left text-sm font-semibold">
                   Thông tin khách
                 </th>
-                <th className="bg-travel-gray-50 px-6 py-4 text-left text-sm font-semibold">
+                <th className="bg-travel-gray-50 px-4 py-4 text-left text-sm font-semibold">
                   Danh sách tour
                 </th>
-                <th className="bg-travel-gray-50 px-6 py-4 text-left text-sm font-semibold">
+                <th className="bg-travel-gray-50 px-4 py-4 text-left text-sm font-semibold">
                   Thanh toán
                 </th>
-                <th className="bg-travel-gray-50 px-6 py-4 text-left text-sm font-semibold">
+                <th className="bg-travel-gray-50 px-4 py-4 text-left text-sm font-semibold">
                   Trạng thái
                 </th>
-                <th className="bg-travel-gray-50 rounded-tr-xl rounded-br-xl px-6 py-4 text-right text-sm font-semibold">
+                <th className="bg-travel-gray-50 rounded-tr-xl rounded-br-xl px-4 py-4 text-right text-sm font-semibold">
                   Ngày đặt
                 </th>
               </tr>
@@ -42,15 +42,15 @@ export const DashboardTable = ({ orderNew }: { orderNew: OrderDetail[] }) => {
 
                 return (
                   <tr key={orderDetail.id} className="last:[&>td]:border-0">
-                    <td className="text-travel-primary border-travel-gray-500 border-b px-6 py-2.5 text-sm font-medium">
+                    <td className="text-travel-primary border-travel-gray-500 border-b px-4 py-2.5 text-sm font-medium">
                       {orderDetail.orderCode}
                     </td>
-                    <td className="border-travel-gray-500 border-b px-6 py-2.5 text-sm font-medium">
+                    <td className="border-travel-gray-500 border-b px-4 py-2.5 text-sm font-medium">
                       <div>Họ tên: {orderDetail.fullName}</div>
                       <div>SĐT: {orderDetail.phone}</div>
                       <div>Ghi chú: {orderDetail.note}</div>
                     </td>
-                    <td className="border-travel-gray-500 border-b px-6 py-2.5 text-sm font-medium">
+                    <td className="border-travel-gray-500 border-b px-4 py-2.5 text-sm font-medium">
                       <div className="flex flex-col gap-2.5">
                         {orderDetail.items.map((item) => (
                           <div
@@ -89,7 +89,7 @@ export const DashboardTable = ({ orderNew }: { orderNew: OrderDetail[] }) => {
                         ))}
                       </div>
                     </td>
-                    <td className="border-travel-gray-500 border-b px-6 py-2.5 text-sm font-medium">
+                    <td className="border-travel-gray-500 border-b px-4 py-2.5 text-sm font-medium">
                       <div>
                         Tạm tính: {orderDetail.subTotal.toLocaleString("vi-VN")}
                         đ
@@ -104,10 +104,10 @@ export const DashboardTable = ({ orderNew }: { orderNew: OrderDetail[] }) => {
                       <div>PTTT: {orderDetail.paymentMethodName}</div>
                       <div>TTTT: {orderDetail.paymentStatusName}</div>
                     </td>
-                    <td className="border-travel-gray-500 border-b px-6 py-2.5">
+                    <td className="border-travel-gray-500 border-b px-4 py-2.5">
                       <StatusBadge status={status} />
                     </td>
-                    <td className="border-travel-gray-500 border-b px-6 py-2.5 text-right text-sm font-medium">
+                    <td className="border-travel-gray-500 border-b px-4 py-2.5 text-right text-sm font-medium">
                       <div>{orderDetail.createdAtTime}</div>
                       <div>{orderDetail.createdAtDate}</div>
                     </td>

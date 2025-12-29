@@ -1,22 +1,19 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { useForm, type SubmitHandler } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { categoryFormSchema, type CategoryFormInputs } from "@/types";
-import { PageTitle } from "@/components/pageTitle/PageTitle";
-import { FormInput } from "@/components/form/FormInput";
-import { ButtonSubmit } from "@/components/button/ButtonSubmit";
-import { ContextLink } from "@/components/common/ContextLink";
-import { pathAdmin } from "@/config/path";
 import { useRef, useState } from "react";
-import { useMutation } from "@tanstack/react-query";
-import { createCategoryService } from "@/services/category";
-import { toast } from "sonner";
-import type { AxiosError } from "axios";
-import { useCategoryList } from "./hooks/useCategoryList";
+import { pathAdmin } from "@/config/path";
 import { renderOptions } from "@/utils/renderOptions";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { FormInput } from "@/components/form/FormInput";
+import { useCategoryList } from "./hooks/useCategoryList";
 import { EditorMCE } from "@/components/editor/EditorMCE";
-import { FileUploader } from "@/components/form/FileUploader";
 import { SelectField } from "@/components/form/SelectField";
+import { PageTitle } from "@/components/pageTitle/PageTitle";
+import { useForm, type SubmitHandler } from "react-hook-form";
+import { ContextLink } from "@/components/common/ContextLink";
+import { FileUploader } from "@/components/form/FileUploader";
+import { useCreateCategory } from "./hooks/useCreateCategory";
+import { ButtonSubmit } from "@/components/button/ButtonSubmit";
+import { categoryFormSchema, type CategoryFormInputs } from "@/types";
 
 export const CategoryCreate = () => {
   const editorRef = useRef<any>(null);
@@ -34,16 +31,7 @@ export const CategoryCreate = () => {
   const { data } = useCategoryList();
   const categoryTree = data?.categoryTree ?? [];
 
-  const { mutate, isPending } = useMutation({
-    mutationFn: createCategoryService,
-    onSuccess: (data) => {
-      reset();
-      toast.success(data.message);
-    },
-    onError: (errors: AxiosError<{ message: string }>) => {
-      toast.error(errors?.response?.data?.message);
-    },
-  });
+  const { mutate, isPending } = useCreateCategory({ reset });
 
   const handleCategoryForm: SubmitHandler<CategoryFormInputs> = (data) => {
     data.avatar = null;
@@ -76,7 +64,7 @@ export const CategoryCreate = () => {
           to={`/${pathAdmin}/category/list`}
         />
       </div>
-      <div className="border-travel-secondary/20 overflow-hidden rounded-md border bg-white p-6 shadow-md">
+      <div className="border-travel-secondary/20 overflow-hidden rounded-md border bg-white p-6">
         <form
           onSubmit={handleSubmit(handleCategoryForm)}
           className="grid grid-cols-1 gap-6 md:grid-cols-2"
@@ -127,7 +115,7 @@ export const CategoryCreate = () => {
           <div className="col-span-1 md:col-span-2">
             <label
               htmlFor="description"
-              className="text-travel-label mb-1 block text-sm font-semibold"
+              className="text-travel-label mb-1 block text-sm font-medium"
             >
               Mô tả
             </label>

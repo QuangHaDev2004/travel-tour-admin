@@ -27,15 +27,15 @@ export const Pagination = ({
   };
 
   return (
-    <div className="flex items-center gap-5">
-      <div className="text-travel-secondary/60 text-sm font-semibold">
+    <div className="bg-travel-gray-200 flex items-center justify-end gap-5 rounded-br-sm rounded-bl-sm px-4 py-3">
+      <div className="text-travel-secondary/60 text-sm font-medium">
         Hiển thị {pagination.skip + 1} - {pagination.skip + list.length} của{" "}
         {pagination.totalRecord}
       </div>
       <select
         value={page}
         onChange={handlePageChange}
-        className="select border-travel-secondary/20 h-10 w-32 rounded-4xl border bg-white px-4 text-sm font-semibold shadow-md"
+        className="select border-travel-secondary/20 h-9 w-32 rounded-sm border bg-white px-4 text-sm font-medium"
       >
         {Array(pagination.totalPage)
           .fill("")
