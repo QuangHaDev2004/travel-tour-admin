@@ -14,10 +14,18 @@ import { statusList } from "@/constants/status";
 import { StatusBadge } from "@/components/ui/StatusBadge";
 import type { TourItem } from "@/types/tour";
 import { SpinnerTable } from "@/components/common/SpinnerTable";
-import { FaXmark } from "react-icons/fa6";
-import { AiOutlineFilter } from "react-icons/ai";
+import { FaRotateLeft, FaXmark } from "react-icons/fa6";
+import { BiFilterAlt } from "react-icons/bi";
 import { Pagination } from "@/components/pagination/Pagination";
 import type { PaginationDetail } from "@/types/pagination";
+import { BaseSelect } from "@/components/select/BaseSelect";
+import { BaseButton } from "@/components/button/BaseButton";
+import { useSearchParams } from "react-router";
+import { useAccountAdminList } from "@/hooks/useAccountAdminList";
+import type { AdminAccount } from "@/types/account";
+import { BaseDateRangePicker } from "@/components/datepicker/BaseDateRangePicker";
+import { renderOptions } from "@/utils/renderOptions";
+import { useCategoryList } from "@/hooks/useCategoryList";
 
 export const TourListTable = ({
   tourList,
@@ -68,6 +76,40 @@ export const TourListTable = ({
     tourChangeMulti(dataFinal);
   };
 
+  // Filter
+  const { data: adminAccounts } = useAccountAdminList();
+  const { data: categories } = useCategoryList();
+
+  const allAdminAccounts: AdminAccount[] =
+    adminAccounts?.fullAccountAdminList ?? [];
+  const adminAccountOptions = allAdminAccounts.map((item) => ({
+    label: item.fullName,
+    value: item.id,
+  }));
+
+  const categoryTree = categories?.categoryTree ?? [];
+
+  const [searchParams, setSearchParams] = useSearchParams();
+  const status = searchParams.get("status") || "";
+  const createdBy = searchParams.get("createdBy") || "";
+  const startDate = searchParams.get("startDate") || "";
+  const endDate = searchParams.get("endDate") || "";
+  const price = searchParams.get("price") || "";
+  const category = searchParams.get("category") || "";
+
+  const handleFilter = (key: string, value: string) => {
+    const params = new URLSearchParams(searchParams);
+    if (value) params.set(key, value);
+    else params.delete(key);
+    setSearchParams(params);
+  };
+
+  const handleReset = () => {
+    setSearchParams(new URLSearchParams());
+  };
+
+  console.log([...searchParams.entries()]);
+
   return (
     <>
       <div className="flex gap-4">
@@ -80,7 +122,7 @@ export const TourListTable = ({
                 onClick={() => setIsOpenFilter(!isOpenFilter)}
                 className={`border-travel-gray-300 hover:border-travel-primary hover:bg-travel-primary/10 group/btn-filter flex h-9 w-9 cursor-pointer items-center justify-center rounded-sm border transition-all duration-300 ${isOpenFilter ? "border-travel-primary bg-travel-primary/10" : "bg-white"}`}
               >
-                <AiOutlineFilter
+                <BiFilterAlt
                   className={`group-hover/btn-filter:text-travel-primary size-6 ${isOpenFilter ? "text-travel-primary" : "text-travel-secondary/60"}`}
                 />
               </button>
@@ -255,29 +297,64 @@ export const TourListTable = ({
                 onClick={() => setIsOpenFilter(false)}
                 className="cursor-pointer"
               >
-                <FaXmark className="text-travel-secondary/60 size-5" />
+                <FaXmark className="text-travel-secondary/60 size-5 hover:text-[#ea0234]" />
               </button>
             </div>
             <div className="flex flex-col gap-4">
-              <select
-                // value={status}
-                // onChange={(event) => handleCategoryFilter("status", event)}
-                className="select border-travel-gray-300 text-travel-secondary hover:border-travel-primary h-9 w-full rounded-sm border bg-white px-4 text-sm font-medium"
-              >
-                <option value="">Trạng thái</option>
-                <option value="active">Hoạt động</option>
-                <option value="inactive">Tạm dừng</option>
-              </select>
+              <BaseSelect
+                placeholder="Chọn trạng thái"
+                options={[
+                  { label: "Hoạt động", value: "active" },
+                  { label: "Tạm dừng", value: "inactive" },
+                ]}
+                value={status}
+                onChange={(val) => handleFilter("status", val)}
+              />
 
-              <select
-                // value={status}
-                // onChange={(event) => handleCategoryFilter("status", event)}
-                className="select border-travel-gray-300 text-travel-secondary hover:border-travel-primary h-9 w-full rounded-sm border bg-white px-4 text-sm font-medium"
-              >
-                <option value="">Người tạo</option>
-                <option value="active">Hoạt động</option>
-                <option value="inactive">Tạm dừng</option>
-              </select>
+              <BaseSelect
+                placeholder="Chọn người tạo"
+                options={adminAccountOptions}
+                value={createdBy}
+                onChange={(val) => handleFilter("createdBy", val)}
+              />
+
+              <BaseSelect
+                placeholder="Chọn danh mục"
+                children={renderOptions(categoryTree)}
+                value={category}
+                onChange={(val) => handleFilter("category", val)}
+              />
+
+              <BaseSelect
+                placeholder="Chọn mức giá"
+                options={[
+                  { label: "Dưới 5 triệu", value: "0-4999999" },
+                  { label: "Từ 5 - 10 triệu", value: "5000000-10000000" },
+                  { label: "Từ 10 - 20 triệu", value: "10000000-20000000" },
+                  { label: "Trên 20 triệu", value: "20000000-1000000000" },
+                ]}
+                value={price}
+                onChange={(val) => handleFilter("price", val)}
+              />
+
+              <BaseDateRangePicker
+                value={{ startDate: startDate, endDate: endDate }}
+                onChange={({ startDate, endDate }) => {
+                  if (startDate) handleFilter("startDate", startDate);
+                  if (endDate) handleFilter("endDate", endDate);
+                }}
+                className="placeholder:text-travel-secondary h-9 w-full rounded-sm border border-[#e0e0e0] px-3 py-2 text-sm font-medium"
+              />
+
+              <div className="h-9">
+                <BaseButton
+                  type="reset"
+                  label="Xóa bộ lọc"
+                  btnType="danger"
+                  icon={<FaRotateLeft className="size-4" />}
+                  onClick={handleReset}
+                />
+              </div>
             </div>
           </div>
         )}

@@ -4,7 +4,7 @@ import { pathAdmin } from "@/config/path";
 import { renderOptions } from "@/utils/renderOptions";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { FormInput } from "@/components/form/FormInput";
-import { useCategoryList } from "./hooks/useCategoryList";
+import { useCategoryList } from "../../hooks/useCategoryList";
 import { EditorMCE } from "@/components/editor/EditorMCE";
 import { SelectField } from "@/components/form/SelectField";
 import { PageTitle } from "@/components/pageTitle/PageTitle";

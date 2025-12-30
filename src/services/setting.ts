@@ -1,7 +1,7 @@
 import { pathAdmin } from "@/config/path";
 import { api } from "@/libs/axios";
 
-export const getAccounAdminListService = async () => {
+export const getAccounAdminList = async () => {
   const res = await api.get(`/${pathAdmin}/setting/account-admin/list`);
   return res.data;
 };

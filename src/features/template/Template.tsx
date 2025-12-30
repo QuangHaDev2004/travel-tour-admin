@@ -3,7 +3,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { templateSchema, type TemplateInputs } from "@/types";
 import { PageTitle } from "@/components/pageTitle/PageTitle";
 import { ButtonSubmit } from "@/components/button/ButtonSubmit";
-import { useCategoryList } from "../category/hooks/useCategoryList";
+import { useCategoryList } from "../../hooks/useCategoryList";
 import { renderOptions } from "@/utils/renderOptions";
 import { useTemplateEdit } from "./hook/useTemplateEdit";
 import { useTemplateDetail } from "./hook/useTemplateDetail";

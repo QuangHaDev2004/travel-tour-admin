@@ -3,6 +3,7 @@
 @plugin "daisyui" {
   exclude: scrollbar;
 }
+@import "./shadcn.css";
 
 @theme {
   --color-travel-secondary: #202224;
@@ -45,8 +46,8 @@ textarea {
 
 /* Scrollbar */
 ::-webkit-scrollbar {
-  width: 8px;
-  height: 8px;
+  width: 6px;
+  height: 6px;
   background-color: #fff;
 }
 
@@ -165,4 +166,54 @@ input[type="number"]::-webkit-inner-spin-button,
 input[type="number"]::-webkit-outer-spin-button {
   -webkit-appearance: none;
   margin: 0;
+}
+
+/* React Datepicker */
+.react-datepicker-wrapper {
+  width: 100%;
+}
+
+.react-datepicker {
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.24);
+  border: 0 !important;
+  animation: growDown 0.3s ease-in-out forwards;
+  transform-origin: top center;
+  background-color: white;
+}
+
+.react-datepicker__triangle {
+  display: none !important;
+}
+
+.react-datepicker__header {
+  border: none !important;
+}
+
+.react-datepicker__day--selected,
+.react-datepicker__day--in-range {
+  background-color: #4880ff !important;
+}
+
+.react-datepicker__day--keyboard-selected {
+  color: white !important;
+}
+
+.react-datepicker-popper {
+  z-index: 2 !important;
+}
+
+.react-datepicker__day {
+  font-weight: 600;
+}
+
+@keyframes growDown {
+  0% {
+    transform: scaleY(0);
+  }
+  80% {
+    transform: scaleY(1.1);
+  }
+  100% {
+    transform: scaleY(1);
+  }
 }

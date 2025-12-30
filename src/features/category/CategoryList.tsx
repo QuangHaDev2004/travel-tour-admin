@@ -4,7 +4,7 @@ import { CategoryTable } from "./components/CategoryTable";
 import { Pagination } from "@/components/pagination/Pagination";
 import { ButtonCreate } from "@/components/button/ButtonCreate";
 import { pathAdmin } from "@/config/path";
-import { useCategoryList } from "./hooks/useCategoryList";
+import { useCategoryList } from "../../hooks/useCategoryList";
 
 export const CategoryList = () => {
   const { data, isLoading } = useCategoryList();
