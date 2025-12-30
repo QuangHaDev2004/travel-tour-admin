@@ -8,7 +8,7 @@ import { ButtonSubmit } from "@/components/button/ButtonSubmit";
 import { ContextLink } from "@/components/common/ContextLink";
 import { pathAdmin } from "@/config/path";
 import { useEffect, useMemo, useRef, useState } from "react";
-import { useCategoryList } from "./hooks/useCategoryList";
+import { useCategoryList } from "../../hooks/useCategoryList";
 import { renderOptions } from "@/utils/renderOptions";
 import { useNavigate, useParams } from "react-router";
 import { EditorMCE } from "@/components/editor/EditorMCE";

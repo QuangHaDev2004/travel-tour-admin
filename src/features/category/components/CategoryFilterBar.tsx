@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { FaRotateLeft, FaSliders } from "react-icons/fa6";
 import { useSearchParams } from "react-router";
-import { useCategoryList } from "../hooks/useCategoryList";
+import { useCategoryList } from "../../../hooks/useCategoryList";
 import type { AccountAdminItem } from "@/types/account";
 
 export const CategoryFilterBar = () => {

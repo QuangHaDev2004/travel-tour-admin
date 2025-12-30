@@ -1,12 +1,15 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { useCategoryList } from "@/features/category/hooks/useCategoryList";
+import { useCategoryList } from "@/hooks/useCategoryList";
 import { useAccountAdminList } from "@/hooks/useAccountAdminList";
+import type { AdminAccount } from "@/types/account";
 import { renderOptions } from "@/utils/renderOptions";
 import { FaRotateLeft } from "react-icons/fa6";
 import { useSearchParams } from "react-router";
 
 export const TourListFilterBar = () => {
-  const { fullAccountAdminList } = useAccountAdminList();
+  const { data: adminAccountList } = useAccountAdminList();
+  const allAdminAccounts: AdminAccount[] =
+    adminAccountList?.fullAccountAdminList ?? [];
   const { data } = useCategoryList();
   const categoryTree = data?.categoryTree ?? [];
   const [searchParams, setSearchParams] = useSearchParams();
@@ -52,7 +55,7 @@ export const TourListFilterBar = () => {
           className="select border-travel-secondary/20 text-travel-secondary h-10 w-[160px] rounded-4xl border bg-white px-4 text-sm font-medium"
         >
           <option value="">Người tạo</option>
-          {fullAccountAdminList.map((item) => (
+          {allAdminAccounts.map((item) => (
             <option key={item.id} value={item.id}>
               {item.fullName}
             </option>

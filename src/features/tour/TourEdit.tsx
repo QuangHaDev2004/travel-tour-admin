@@ -10,7 +10,7 @@ import { ButtonSubmit } from "@/components/button/ButtonSubmit";
 import { ContextLink } from "@/components/common/ContextLink";
 import { TourSchedules } from "./components/TourSchedules";
 import { renderOptions } from "@/utils/renderOptions";
-import { useCategoryList } from "../category/hooks/useCategoryList";
+import { useCategoryList } from "../../hooks/useCategoryList";
 import { EditorMCE } from "@/components/editor/EditorMCE";
 import { useCityList } from "./hooks/useCityList";
 import { useParams } from "react-router";

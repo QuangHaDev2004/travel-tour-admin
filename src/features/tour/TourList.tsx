@@ -32,7 +32,7 @@ export const TourList = () => {
               )}
             </div>
           </div>
-          <TourListFilterBar />
+          {/* <TourListFilterBar /> */}
           <TourListTable tourList={tourList} pagination={pagination} isLoading={isLoading} />
         </>
       ) : (

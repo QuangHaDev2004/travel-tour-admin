@@ -1,19 +1,9 @@
-import { getAccounAdminListService } from "@/services/setting";
-import type { AccountAdminItem } from "@/types/account";
+import { getAccounAdminList } from "@/services/setting";
 import { useQuery } from "@tanstack/react-query";
 
 export const useAccountAdminList = () => {
-  const { data } = useQuery({
+  return useQuery({
     queryKey: ["accountAdminList"],
-    queryFn: getAccounAdminListService,
+    queryFn: getAccounAdminList,
   });
-
-  const fullAccountAdminList: AccountAdminItem[] =
-    data?.fullAccountAdminList ?? [];
-  const accountAdminList: AccountAdminItem[] = data?.accountAdminList ?? [];
-
-  return {
-    fullAccountAdminList,
-    accountAdminList,
-  };
 };
