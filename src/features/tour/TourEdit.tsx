@@ -3,7 +3,7 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import { pathAdmin } from "@/config/path";
 import { useForm, type SubmitHandler } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { tourFormSchema, type TourFormInputs } from "@/types";
+// import { tourFormSchema, type TourFormInputs } from "@/types";
 import { PageTitle } from "@/components/pageTitle/PageTitle";
 import { FormInput } from "@/components/form/FormInput";
 import { ButtonSubmit } from "@/components/button/ButtonSubmit";
@@ -18,6 +18,7 @@ import { useTourDetail } from "./hooks/useTourDetail";
 import { useTourEdit } from "./hooks/useTourEdit";
 import { FileMultiUploader } from "@/components/form/FileMultiUploader";
 import { FileUploader } from "@/components/form/FileUploader";
+import { tourSchema, type TourFormValues } from "@/types";
 
 export const TourEdit = () => {
   const { id } = useParams();
@@ -50,8 +51,8 @@ export const TourEdit = () => {
     reset,
     handleSubmit,
     formState: { errors },
-  } = useForm<TourFormInputs>({
-    resolver: zodResolver(tourFormSchema) as any,
+  } = useForm<TourFormValues>({
+    resolver: zodResolver(tourSchema) as any,
   });
 
   useEffect(() => {
@@ -114,7 +115,7 @@ export const TourEdit = () => {
     );
   };
 
-  const handleTourForm: SubmitHandler<TourFormInputs> = (data) => {
+  const handleTourForm: SubmitHandler<TourFormValues> = (data) => {
     data.avatar = null;
     if (avatars.length > 0 && avatars[0].file instanceof File) {
       data.avatar = avatars[0].file;

@@ -7,7 +7,7 @@ import {
   CategoryEdit,
   CategoryList,
 } from "@/features/category";
-import { TourCreate, TourEdit, TourList, TourTrash } from "@/features/tour";
+import { TourCreate, TourEdit, TourTrash } from "@/features/tour";
 import { OrderEdit, OrderList } from "@/features/order";
 import { UserList } from "@/features/user";
 import { ContactList } from "@/features/contact";
@@ -34,6 +34,7 @@ import {
   ResetPassword,
 } from "@/features/auth";
 import { ProtectedRoute } from "@/features/auth/components/ProtectedRoute";
+import { TourListPage } from "@/pages/tour/TourListPage";
 
 export const router = createBrowserRouter([
   {
@@ -62,7 +63,7 @@ export const router = createBrowserRouter([
       },
       {
         path: `/${pathAdmin}/tour/list`,
-        element: <TourList />,
+        element: <TourListPage />,
       },
       {
         path: `/${pathAdmin}/tour/create`,

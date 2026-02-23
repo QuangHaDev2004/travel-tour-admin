@@ -26,7 +26,7 @@ export const tourDeleteService = async (id: string) => {
   return res.data;
 };
 
-export const tourChangeMultiService = async (dataFinal: {
+export const tourChangeMulti = async (dataFinal: {
   action: string;
   ids: string[];
 }) => {

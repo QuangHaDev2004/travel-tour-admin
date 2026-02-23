@@ -22,7 +22,7 @@ export const BaseSelect = ({
 }) => {
   return (
     <Select value={value} onValueChange={onChange}>
-      <SelectTrigger className="hover:border-travel-primary data-[placeholder]:text-travel-secondary h-full w-full rounded-sm border-[#e0e0e0] font-medium">
+      <SelectTrigger className="hover:border-travel-primary data-placeholder:text-travel-secondary h-full w-full rounded-sm border-[#e0e0e0] font-medium">
         <SelectValue placeholder={placeholder} />
       </SelectTrigger>
       <SelectContent>

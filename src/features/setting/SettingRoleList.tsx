@@ -1,6 +1,6 @@
 import { PageTitle } from "@/components/pageTitle/PageTitle";
 import { RoleTable } from "./components/RoleTable";
-import { ButtonCreate } from "@/components/button/ButtonCreate";
+// import { ButtonCreate } from "@/components/button/ButtonCreate";
 import { pathAdmin } from "@/config/path";
 
 export const SettingRoleList = () => {

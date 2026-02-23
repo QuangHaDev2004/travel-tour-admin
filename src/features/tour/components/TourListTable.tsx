@@ -108,15 +108,13 @@ export const TourListTable = ({
     setSearchParams(new URLSearchParams());
   };
 
-  console.log([...searchParams.entries()]);
-
   return (
     <>
       <div className="flex gap-4">
         {/* Main Table */}
         <div className="min-w-0 flex-1">
           <div className="flex flex-wrap justify-between gap-3 rounded-tl-sm rounded-tr-sm bg-white p-4">
-            <Search placeholder="Nhập tên tour..." />
+            <Search placeholder="Tìm tour..." />
             <div className="flex gap-3">
               <button
                 onClick={() => setIsOpenFilter(!isOpenFilter)}

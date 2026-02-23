@@ -8,6 +8,11 @@ import { useTourList } from "./hooks/useTourList";
 import { useAuthStore } from "@/stores/useAuthStore";
 import { NoPermission } from "@/components/common/NoPermission";
 import type { TourItem } from "@/types/tour";
+import { BaseSelect } from "@/components/select/BaseSelect";
+import Select from "react-select";
+import { useState } from "react";
+import { DataTableDemo } from "./page";
+import { useTourDelete } from "./hooks/useTourDelete";
 
 export const TourList = () => {
   const { account } = useAuthStore();
@@ -16,6 +21,8 @@ export const TourList = () => {
   const { data, isLoading } = useTourList();
   const tourList: TourItem[] = data?.tourList ?? [];
   const pagination = data?.pagination ?? {};
+
+  const { mutate, isPending } = useTourDelete();
 
   return (
     <>
@@ -33,7 +40,19 @@ export const TourList = () => {
             </div>
           </div>
           {/* <TourListFilterBar /> */}
-          <TourListTable tourList={tourList} pagination={pagination} isLoading={isLoading} />
+          {/* <TourListTable
+            tourList={tourList}
+            pagination={pagination}
+            isLoading={isLoading}
+          /> */}
+
+          <DataTableDemo
+            data={tourList}
+            pagination={pagination}
+            isLoading={isLoading}
+            mutate={mutate}
+            isPending={isPending}
+          />
         </>
       ) : (
         <NoPermission />

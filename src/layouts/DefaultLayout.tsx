@@ -15,7 +15,7 @@ export const DefaultLayout = () => {
       <Sidebar isOpen={isSidebarOpen} onClose={() => setIsSidebarOpen(false)} />
 
       {/* Main */}
-      <div className="bg-travel-body absolute top-[70px] left-0 min-h-[calc(100vh-70px)] w-full px-[15px] py-[30px] sm:p-[30px] lg:left-60 lg:w-[calc(100%-240px)]">
+      <div className="bg-travel-body absolute top-17.5 left-0 flex min-h-[calc(100vh-70px)] w-full flex-col p-3.5 sm:p-7.5 lg:left-60 lg:w-[calc(100%-240px)]">
         <Outlet />
       </div>
     </>

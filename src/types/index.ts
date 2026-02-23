@@ -19,10 +19,13 @@ export type Option = {
 };
 
 // Tour
-export const tourFormSchema = z.object({
-  name: z.string().min(1, "Vui lòng nhập tên tour!"),
+export const tourSchema = z.object({
+  name: z.string().min(1, "Vui lòng nhập tên tour"),
   category: z.string().optional(),
-  position: z.coerce.number().optional(),
+  position: z.preprocess(
+    (val) => (val === "" ? undefined : val),
+    z.coerce.number().min(1, "Vị trí phải lớn hơn hoặc bằng 1").optional(),
+  ),
   status: z.string().optional(),
   avatar: z.any(),
   images: z.any(),
@@ -51,7 +54,7 @@ export const tourFormSchema = z.object({
     .optional(),
 });
 
-export type TourFormInputs = z.infer<typeof tourFormSchema>;
+export type TourFormValues = z.infer<typeof tourSchema>;
 
 // Order
 export const orderFormSchema = z.object({

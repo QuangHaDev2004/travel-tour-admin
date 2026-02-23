@@ -101,7 +101,7 @@ export const TourSchedules = ({
 
   return (
     <div className="col-span-1 md:col-span-2">
-      <label className="text-travel-label mb-1 block text-sm font-semibold">
+      <label className="text-travel-label mb-1 block text-sm font-medium">
         Lịch trình tour
       </label>
       <div ref={listRef} className="flex flex-col gap-4">
@@ -110,7 +110,7 @@ export const TourSchedules = ({
             key={item.id}
             className="border-travel-four rounded-sm border bg-white p-5"
           >
-            <div className="flex flex-wrap items-center gap-[15px]">
+            <div className="flex flex-wrap items-center gap-3.75">
               {item.isHidden && (
                 <div className="bg-travel-three border-travel-four drag-handle flex h-12 w-12 cursor-move items-center justify-center rounded-sm border">
                   <FaUpDownLeftRight className="size-4 text-[#A6A6A6]" />
@@ -122,7 +122,7 @@ export const TourSchedules = ({
                   handleChangeTitle(index, event.target.value)
                 }
                 type="text"
-                className="border-travel-four text-travel-secondary bg-travel-three order-1 h-12 w-full flex-none rounded-sm border px-[18px] text-sm font-medium sm:order-none sm:flex-1"
+                className="border-travel-four text-travel-secondary bg-travel-three order-1 h-12 w-full flex-none rounded-sm border px-4.5 text-sm font-medium sm:order-0 sm:flex-1"
               />
               <div
                 onClick={() => handleDeleteSchedule(index)}
@@ -156,9 +156,9 @@ export const TourSchedules = ({
       <button
         onClick={handleAddSchedule}
         type="button"
-        className="bg-travel-four/90 text-travel-secondary mt-[15px] block h-10 cursor-pointer rounded-sm px-5 py-[10px] text-sm font-bold"
+        className="bg-travel-gray text-travel-secondary mt-3.75 block h-10 cursor-pointer rounded-sm px-5 py-2.5 text-sm font-semibold"
       >
-        + Thêm lich trình
+        + Thêm lịch trình
       </button>
     </div>
   );

@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { FaMagnifyingGlass, FaRegCircleXmark } from "react-icons/fa6";
+import { FaRegCircleXmark } from "react-icons/fa6";
 import { useSearchParams } from "react-router";
 
 export const Search = ({ placeholder }: { placeholder: string }) => {
@@ -31,8 +31,7 @@ export const Search = ({ placeholder }: { placeholder: string }) => {
   };
 
   return (
-    <div className="border-travel-gray-300 has-focus:border-travel-primary hover:border-travel-primary inline-flex h-9 w-[366px] items-center gap-4 rounded-sm border bg-white px-4 text-sm font-semibold transition-all duration-300 hover:shadow-md has-focus:shadow-md">
-      <FaMagnifyingGlass className="text-travel-secondary/60 size-4" />
+    <div className="border-travel-gray-300 has-focus:border-travel-primary hover:border-travel-primary inline-flex h-9 w-62.5 items-center gap-4 rounded-sm border bg-white px-3 text-sm font-medium transition-all duration-300 hover:shadow-md has-focus:shadow-md">
       <input
         type="text"
         value={keyword}
