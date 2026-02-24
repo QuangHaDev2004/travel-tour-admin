@@ -4,22 +4,37 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "../ui/dropdown-menu";
+import { ConfirmDialog } from "../dialog/ConfirmDialog";
+import { AlertDialog, AlertDialogTrigger } from "../ui/alert-dialog";
 import { Tooltip, TooltipContent, TooltipTrigger } from "../ui/tooltip";
 import { Circle, CircleArrowUp, CircleOff, Trash2, X } from "lucide-react";
 
+type TableChangeMultiProps = {
+  selectedCount: number;
+  onClearSelection: () => void;
+  onAction: (action: string) => void;
+  isPending: boolean;
+};
+
+/**
+ * TableChangeMulti
+ * Component hiển thị action bar cố định phía dưới màn hình khi user chọn nhiều item trong table.
+ *
+ * Chức năng:
+ * - Hiển thị số lượng item đã chọn
+ * - Cho phép cập nhật trạng thái
+ * - Cho phép xoá nhiều item
+ * - Cho phép clear selection
+ */
 export const TableChangeMulti = ({
   selectedCount,
   onClearSelection,
   onAction,
   isPending,
-}: {
-  selectedCount: number;
-  onClearSelection: () => void;
-  onAction: (action: string) => void;
-  isPending: boolean;
-}) => {
+}: TableChangeMultiProps) => {
   return (
     <div className="border-travel-gray fixed bottom-6 left-1/2 z-10 flex -translate-x-1/2 items-center gap-4 rounded-xl border bg-white p-2.5 shadow-md">
+      {/* Nút Bỏ chọn tất cả */}
       <Tooltip>
         <TooltipTrigger asChild>
           <button
@@ -35,6 +50,7 @@ export const TableChangeMulti = ({
         </TooltipContent>
       </Tooltip>
 
+      {/* Hiển thị số lượng đã chọn */}
       <div className="flex items-center gap-1.5">
         <span className="bg-travel-primary rounded-2xl px-4 py-0.5 text-center text-xs text-white">
           {selectedCount}
@@ -62,6 +78,7 @@ export const TableChangeMulti = ({
             </TooltipContent>
           </Tooltip>
 
+          {/* Set trạng thái Active */}
           <DropdownMenuContent
             side="top"
             align="center"
@@ -77,6 +94,7 @@ export const TableChangeMulti = ({
               Hoạt động
             </DropdownMenuItem>
 
+            {/* Set trạng thái Inactive */}
             <DropdownMenuItem
               className="cursor-pointer py-1.5 text-[13px] font-medium hover:bg-gray-100"
               onClick={() => onAction("inactive")}
@@ -87,19 +105,34 @@ export const TableChangeMulti = ({
           </DropdownMenuContent>
         </DropdownMenu>
 
-        <Tooltip>
-          <TooltipTrigger asChild>
-            <button
-              disabled={isPending}
-              className="bg-travel-red flex h-8 w-8 cursor-pointer items-center justify-center rounded-md transition-opacity hover:opacity-90"
-            >
-              <Trash2 className="size-4 text-white" />
-            </button>
-          </TooltipTrigger>
-          <TooltipContent>
-            <p>Xóa các mục đã chọn</p>
-          </TooltipContent>
-        </Tooltip>
+        {/* Xóa nhiều item  */}
+        <AlertDialog>
+          <Tooltip>
+            <TooltipTrigger asChild>
+              <AlertDialogTrigger asChild>
+                <button
+                  disabled={isPending}
+                  className="bg-travel-red flex h-8 w-8 cursor-pointer items-center justify-center rounded-md transition-opacity hover:opacity-90"
+                >
+                  <Trash2 className="size-4 text-white" />
+                </button>
+              </AlertDialogTrigger>
+            </TooltipTrigger>
+
+            <TooltipContent>
+              <p>Xóa các mục đã chọn</p>
+            </TooltipContent>
+          </Tooltip>
+
+          <ConfirmDialog
+            title={`Xác nhận xoá ${selectedCount} mục?`}
+            description="Hành động này của bạn không thể hoàn tác."
+            confirmText="Xóa"
+            destructive
+            isPending={isPending}
+            onConfirm={() => onAction("delete")}
+          />
+        </AlertDialog>
       </div>
     </div>
   );
