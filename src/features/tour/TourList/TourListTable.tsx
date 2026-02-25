@@ -79,13 +79,16 @@ export const TourListTable = ({
     },
   });
 
+  // Lấy danh sách id của các tour đang được chọn
   const selectedIds = table
     .getSelectedRowModel()
     .rows.map((row) => row.original.id);
 
+  // Hook gọi API thay đổi nhiều tour
   const { mutate: tourChangeMulti, isPending: isPendingTourChangeMulti } =
     useTourChangeMulti();
 
+  // Hàm xử lý khi chọn 1 action
   const handleChangeMulti = (action: string) => {
     tourChangeMulti(
       { action, ids: selectedIds },
@@ -200,6 +203,7 @@ export const TourListTable = ({
         <BasePagination list={data} pagination={pagination} />
       )}
 
+      {/* Thanh thao tác nhiều */}
       {selectedIds.length > 0 && (
         <TableChangeMulti
           selectedCount={selectedIds.length}
