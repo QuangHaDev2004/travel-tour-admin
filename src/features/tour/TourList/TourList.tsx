@@ -36,10 +36,10 @@ export const TourList = () => {
 
           <TourListTable
             data={tourList}
-            pagination={pagination}
             isLoading={isLoading}
-            mutate={mutate}
             isPending={isPending}
+            pagination={pagination}
+            mutate={mutate}
           />
         </>
       ) : (
