@@ -1,5 +1,4 @@
-export * from "./TourTrash";
-
 export * from "./TourList/TourList";
-export * from "./TourCreate/TourCreate";
 export * from "./TourEdit/TourEdit";
+export * from "./TourTrash/TourTrash";
+export * from "./TourCreate/TourCreate";

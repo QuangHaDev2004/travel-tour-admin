@@ -58,7 +58,7 @@ export const TourTrashTable = () => {
   return (
     <>
       <div className="mb-4 flex flex-wrap gap-4">
-        <div className="border-travel-secondary/20 text-travel-secondary flex h-10 items-center overflow-hidden rounded-4xl border bg-white text-sm font-semibold shadow-md">
+        {/* <div className="border-travel-secondary/20 text-travel-secondary flex h-10 items-center overflow-hidden rounded-4xl border bg-white text-sm font-semibold shadow-md">
           <select
             value={action}
             onChange={(event) => setAction(event.target.value)}
@@ -75,7 +75,7 @@ export const TourTrashTable = () => {
           >
             Áp dụng
           </button>
-        </div>
+        </div> */}
         <Search placeholder="Nhập tên tour..." />
       </div>
 
