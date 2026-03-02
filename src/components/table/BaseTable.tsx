@@ -42,7 +42,7 @@ type BaseTableProps<TData extends { id: string }> = {
   isMultiPending: boolean;
   pagination: PaginationDetail;
   meta: any;
-  toolbar: React.ReactNode;
+  toolbar?: React.ReactNode;
   onMultiAction: (
     action: string,
     ids: string[],

@@ -1,12 +1,12 @@
+import { toast } from "sonner";
+import type { AxiosError } from "axios";
 import { tourUndoService } from "@/services/tour";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import type { AxiosError } from "axios";
-import { toast } from "sonner";
 
 export const useTourUndo = () => {
   const queryClient = useQueryClient();
 
-  const mutation = useMutation({
+  return useMutation({
     mutationFn: tourUndoService,
     onSuccess: (data) => {
       toast.success(data.message);
@@ -17,6 +17,4 @@ export const useTourUndo = () => {
       toast.error(errors?.response?.data?.message);
     },
   });
-
-  return mutation;
 };
