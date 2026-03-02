@@ -158,7 +158,7 @@ export const columns: ColumnDef<TourItem>[] = [
       const meta = table.options.meta as any;
 
       return (
-        <div className="border-travel-gray inline-flex items-center rounded-sm border bg-[#f1f4f9]">
+        <div className="border-travel-gray inline-flex items-center rounded-sm border bg-travel-gray-2">
           {permissions?.includes("tour-edit") && (
             <ButtonEdit to={`/${pathAdmin}/tour/edit/${item.id}`} />
           )}

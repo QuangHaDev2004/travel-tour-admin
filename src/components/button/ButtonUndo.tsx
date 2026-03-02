@@ -1,16 +1,20 @@
-import { FaArrowRotateLeft } from "react-icons/fa6";
+import { RotateCw } from "lucide-react";
 
-export const ButtonUndo = ({ endpoint }: { endpoint: string }) => {
-  const handleUndo = () => {
-    console.log(endpoint);
-  };
+type ButtonUndoProps = {
+  isPending: boolean;
+  onUndo: () => void;
+};
 
+export const ButtonUndo = ({ isPending, onUndo }: ButtonUndoProps) => {
   return (
     <button
-      onClick={handleUndo}
-      className="border-travel-four border-r px-[16.5px] py-[10px] cursor-pointer"
+      type="button"
+      aria-label="Khôi phục"
+      disabled={isPending}
+      onClick={onUndo}
+      className="border-travel-gray cursor-pointer border-r px-4 py-2.5"
     >
-      <FaArrowRotateLeft className="text-[15px]" />
+      <RotateCw size={16} className="text-travel-secondary/60" />
     </button>
   );
 };

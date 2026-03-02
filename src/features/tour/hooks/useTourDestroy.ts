@@ -1,13 +1,13 @@
-import { tourDestroyService } from "@/services/tour";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
-import type { AxiosError } from "axios";
 import { toast } from "sonner";
+import type { AxiosError } from "axios";
+import { tourDestroy } from "@/services/tour";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 export const useTourDestroy = () => {
   const queryClient = useQueryClient();
 
-  const mutation = useMutation({
-    mutationFn: tourDestroyService,
+  return useMutation({
+    mutationFn: tourDestroy,
     onSuccess: (data) => {
       toast.success(data.message);
       queryClient.invalidateQueries({ queryKey: ["tourTrashList"] });
@@ -16,6 +16,4 @@ export const useTourDestroy = () => {
       toast.error(errors?.response?.data?.message);
     },
   });
-
-  return mutation;
 };

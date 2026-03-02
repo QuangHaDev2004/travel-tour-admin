@@ -44,7 +44,7 @@ export const tourUndoService = async (id: string) => {
   return res.data;
 };
 
-export const tourDestroyService = async (id: string) => {
+export const tourDestroy = async (id: string) => {
   const res = await api.delete(`/${pathAdmin}/tour/destroy/${id}`);
   return res.data;
 };

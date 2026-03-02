@@ -1,23 +1,27 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { columns } from "./TourListColumns";
 import type { TourItem } from "@/types/tour";
-import { TourListToolbar } from "./TourListToolbar";
+import { columns } from "./TourTrashColumns";
+import { TourTrashToolbar } from "./TourTrashToolbar";
 import { BaseTable } from "@/components/table/BaseTable";
 import type { PaginationDetail } from "@/types/pagination";
 import { useTourChangeMulti } from "../hooks/useTourChangeMulti";
 
-export const TourListTable = ({
+export const TourTrashTable = ({
   data,
-  mutate,
   isLoading,
-  isPending,
   pagination,
+  tourDestroy,
+  isPendingTourDestroy,
+  tourUndo,
+  isPendingTourUndo,
 }: {
   data: TourItem[];
-  mutate: any;
   isLoading: boolean;
-  isPending: boolean;
   pagination: PaginationDetail;
+  tourDestroy: any;
+  isPendingTourDestroy: boolean;
+  tourUndo: any;
+  isPendingTourUndo: boolean;
 }) => {
   // Hook gọi API thay đổi nhiều tour
   const { mutate: tourChangeMulti, isPending: isPendingTourChangeMulti } =
@@ -40,10 +44,12 @@ export const TourListTable = ({
       isMultiPending={isPendingTourChangeMulti}
       pagination={pagination}
       meta={{
-        isPendingTourDelete: isPending,
-        tourDelete: mutate,
+        isPendingTourDestroy: isPendingTourDestroy,
+        tourDestroy: tourDestroy,
+        tourUndo: tourUndo,
+        isPendingTourUndo: isPendingTourUndo,
       }}
-      toolbar={<TourListToolbar />}
+      toolbar={<TourTrashToolbar />}
       onMultiAction={handleChangeMulti}
     />
   );
