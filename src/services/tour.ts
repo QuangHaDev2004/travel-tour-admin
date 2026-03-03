@@ -6,7 +6,7 @@ export const createTourService = async (dataFinal: FormData) => {
   return res.data;
 };
 
-export const getTourListService = async (params?: Record<string, string>) => {
+export const getTourList = async (params?: Record<string, string>) => {
   const res = await api.get(`/${pathAdmin}/tour/list`, { params });
   return res.data;
 };
@@ -34,7 +34,7 @@ export const tourChangeMulti = async (dataFinal: {
   return res.data;
 };
 
-export const tourTrashListService = async (params?: Record<string, string>) => {
+export const tourTrash = async (params?: Record<string, string>) => {
   const res = await api.get(`/${pathAdmin}/tour/trash/list`, { params });
   return res.data;
 };

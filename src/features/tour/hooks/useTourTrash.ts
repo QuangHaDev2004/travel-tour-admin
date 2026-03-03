@@ -1,8 +1,8 @@
-import { getTourList } from "@/services/tour";
+import { tourTrash } from "@/services/tour";
 import { useSearchParams } from "react-router";
 import { keepPreviousData, useQuery } from "@tanstack/react-query";
 
-export const useTourList = () => {
+export const useTourTrashList = () => {
   const [searchParams] = useSearchParams();
 
   const params: Record<string, string> = {};
@@ -11,8 +11,8 @@ export const useTourList = () => {
   });
 
   return useQuery({
-    queryKey: ["tourList", params],
-    queryFn: () => getTourList(params),
+    queryKey: ["tourTrashList", params],
+    queryFn: () => tourTrash(params),
     placeholderData: keepPreviousData,
   });
 };

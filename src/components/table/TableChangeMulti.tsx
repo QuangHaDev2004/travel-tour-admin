@@ -7,13 +7,38 @@ import {
 import { ConfirmDialog } from "../dialog/ConfirmDialog";
 import { AlertDialog, AlertDialogTrigger } from "../ui/alert-dialog";
 import { Tooltip, TooltipContent, TooltipTrigger } from "../ui/tooltip";
-import { Circle, CircleArrowUp, CircleOff, Trash2, X } from "lucide-react";
+import { X } from "lucide-react";
+
+export type MultiActionItem =
+  | {
+      type: "dropdown";
+      icon: React.ReactNode;
+      tooltip: string;
+      items: {
+        key: string;
+        label: string;
+        icon?: React.ReactNode;
+      }[];
+    }
+  | {
+      type: "button";
+      key: string;
+      icon: React.ReactNode;
+      tooltip: string;
+      destructive?: boolean;
+      confirm?: {
+        title: (count: number) => string;
+        description: string;
+        confirmText: string;
+      };
+    };
 
 type TableChangeMultiProps = {
   selectedCount: number;
   onClearSelection: () => void;
   onAction: (action: string) => void;
   isPending: boolean;
+  actions: MultiActionItem[];
 };
 
 /**
@@ -31,6 +56,7 @@ export const TableChangeMulti = ({
   onClearSelection,
   onAction,
   isPending,
+  actions,
 }: TableChangeMultiProps) => {
   return (
     <div className="border-travel-gray fixed bottom-6 left-1/2 z-10 flex -translate-x-1/2 items-center gap-4 rounded-xl border bg-white p-2.5 shadow-md">
@@ -60,79 +86,94 @@ export const TableChangeMulti = ({
         </span>
       </div>
 
+      {/* Danh sách hành động */}
       <div className="flex items-center gap-2">
-        <DropdownMenu>
-          <Tooltip>
-            <TooltipTrigger asChild>
-              <DropdownMenuTrigger asChild>
-                <button
-                  disabled={isPending}
-                  className="border-travel-gray flex h-8 w-8 cursor-pointer items-center justify-center rounded-md border bg-white transition-colors hover:bg-gray-100"
+        {actions.map((action, index) => {
+          // Danh sách dropdown
+          if (action.type === "dropdown") {
+            return (
+              <DropdownMenu key={index}>
+                <Tooltip>
+                  <TooltipTrigger asChild>
+                    <DropdownMenuTrigger asChild>
+                      <button
+                        disabled={isPending}
+                        className="border-travel-gray flex h-8 w-8 cursor-pointer items-center justify-center rounded-md border bg-white transition-colors hover:bg-gray-100"
+                      >
+                        {action.icon}
+                      </button>
+                    </DropdownMenuTrigger>
+                  </TooltipTrigger>
+                  <TooltipContent>{action.tooltip}</TooltipContent>
+                </Tooltip>
+
+                {/* Các hành động cụ thể */}
+                <DropdownMenuContent
+                  side="top"
+                  align="center"
+                  sideOffset={16}
+                  className="text-travel-secondary"
+                  onCloseAutoFocus={(e) => e.preventDefault()}
                 >
-                  <CircleArrowUp className="text-travel-secondary size-4" />
-                </button>
-              </DropdownMenuTrigger>
-            </TooltipTrigger>
-            <TooltipContent>
-              <p>Cập nhật trạng thái</p>
-            </TooltipContent>
-          </Tooltip>
+                  {action.items.map((item) => (
+                    <DropdownMenuItem
+                      className="cursor-pointer py-1.5 text-[13px] font-medium hover:bg-gray-100"
+                      onClick={() => onAction(item.key)}
+                    >
+                      {item.icon}
+                      {item.label}
+                    </DropdownMenuItem>
+                  ))}
+                </DropdownMenuContent>
+              </DropdownMenu>
+            );
+          }
 
-          {/* Set trạng thái Active */}
-          <DropdownMenuContent
-            side="top"
-            align="center"
-            sideOffset={16}
-            className="text-travel-secondary"
-            onCloseAutoFocus={(e) => e.preventDefault()}
-          >
-            <DropdownMenuItem
-              className="cursor-pointer py-1.5 text-[13px] font-medium hover:bg-gray-100"
-              onClick={() => onAction("active")}
+          // Danh sách button
+          const button = (
+            <button
+              disabled={isPending}
+              className={`${action.destructive ? "bg-travel-red hover:opacity-90" : "border-travel-gray border bg-white hover:bg-gray-100"} flex h-8 w-8 cursor-pointer items-center justify-center rounded-md`}
             >
-              <Circle />
-              Hoạt động
-            </DropdownMenuItem>
+              {action.icon}
+            </button>
+          );
 
-            {/* Set trạng thái Inactive */}
-            <DropdownMenuItem
-              className="cursor-pointer py-1.5 text-[13px] font-medium hover:bg-gray-100"
-              onClick={() => onAction("inactive")}
-            >
-              <CircleOff />
-              Tạm dừng
-            </DropdownMenuItem>
-          </DropdownMenuContent>
-        </DropdownMenu>
+          if (action.confirm) {
+            return (
+              <AlertDialog key={action.key}>
+                <Tooltip>
+                  <TooltipTrigger asChild>
+                    <AlertDialogTrigger asChild>{button}</AlertDialogTrigger>
+                  </TooltipTrigger>
 
-        {/* Xóa nhiều item  */}
-        <AlertDialog>
-          <Tooltip>
-            <TooltipTrigger asChild>
-              <AlertDialogTrigger asChild>
-                <button
-                  disabled={isPending}
-                  className="bg-travel-red flex h-8 w-8 cursor-pointer items-center justify-center rounded-md transition-opacity hover:opacity-90"
-                >
-                  <Trash2 className="size-4 text-white" />
-                </button>
-              </AlertDialogTrigger>
-            </TooltipTrigger>
+                  <TooltipContent>{action.tooltip}</TooltipContent>
+                </Tooltip>
 
-            <TooltipContent>
-              <p>Xóa các mục đã chọn</p>
-            </TooltipContent>
-          </Tooltip>
+                <ConfirmDialog
+                  title={action.confirm.title(selectedCount)}
+                  description={action.confirm.description}
+                  confirmText={action.confirm.confirmText}
+                  destructive={action.destructive}
+                  isPending={isPending}
+                  onConfirm={() => onAction(action.key)}
+                />
+              </AlertDialog>
+            );
+          }
 
-          <ConfirmDialog
-            title={`Xác nhận xoá ${selectedCount} mục?`}
-            description="Hành động này của bạn không thể hoàn tác."
-            confirmText="Xóa"
-            destructive
-            isPending={isPending}
-            onConfirm={() => onAction("delete")}
-          />
-        </AlertDialog>
+          // Hiển thị mặc định
+          return (
+            <Tooltip key={action.key}>
+              <TooltipTrigger asChild>
+                <div onClick={() => onAction(action.key)}>{button}</div>
+              </TooltipTrigger>
+              <TooltipContent>
+                <p>{action.tooltip}</p>
+              </TooltipContent>
+            </Tooltip>
+          );
+        })}
       </div>
     </div>
   );
