@@ -1,14 +1,17 @@
 import { pathAdmin } from "@/config/path";
+import type { TourItem } from "@/types/tour";
 import { TourTrashTable } from "./TourTrashTable";
 import { useTourUndo } from "../hooks/useTourUndo";
 import { useTourDestroy } from "../hooks/useTourDestroy";
+import { useTourTrashList } from "../hooks/useTourTrash";
 import { PageTitle } from "@/components/pageTitle/PageTitle";
-import { useTourTrashList } from "../hooks/useTourTrashList";
 import { ButtonBack } from "@/components/button/ActionButtons";
-// import { TourTrashTable } from "../components/TourTrashTable";
 
 export const TourTrash = () => {
-  const { pagination, tourTrashList } = useTourTrashList();
+  const { data, isLoading } = useTourTrashList();
+  const tourTrashList: TourItem[] = data?.tourTrashList ?? [];
+  const pagination = data?.pagination ?? {};
+
   const { mutate: tourUndo, isPending: isPendingTourUndo } = useTourUndo();
   const { mutate: tourDestroy, isPending: isPendingTourDestroy } =
     useTourDestroy();
@@ -20,11 +23,9 @@ export const TourTrash = () => {
         <ButtonBack to={`/${pathAdmin}/tour/list`} />
       </div>
 
-      {/* <TourTrashTable /> */}
-
       <TourTrashTable
         data={tourTrashList}
-        // isLoading={isLoading}
+        isLoading={isLoading}
         pagination={pagination}
         tourDestroy={tourDestroy}
         isPendingTourDestroy={isPendingTourDestroy}

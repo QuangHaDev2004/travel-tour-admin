@@ -32,7 +32,10 @@ import { SlidersHorizontal } from "lucide-react";
 import { TableEmpty } from "@/components/table/TableEmpty";
 import type { PaginationDetail } from "@/types/pagination";
 import { TableLoading } from "@/components/table/TableLoading";
-import { TableChangeMulti } from "@/components/table/TableChangeMulti";
+import {
+  TableChangeMulti,
+  type MultiActionItem,
+} from "@/components/table/TableChangeMulti";
 import { BasePagination } from "@/components/pagination/BasePagination";
 
 type BaseTableProps<TData extends { id: string }> = {
@@ -48,6 +51,7 @@ type BaseTableProps<TData extends { id: string }> = {
     ids: string[],
     options: { onSuccess: () => void },
   ) => void;
+  multiActions: MultiActionItem[];
 };
 
 export function BaseTable<TData extends { id: string }>({
@@ -59,6 +63,7 @@ export function BaseTable<TData extends { id: string }>({
   meta,
   toolbar,
   onMultiAction,
+  multiActions,
 }: BaseTableProps<TData>) {
   const [sorting, setSorting] = useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
@@ -209,6 +214,7 @@ export function BaseTable<TData extends { id: string }>({
             })
           }
           isPending={isMultiPending}
+          actions={multiActions}
         />
       )}
     </div>

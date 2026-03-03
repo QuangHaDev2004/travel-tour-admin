@@ -5,6 +5,8 @@ import { TourListToolbar } from "./TourListToolbar";
 import { BaseTable } from "@/components/table/BaseTable";
 import type { PaginationDetail } from "@/types/pagination";
 import { useTourChangeMulti } from "../hooks/useTourChangeMulti";
+import { Circle, CircleArrowUp, CircleOff, Trash2 } from "lucide-react";
+import type { MultiActionItem } from "@/components/table/TableChangeMulti";
 
 export const TourListTable = ({
   data,
@@ -32,6 +34,39 @@ export const TourListTable = ({
     tourChangeMulti({ action, ids }, { onSuccess: options.onSuccess });
   };
 
+  // Danh sách hành động
+  const tourListActions: MultiActionItem[] = [
+    {
+      type: "dropdown",
+      icon: <CircleArrowUp className="text-travel-secondary size-4" />,
+      tooltip: "Cập nhật trạng thái",
+      items: [
+        {
+          key: "active",
+          label: "Hoạt động",
+          icon: <Circle />,
+        },
+        {
+          key: "inactive",
+          label: "Tạm dừng",
+          icon: <CircleOff />,
+        },
+      ],
+    },
+    {
+      type: "button",
+      key: "delete",
+      icon: <Trash2 className="size-4 text-white" />,
+      tooltip: "Xóa các mục đã chọn",
+      destructive: true,
+      confirm: {
+        title: (count) => `Xác nhận xoá ${count} mục?`,
+        description: "Hành động này của bạn không thể hoàn tác.",
+        confirmText: "Xóa",
+      },
+    },
+  ];
+
   return (
     <BaseTable
       data={data}
@@ -45,6 +80,7 @@ export const TourListTable = ({
       }}
       toolbar={<TourListToolbar />}
       onMultiAction={handleChangeMulti}
+      multiActions={tourListActions}
     />
   );
 };
