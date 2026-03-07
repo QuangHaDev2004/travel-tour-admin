@@ -3,16 +3,16 @@ import { useRef, useState } from "react";
 import { pathAdmin } from "@/config/path";
 import { renderOptions } from "@/utils/renderOptions";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { FormInput } from "@/components/form/FormInput";
-import { useCategoryList } from "../../hooks/useCategoryList";
+import { BaseInput } from "@/components/form/BaseInput";
+import { BaseSelect } from "@/components/form/BaseSelect";
+import { useCategoryList } from "@/hooks/useCategoryList";
 import { EditorMCE } from "@/components/editor/EditorMCE";
-import { SelectField } from "@/components/form/SelectField";
 import { PageTitle } from "@/components/pageTitle/PageTitle";
 import { useForm, type SubmitHandler } from "react-hook-form";
-import { ContextLink } from "@/components/common/ContextLink";
 import { FileUploader } from "@/components/form/FileUploader";
-import { useCreateCategory } from "./hooks/useCreateCategory";
-import { ButtonSubmit } from "@/components/button/ButtonSubmit";
+import { ButtonSubmit } from "@/components/form/ButtonSubmit";
+import { ButtonBack } from "@/components/button/ActionButtons";
+import { useCreateCategory } from "../hooks/useCreateCategory";
 import { categoryFormSchema, type CategoryFormInputs } from "@/types";
 
 export const CategoryCreate = () => {
@@ -57,19 +57,16 @@ export const CategoryCreate = () => {
 
   return (
     <>
-      <div className="mb-6 flex flex-wrap items-center justify-between gap-2">
+      <div className="mb-4 flex flex-wrap items-center justify-between gap-2">
         <PageTitle title="Tạo danh mục" />
-        <ContextLink
-          text="Quay lại danh sách"
-          to={`/${pathAdmin}/category/list`}
-        />
+        <ButtonBack to={`/${pathAdmin}/category/list`} />
       </div>
-      <div className="border-travel-secondary/20 overflow-hidden rounded-md border bg-white p-6">
+      <div className="border-travel-gray overflow-hidden rounded-sm border bg-white p-6">
         <form
           onSubmit={handleSubmit(handleCategoryForm)}
           className="grid grid-cols-1 gap-6 md:grid-cols-2"
         >
-          <FormInput
+          <BaseInput
             id="name"
             label="Tên danh mục"
             register={register("name")}
@@ -77,16 +74,17 @@ export const CategoryCreate = () => {
             isRequired
           />
 
-          <SelectField
-            name="parent"
+          <BaseSelect
+            id="parent"
             label="Danh mục cha"
             register={register("parent")}
+            error={errors.parent}
           >
             <option value="">-- Chọn danh mục --</option>
             {renderOptions(categoryTree)}
-          </SelectField>
+          </BaseSelect>
 
-          <FormInput
+          <BaseInput
             id="position"
             label="Vị trí"
             type="number"
@@ -95,15 +93,15 @@ export const CategoryCreate = () => {
             placeholder="Note: Tự động tăng"
           />
 
-          <SelectField
-            name="status"
+          <BaseSelect
+            id="status"
             label="Trạng thái"
             register={register("status")}
-            options={[
-              { label: "Hoạt động", value: "active" },
-              { label: "Tạm dừng", value: "inactive" },
-            ]}
-          />
+            error={errors.status}
+          >
+            <option value="active">Hoạt động</option>
+            <option value="inactive">Tạm dừng</option>
+          </BaseSelect>
 
           <FileUploader
             id="avatar"
@@ -112,14 +110,12 @@ export const CategoryCreate = () => {
             setFiles={setAvatars}
           />
 
-          <div className="col-span-1 md:col-span-2">
-            <label
-              htmlFor="description"
-              className="text-travel-label mb-1 block text-sm font-medium"
-            >
+          <div className="col-span-1 flex flex-col gap-1 md:col-span-2">
+            <label className="text-travel-label block text-sm font-medium">
               Mô tả
             </label>
-            <EditorMCE editorRef={editorRef} value="" id="description" />
+
+            <EditorMCE id="description" value="" editorRef={editorRef} />
           </div>
 
           <ButtonSubmit isPending={isPending} text="Tạo mới" />
