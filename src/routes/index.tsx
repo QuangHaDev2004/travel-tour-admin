@@ -2,7 +2,6 @@ import { createBrowserRouter } from "react-router";
 import { pathAdmin } from "@/config/path";
 import { DefaultLayout } from "@/layouts/DefaultLayout";
 import { Dashboard } from "@/features/dashboard";
-import { CategoryEdit } from "@/features/category";
 import { OrderEdit, OrderList } from "@/features/order";
 import { UserList } from "@/features/user";
 import { ContactList } from "@/features/contact";
@@ -37,6 +36,7 @@ import {
 } from "@/pages/tour";
 import { CategoryListPage } from "@/pages/category";
 import { CategoryCreatePage } from "@/pages/category/CategoryCreatePage";
+import { CategoryEditPage } from "@/pages/category/CategoryEditPage";
 
 export const router = createBrowserRouter([
   {
@@ -61,7 +61,7 @@ export const router = createBrowserRouter([
       },
       {
         path: `/${pathAdmin}/category/edit/:id`,
-        element: <CategoryEdit />,
+        element: <CategoryEditPage />,
       },
       {
         path: `/${pathAdmin}/tour/list`,

@@ -1,21 +1,21 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { useForm, type SubmitHandler } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { categoryFormSchema, type CategoryFormInputs } from "@/types";
-import { PageTitle } from "@/components/pageTitle/PageTitle";
-import { FormInput } from "@/components/form/FormInput";
-import { ButtonSubmit } from "@/components/button/ButtonSubmit";
-import { ContextLink } from "@/components/common/ContextLink";
 import { pathAdmin } from "@/config/path";
-import { useEffect, useMemo, useRef, useState } from "react";
-import { useCategoryList } from "../../hooks/useCategoryList";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { renderOptions } from "@/utils/renderOptions";
 import { useNavigate, useParams } from "react-router";
+import { BaseInput } from "@/components/form/BaseInput";
+import { BaseSelect } from "@/components/form/BaseSelect";
 import { EditorMCE } from "@/components/editor/EditorMCE";
-import { useCategoryDetail } from "./hooks/useCategoryDetail";
-import { useCategoryEdit } from "./hooks/useCategoryEdit";
+import { useCategoryList } from "@/hooks/useCategoryList";
+import { useCategoryEdit } from "../hooks/useCategoryEdit";
+import { PageTitle } from "@/components/pageTitle/PageTitle";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { FileUploader } from "@/components/form/FileUploader";
-import { SelectField } from "@/components/form/SelectField";
+import { useForm, type SubmitHandler } from "react-hook-form";
+import { ButtonSubmit } from "@/components/form/ButtonSubmit";
+import { useCategoryDetail } from "../hooks/useCategoryDetail";
+import { ButtonBack } from "@/components/button/ActionButtons";
+import { categoryFormSchema, type CategoryFormInputs } from "@/types";
 
 export const CategoryEdit = () => {
   const { id } = useParams();
@@ -80,20 +80,17 @@ export const CategoryEdit = () => {
 
   return (
     <>
-      <div className="mb-6 flex flex-wrap items-center justify-between gap-2">
+      <div className="mb-4 flex flex-wrap items-center justify-between gap-2">
         <PageTitle title="Chỉnh sửa danh mục" />
-        <ContextLink
-          text="Quay lại danh sách"
-          to={`/${pathAdmin}/category/list`}
-        />
+        <ButtonBack to={`/${pathAdmin}/category/list`} />
       </div>
       {categoryDetail && categoryTree && (
-        <div className="border-travel-secondary/20 overflow-hidden rounded-md border bg-white p-6">
+        <div className="border-travel-gray overflow-hidden rounded-sm border bg-white p-6">
           <form
             onSubmit={handleSubmit(handleCategoryForm)}
             className="grid grid-cols-1 gap-6 md:grid-cols-2"
           >
-            <FormInput
+            <BaseInput
               id="name"
               label="Tên danh mục"
               register={register("name")}
@@ -101,16 +98,17 @@ export const CategoryEdit = () => {
               isRequired
             />
 
-            <SelectField
-              name="parent"
+            <BaseSelect
+              id="parent"
               label="Danh mục cha"
               register={register("parent")}
+              error={errors.parent}
             >
               <option value="">-- Chọn danh mục --</option>
               {renderOptions(categoryTree)}
-            </SelectField>
+            </BaseSelect>
 
-            <FormInput
+            <BaseInput
               id="position"
               label="Vị trí"
               type="number"
@@ -119,15 +117,15 @@ export const CategoryEdit = () => {
               placeholder="Note: Tự động tăng"
             />
 
-            <SelectField
-              name="status"
+            <BaseSelect
+              id="status"
               label="Trạng thái"
               register={register("status")}
-              options={[
-                { label: "Hoạt động", value: "active" },
-                { label: "Tạm dừng", value: "inactive" },
-              ]}
-            />
+              error={errors.status}
+            >
+              <option value="active">Hoạt động</option>
+              <option value="inactive">Tạm dừng</option>
+            </BaseSelect>
 
             <FileUploader
               id="avatar"
@@ -136,17 +134,15 @@ export const CategoryEdit = () => {
               setFiles={setAvatars}
             />
 
-            <div className="col-span-1 md:col-span-2">
-              <label
-                htmlFor="description"
-                className="text-travel-gray-800 mb-1 block text-sm font-medium"
-              >
+            <div className="col-span-1 flex flex-col gap-1 md:col-span-2">
+              <label className="text-travel-label block text-sm font-medium">
                 Mô tả
               </label>
+
               <EditorMCE
-                editorRef={editorRef}
-                value={categoryDetail.description}
                 id="description"
+                value={categoryDetail.description}
+                editorRef={editorRef}
               />
             </div>
 
