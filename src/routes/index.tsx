@@ -2,11 +2,7 @@ import { createBrowserRouter } from "react-router";
 import { pathAdmin } from "@/config/path";
 import { DefaultLayout } from "@/layouts/DefaultLayout";
 import { Dashboard } from "@/features/dashboard";
-import {
-  CategoryCreate,
-  CategoryEdit,
-  CategoryList,
-} from "@/features/category";
+import { CategoryCreate, CategoryEdit } from "@/features/category";
 import { OrderEdit, OrderList } from "@/features/order";
 import { UserList } from "@/features/user";
 import { ContactList } from "@/features/contact";
@@ -39,6 +35,7 @@ import {
   TourListPage,
   TourTrashPage,
 } from "@/pages/tour";
+import { CategoryListPage } from "@/pages/category";
 
 export const router = createBrowserRouter([
   {
@@ -55,7 +52,7 @@ export const router = createBrowserRouter([
       },
       {
         path: `/${pathAdmin}/category/list`,
-        element: <CategoryList />,
+        element: <CategoryListPage />,
       },
       {
         path: `/${pathAdmin}/category/create`,
