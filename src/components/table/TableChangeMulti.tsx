@@ -12,6 +12,7 @@ import { X } from "lucide-react";
 export type MultiActionItem =
   | {
       type: "dropdown";
+      key: string;
       icon: React.ReactNode;
       tooltip: string;
       items: {
@@ -88,11 +89,11 @@ export const TableChangeMulti = ({
 
       {/* Danh sách hành động */}
       <div className="flex items-center gap-2">
-        {actions.map((action, index) => {
+        {actions.map((action) => {
           // Danh sách dropdown
           if (action.type === "dropdown") {
             return (
-              <DropdownMenu key={index}>
+              <DropdownMenu key={action.key}>
                 <Tooltip>
                   <TooltipTrigger asChild>
                     <DropdownMenuTrigger asChild>
@@ -117,6 +118,7 @@ export const TableChangeMulti = ({
                 >
                   {action.items.map((item) => (
                     <DropdownMenuItem
+                      key={item.key}
                       className="cursor-pointer py-1.5 text-[13px] font-medium hover:bg-gray-100"
                       onClick={() => onAction(item.key)}
                     >

@@ -1,13 +1,13 @@
-import { changeMultiCategoryService } from "@/services/category";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
-import type { AxiosError } from "axios";
 import { toast } from "sonner";
+import type { AxiosError } from "axios";
+import { changeMultiCategory } from "@/services/category";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 export const useCategoryChangeMulti = () => {
   const queryClient = useQueryClient();
 
-  const mutation = useMutation({
-    mutationFn: changeMultiCategoryService,
+  return useMutation({
+    mutationFn: changeMultiCategory,
     onSuccess: (data) => {
       toast.success(data.message);
       queryClient.invalidateQueries({ queryKey: ["categoryList"] });
@@ -16,6 +16,4 @@ export const useCategoryChangeMulti = () => {
       toast.error(errors?.response?.data?.message);
     },
   });
-
-  return mutation;
 };

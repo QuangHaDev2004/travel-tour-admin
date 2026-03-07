@@ -6,7 +6,7 @@ import { toast } from "sonner";
 export const useCategoryDelete = () => {
   const queryClient = useQueryClient();
 
-  const mutation = useMutation({
+  return useMutation({
     mutationFn: deleteCategoryService,
     onSuccess: (data) => {
       toast.success(data.message);
@@ -16,6 +16,4 @@ export const useCategoryDelete = () => {
       toast.error(errors?.response?.data?.message);
     },
   });
-
-  return mutation;
 };

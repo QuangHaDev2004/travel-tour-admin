@@ -31,7 +31,7 @@ export const deleteCategoryService = async (id: string) => {
   return res.data;
 };
 
-export const changeMultiCategoryService = async (dataFinal: {
+export const changeMultiCategory = async (dataFinal: {
   action: string;
   ids: string[];
 }) => {
