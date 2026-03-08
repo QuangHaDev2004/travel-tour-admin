@@ -18,7 +18,7 @@ export const getCategoryDetailService = async (id: string | undefined) => {
   return res.data;
 };
 
-export const editCategoryService = async (
+export const editCategory = async (
   id: string | undefined,
   dataFinal: FormData,
 ) => {

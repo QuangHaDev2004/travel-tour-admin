@@ -19,7 +19,7 @@ export const TourListToolbar = () => {
       <Search placeholder="Tìm tour..." />
 
       <TableFilter
-        label="Chọn trạng thái"
+        label="Trạng thái"
         filterKey="status"
         options={[
           { label: "Hoạt động", value: "active" },
@@ -28,7 +28,7 @@ export const TourListToolbar = () => {
       />
 
       <TableFilter
-        label="Chọn khoảng giá"
+        label="Khoảng giá"
         filterKey="price"
         options={[
           { label: "Dưới 5 triệu", value: "0-4999999" },

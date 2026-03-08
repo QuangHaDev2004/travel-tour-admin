@@ -1,8 +1,8 @@
 import { pathAdmin } from "@/config/path";
 import { api } from "@/libs/axios";
 
-export const getOrderList = async () => {
-  const res = await api.get(`/${pathAdmin}/order/list`);
+export const getOrderList = async (params?: Record<string, string>) => {
+  const res = await api.get(`/${pathAdmin}/order/list`, { params });
   return res.data;
 };
 
@@ -20,5 +20,10 @@ export const updateOrder = async (
   },
 ) => {
   const res = await api.patch(`/${pathAdmin}/order/edit/${id}`, dataFinal);
+  return res.data;
+};
+
+export const deleteOrder = async (id: string) => {
+  const res = await api.patch(`/${pathAdmin}/order/delete/${id}`);
   return res.data;
 };

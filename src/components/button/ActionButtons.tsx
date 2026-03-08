@@ -1,4 +1,4 @@
-import { MoveLeft, Plus, Trash2 } from "lucide-react";
+import { MoveLeft, Plus, RefreshCw, Trash2 } from "lucide-react";
 import { BaseButton } from "./BaseButton";
 
 export const ButtonCreate = ({ to }: { to: string }) => (
@@ -25,5 +25,14 @@ export const ButtonBack = ({ to }: { to: string }) => (
     label="Quay lại"
     icon={<MoveLeft size={16} />}
     variant="primary"
+  />
+);
+
+export const ButtonRefresh = ({ onClick }: { onClick: () => void }) => (
+  <BaseButton
+    onClick={onClick}
+    label="Tải lại"
+    icon={<RefreshCw size={16} />}
+    variant="default"
   />
 );

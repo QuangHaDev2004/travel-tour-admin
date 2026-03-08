@@ -8,8 +8,6 @@ import { PageTitle } from "@/components/pageTitle/PageTitle";
 import { FormInput } from "@/components/form/FormInput";
 import { ButtonSubmit } from "@/components/button/ButtonSubmit";
 import { ContextLink } from "@/components/common/ContextLink";
-import { OrderTourList } from "./components/OrderTourList";
-import { OrderSummary } from "./components/OrderSummary";
 import {
   orderStatusList,
   paymentMethodList,
@@ -17,9 +15,11 @@ import {
 } from "@/constants/order";
 import { EditorMCE } from "@/components/editor/EditorMCE";
 import { useParams } from "react-router";
-import { useOrderDetail } from "./hooks/useOrderDetail";
 import type { OrderDetail } from "@/types/order";
-import { useUpdateOrder } from "./hooks/useUpdateOrder";
+import { useOrderDetail } from "../hooks/useOrderDetail";
+import { useUpdateOrder } from "../hooks/useUpdateOrder";
+import { OrderTourList } from "../components/OrderTourList";
+import { OrderSummary } from "../components/OrderSummary";
 
 export const OrderEdit = () => {
   const { id } = useParams();

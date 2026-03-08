@@ -1,20 +1,16 @@
-import { editCategory } from "@/services/category";
+import { deleteOrder } from "@/services/order";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import type { AxiosError } from "axios";
 import { toast } from "sonner";
 
-export const useCategoryEdit = (id?: string) => {
+export const useDeleteOrder = () => {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: (formData: FormData) => editCategory(id, formData),
+    mutationFn: deleteOrder,
     onSuccess: (data) => {
       toast.success(data.message);
-      queryClient.invalidateQueries({
-        queryKey: ["categoryDetail"],
-        exact: false,
-      });
-      queryClient.invalidateQueries({ queryKey: ["categoryList"] });
+      queryClient.invalidateQueries({ queryKey: ["orderList"] });
     },
     onError: (errors: AxiosError<{ message: string }>) => {
       toast.error(errors?.response?.data?.message);

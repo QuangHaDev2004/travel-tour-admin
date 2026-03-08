@@ -42,21 +42,21 @@ type BaseTableProps<TData extends { id: string }> = {
   data: TData[];
   columns: ColumnDef<TData, any>[];
   isLoading: boolean;
-  isMultiPending: boolean;
   pagination: PaginationDetail;
   meta: any;
   toolbar?: React.ReactNode;
-  onMultiAction: (
+  isMultiPending?: boolean;
+  onMultiAction?: (
     action: string,
     ids: string[],
     options: { onSuccess: () => void },
   ) => void;
-  multiActions: MultiActionItem[];
+  multiActions?: MultiActionItem[];
 };
 
 export function BaseTable<TData extends { id: string }>({
-  data,
-  columns,
+  data = [],
+  columns = [],
   pagination,
   isLoading,
   isMultiPending,
@@ -92,12 +92,12 @@ export function BaseTable<TData extends { id: string }>({
 
   // Lấy danh sách id của các dòng đang được chọn
   const selectedIds = table
-    .getSelectedRowModel()
-    .rows.map((row) => row.original.id);
+    ?.getSelectedRowModel()
+    ?.rows.map((row) => row.original.id);
 
   return (
     <div className="flex w-full flex-1 flex-col gap-4">
-      <div className="flex items-center">
+      <div className="flex">
         {toolbar}
 
         <DropdownMenu>
@@ -199,12 +199,12 @@ export function BaseTable<TData extends { id: string }>({
       </div>
 
       {/* Phân trang */}
-      {data.length > 0 && (
+      {pagination && data.length > 0 && (
         <BasePagination list={data} pagination={pagination} />
       )}
 
       {/* Thanh thao tác nhiều */}
-      {selectedIds.length > 0 && (
+      {multiActions && onMultiAction && selectedIds.length > 0 && (
         <TableChangeMulti
           selectedCount={selectedIds.length}
           onClearSelection={() => setRowSelection({})}
