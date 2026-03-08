@@ -82,7 +82,7 @@ export const CategoryEdit = () => {
     <>
       <div className="mb-4 flex flex-wrap items-center justify-between gap-2">
         <PageTitle title="Chỉnh sửa danh mục" />
-        <ButtonBack to={`/${pathAdmin}/category/list`} />
+        <ButtonBack />
       </div>
       {categoryDetail && categoryTree && (
         <div className="border-travel-gray overflow-hidden rounded-sm border bg-white p-6">

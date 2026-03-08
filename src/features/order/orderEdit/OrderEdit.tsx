@@ -1,18 +1,14 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { useEffect, useRef } from "react";
-import { pathAdmin } from "@/config/path";
-import { useForm, type SubmitHandler } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { orderFormSchema, type OrderFormInputs } from "@/types";
-import { PageTitle } from "@/components/pageTitle/PageTitle";
-import { FormInput } from "@/components/form/FormInput";
-import { ButtonSubmit } from "@/components/button/ButtonSubmit";
-import { ContextLink } from "@/components/common/ContextLink";
 import {
   orderStatusList,
   paymentMethodList,
   paymentStatusList,
 } from "@/constants/order";
+import { useEffect, useRef } from "react";
+import { useForm, type SubmitHandler } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { orderFormSchema, type OrderFormInputs } from "@/types";
+import { PageTitle } from "@/components/pageTitle/PageTitle";
 import { EditorMCE } from "@/components/editor/EditorMCE";
 import { useParams } from "react-router";
 import type { OrderDetail } from "@/types/order";
@@ -20,6 +16,10 @@ import { useOrderDetail } from "../hooks/useOrderDetail";
 import { useUpdateOrder } from "../hooks/useUpdateOrder";
 import { OrderTourList } from "../components/OrderTourList";
 import { OrderSummary } from "../components/OrderSummary";
+import { ButtonBack } from "@/components/button/ActionButtons";
+import { BaseInput } from "@/components/form/BaseInput";
+import { BaseSelect } from "@/components/form/BaseSelect";
+import { ButtonSubmit } from "@/components/form/ButtonSubmit";
 
 export const OrderEdit = () => {
   const { id } = useParams();
@@ -28,7 +28,12 @@ export const OrderEdit = () => {
   const orderDetail: OrderDetail = data?.orderDetail ?? {};
   const { mutate, isPending } = useUpdateOrder({ id: id! });
 
-  const { register, reset, handleSubmit } = useForm<OrderFormInputs>({
+  const {
+    register,
+    reset,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<OrderFormInputs>({
     resolver: zodResolver(orderFormSchema),
   });
 
@@ -46,105 +51,82 @@ export const OrderEdit = () => {
 
   return (
     <>
-      <div className="mb-6 flex flex-wrap items-center justify-between gap-2">
+      <div className="mb-4 flex flex-wrap items-center justify-between gap-2">
         <PageTitle title={`Đơn hàng: ${orderDetail.orderCode}`} />
-        <ContextLink
-          text="Quay lại danh sách"
-          to={`/${pathAdmin}/order/list`}
-        />
+        <ButtonBack />
       </div>
-      <div className="border-travel-secondary/20 overflow-hidden rounded-md border bg-white p-6 shadow-md">
+      <div className="border-travel-gray overflow-hidden rounded-sm border bg-white p-6">
         {orderDetail && (
           <form
             onSubmit={handleSubmit(handleOrderForm)}
             className="grid grid-cols-1 gap-6 md:grid-cols-2"
           >
-            <FormInput
+            <BaseInput
               id="fullName"
               label="Tên khách hàng"
               defaultValue={orderDetail.fullName}
               readOnly
             />
 
-            <FormInput
+            <BaseInput
               id="phone"
               label="Số điện thoại"
               defaultValue={orderDetail.phone}
               readOnly
             />
 
-            <div className="col-span-1 md:col-span-2">
-              <label
-                htmlFor="note"
-                className="text-travel-label mb-1 block text-sm font-semibold"
-              >
+            <div className="col-span-1 flex flex-col gap-1 md:col-span-2">
+              <label className="text-travel-label block text-sm font-medium">
                 Ghi chú
               </label>
+
               <EditorMCE
-                editorRef={editorRef}
-                value={orderDetail.note}
                 id="note"
+                value={orderDetail.note}
+                editorRef={editorRef}
               />
             </div>
 
-            <div>
-              <label
-                htmlFor="paymentMethod"
-                className="text-travel-label mb-1 block text-sm font-semibold"
-              >
-                Phương thức thanh toán
-              </label>
-              <select
-                {...register("paymentMethod")}
-                className="select bg-travel-three text-travel-secondary h-12 w-full px-5 text-sm font-medium"
-              >
-                {paymentMethodList.map((item) => (
-                  <option key={item.value} value={item.value}>
-                    {item.label}
-                  </option>
-                ))}
-              </select>
-            </div>
+            <BaseSelect
+              id="paymentMethod"
+              label="Phương thức thanh toán"
+              register={register("paymentMethod")}
+              error={errors.paymentMethod}
+            >
+              {paymentMethodList.map((item) => (
+                <option key={item.value} value={item.value}>
+                  {item.label}
+                </option>
+              ))}
+            </BaseSelect>
 
-            <div>
-              <label
-                htmlFor="paymentStatus"
-                className="text-travel-label mb-1 block text-sm font-semibold"
-              >
-                Trạng thái thanh toán
-              </label>
-              <select
-                {...register("paymentStatus")}
-                className="select bg-travel-three text-travel-secondary h-12 w-full px-5 text-sm font-medium"
-              >
-                {paymentStatusList.map((item) => (
-                  <option key={item.value} value={item.value}>
-                    {item.label}
-                  </option>
-                ))}
-              </select>
-            </div>
+            <BaseSelect
+              id="paymentStatus"
+              label="Trạng thái thanh toán"
+              register={register("paymentStatus")}
+              error={errors.paymentStatus}
+            >
+              {paymentStatusList.map((item) => (
+                <option key={item.value} value={item.value}>
+                  {item.label}
+                </option>
+              ))}
+            </BaseSelect>
 
-            <div>
-              <label
-                htmlFor="status"
-                className="text-travel-label mb-1 block text-sm font-semibold"
-              >
-                Trạng thái đơn hàng
-              </label>
-              <select
-                {...register("status")}
-                className="select bg-travel-three text-travel-secondary h-12 w-full px-5 text-sm font-medium"
-              >
-                {orderStatusList.map((item) => (
-                  <option key={item.value} value={item.value}>
-                    {item.label}
-                  </option>
-                ))}
-              </select>
-            </div>
+            <BaseSelect
+              id="status"
+              label="Trạng thái đơn hàng"
+              register={register("status")}
+              error={errors.status}
+            >
+              {orderStatusList.map((item) => (
+                <option key={item.value} value={item.value}>
+                  {item.label}
+                </option>
+              ))}
+            </BaseSelect>
 
-            <FormInput
+            <BaseInput
               id="createAt"
               label="Ngày đặt"
               type="datetime-local"
