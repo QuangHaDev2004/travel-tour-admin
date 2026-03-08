@@ -1,5 +1,6 @@
-export * from "./SettingList";
-export * from "./SettingWebsiteInfo";
+export * from "./settingList/SettingList";
+export * from "./websiteInfo/SettingWebsiteInfo";
+
 export * from "./SettingAccountAdminList";
 export * from "./SettingAccountAdminCreate";
 export * from "./SettingAccountAdminEdit";

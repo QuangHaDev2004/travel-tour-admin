@@ -8,11 +8,9 @@ import {
   SettingAccountAdminCreate,
   SettingAccountAdminEdit,
   SettingAccountAdminList,
-  SettingList,
   SettingRoleCreate,
   SettingRoleEdit,
   SettingRoleList,
-  SettingWebsiteInfo,
 } from "@/features/setting";
 import { ProfileChangePassword, ProfileEdit } from "@/features/profile";
 import { Template } from "@/features/template";
@@ -39,6 +37,8 @@ import {
   CategoryListPage,
 } from "@/pages/category";
 import { OrderEditPage, OrderListPage } from "@/pages/order";
+import { SettingListPage } from "@/pages/setting";
+import { WebsiteInfoPage } from "@/pages/setting/WebsiteInfoPage";
 
 export const router = createBrowserRouter([
   {
@@ -99,11 +99,11 @@ export const router = createBrowserRouter([
       },
       {
         path: `/${pathAdmin}/setting/list`,
-        element: <SettingList />,
+        element: <SettingListPage />,
       },
       {
         path: `/${pathAdmin}/setting/website-info`,
-        element: <SettingWebsiteInfo />,
+        element: <WebsiteInfoPage />,
       },
       {
         path: `/${pathAdmin}/setting/account-admin/list`,

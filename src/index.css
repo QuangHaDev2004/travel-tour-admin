@@ -84,8 +84,9 @@ textarea {
 }
 
 .filepond--root .filepond--drop-label label {
-  font-size: 30px;
+  font-size: 50px;
   cursor: pointer;
+  opacity: 0.5;
 }
 
 .filepond--root .filepond--action-remove-item {

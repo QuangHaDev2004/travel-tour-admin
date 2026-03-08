@@ -2,20 +2,24 @@
 import { FilePond } from "react-filepond";
 import "@/libs/filepond";
 
+type FileUploaderProps = {
+  id: string;
+  label: string;
+  files: any[];
+  setFiles: React.Dispatch<React.SetStateAction<any[]>>;
+  oneCol?: boolean;
+};
+
 export const FileUploader = ({
   id,
   label,
   files,
   setFiles,
-}: {
-  id: string;
-  label: string;
-  files: any[];
-  setFiles: React.Dispatch<React.SetStateAction<any[]>>;
-}) => {
+  oneCol,
+}: FileUploaderProps) => {
   return (
     <>
-      <div className="file-uploader sm:col-span-2">
+      <div className={`file-uploader ${oneCol ? "" : "sm:col-span-2"} `}>
         <label
           htmlFor={id}
           className="text-travel-label mb-1 block text-sm font-medium"
