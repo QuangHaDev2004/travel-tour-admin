@@ -11,7 +11,7 @@ interface BaseButtonProps {
 }
 
 export const BaseButton = ({
-  to = "#",
+  to,
   onClick,
   label,
   icon,

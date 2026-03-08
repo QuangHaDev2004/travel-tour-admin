@@ -14,7 +14,7 @@ export const columns: ColumnDef<OrderDetail>[] = [
     id: "Mã",
     header: () => <div className="font-semibold">Mã</div>,
     cell: ({ row }) => (
-      <div className="text-travel-primary w-36 truncate capitalize">
+      <div className="text-travel-primary w-36 truncate capitalize font-medium">
         {row.original.orderCode}
       </div>
     ),

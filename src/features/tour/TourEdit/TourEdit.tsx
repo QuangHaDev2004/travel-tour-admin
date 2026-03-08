@@ -1,6 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { useParams } from "react-router";
-import { pathAdmin } from "@/config/path";
 import { useCityList } from "../hooks/useCityList";
 import { useTourEdit } from "../hooks/useTourEdit";
 import { renderOptions } from "@/utils/renderOptions";
@@ -178,7 +177,7 @@ export const TourEdit = () => {
     <>
       <div className="mb-4 flex flex-wrap items-center justify-between gap-2">
         <PageTitle title="Chỉnh sửa tour" />
-        <ButtonBack to={`/${pathAdmin}/tour/list`} />
+        <ButtonBack />
       </div>
       <div className="border-travel-gray overflow-hidden rounded-sm border bg-white p-6">
         <form
