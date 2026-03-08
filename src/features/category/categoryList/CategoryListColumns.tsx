@@ -6,11 +6,11 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { pathAdmin } from "@/config/path";
 import { imageDefault } from "@/constants/common";
 import { statusList } from "@/constants/status";
-import type { TourItem } from "@/types/tour";
+import type { CategoryItem } from "@/types/category";
 import type { ColumnDef } from "@tanstack/react-table";
 import dayjs from "dayjs";
 
-export const columns: ColumnDef<TourItem>[] = [
+export const columns: ColumnDef<CategoryItem>[] = [
   {
     id: "select",
     header: ({ table }) => (

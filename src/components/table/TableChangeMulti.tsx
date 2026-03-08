@@ -38,7 +38,7 @@ type TableChangeMultiProps = {
   selectedCount: number;
   onClearSelection: () => void;
   onAction: (action: string) => void;
-  isPending: boolean;
+  isPending?: boolean;
   actions: MultiActionItem[];
 };
 

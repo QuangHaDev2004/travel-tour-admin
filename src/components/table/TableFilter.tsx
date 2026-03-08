@@ -15,12 +15,14 @@ type TableFilterProps = {
     label: string;
     value: string;
   }[];
+  customStyle?: string;
 };
 
 export const TableFilter = ({
   label,
   filterKey,
   options,
+  customStyle,
 }: TableFilterProps) => {
   const [searchParams, setSearchParams] = useSearchParams();
   const currentValue = searchParams.get(filterKey) || "";
@@ -38,7 +40,7 @@ export const TableFilter = ({
   return (
     <Select value={currentValue} onValueChange={handleFilter}>
       <SelectTrigger
-        className={`hover:border-travel-primary w-44 rounded-sm bg-white font-medium ${hasValue ? "text-travel-primary border-travel-primary" : "text-travel-secondary border-travel-gray hover:shadow-md"}`}
+        className={`hover:border-travel-primary rounded-sm bg-white font-medium ${hasValue ? "text-travel-primary border-travel-primary" : "text-travel-secondary border-travel-gray hover:shadow-md"} ${customStyle ? customStyle : "w-44"}`}
       >
         <SelectValue placeholder={label} />
       </SelectTrigger>
