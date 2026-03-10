@@ -5,7 +5,6 @@ import { Dashboard } from "@/features/dashboard";
 import { UserList } from "@/features/user";
 import { ContactList } from "@/features/contact";
 import {
-  SettingAccountAdminEdit,
   SettingRoleCreate,
   SettingRoleEdit,
   SettingRoleList,
@@ -37,6 +36,7 @@ import {
 import { OrderEditPage, OrderListPage } from "@/pages/order";
 import {
   AccountAdminCreatePage,
+  AccountAdminEditPage,
   AccountAdminListPage,
   SettingListPage,
   WebsiteInfoPage,
@@ -117,7 +117,7 @@ export const router = createBrowserRouter([
       },
       {
         path: `/${pathAdmin}/setting/account-admin/edit/:id`,
-        element: <SettingAccountAdminEdit />,
+        element: <AccountAdminEditPage />,
       },
       {
         path: `/${pathAdmin}/setting/role/list`,

@@ -1,8 +1,8 @@
 import { useSearchParams } from "react-router";
 import { Search } from "@/components/common/Search";
 import { TableFilter } from "@/components/table/TableFilter";
-import { useRoleList } from "../hooks/useRoleList";
 import type { RoleItem } from "@/types/setting";
+import { useRoleList } from "../../hooks/useRoleList";
 
 export const AccountAdminToolbar = () => {
   const [searchParams, setSearchParams] = useSearchParams();

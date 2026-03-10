@@ -1,23 +1,35 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { useForm, type SubmitHandler } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { accountAdminEditSchema, type AccountAdminEditInputs } from "@/types";
 import { PageTitle } from "@/components/pageTitle/PageTitle";
-import { FormInput } from "@/components/form/FormInput";
-import { FormFileUpload } from "@/components/form/FormFileUpload";
-import { ButtonSubmit } from "@/components/button/ButtonSubmit";
-import { ContextLink } from "@/components/common/ContextLink";
-import { pathAdmin } from "@/config/path";
 import { useParams } from "react-router";
-import { useAccountAdminDetail } from "./hooks/useAccountAdminDetail";
-import { useAccountAdminEdit } from "./hooks/useAccountAdminEdit";
-import { useRoleList } from "./hooks/useRoleList";
+import { useAccountAdminDetail } from "../../hooks/useAccountAdminDetail";
+import { useRoleList } from "../../hooks/useRoleList";
+import { useAccountAdminEdit } from "../../hooks/useAccountAdminEdit";
+import type { RoleItem } from "@/types/setting";
+import { ButtonBack } from "@/components/button/ActionButtons";
+import { BaseInput } from "@/components/form/BaseInput";
+import { BaseSelect } from "@/components/form/BaseSelect";
+import { FileUploader } from "@/components/form/FileUploader";
+import { ButtonSubmit } from "@/components/form/ButtonSubmit";
 
-export const SettingAccountAdminEdit = () => {
+export const AccountAdminEdit = () => {
+  // Lấy id tài khoản quản trị từ params
   const { id } = useParams();
+
+  // State để lưu trữ ảnh đại diện
   const [avatars, setAvatars] = useState<any[]>([]);
-  const { roleList } = useRoleList();
+
+  // Lấy danh sách nhóm quyền để hiển thị trong select
+  const { data } = useRoleList();
+  const roleList: RoleItem[] = useMemo(
+    () => data?.roleList ?? [],
+    [data?.roleList],
+  );
+
+  // Lấy thông tin tài khoản quản trị từ API
   const { accountAdminDetail } = useAccountAdminDetail({ id: id! });
 
   const {
@@ -69,19 +81,16 @@ export const SettingAccountAdminEdit = () => {
 
   return (
     <>
-      <div className="mb-6 flex flex-wrap items-center justify-between gap-2">
+      <div className="mb-4 flex flex-wrap items-center justify-between gap-2">
         <PageTitle title="Chỉnh sửa tài khoản quản trị" />
-        <ContextLink
-          text="Quay lại danh sách"
-          to={`/${pathAdmin}/setting/account-admin/list`}
-        />
+        <ButtonBack />
       </div>
-      <div className="border-travel-secondary/20 overflow-hidden rounded-md border bg-white p-6 shadow-md">
+      <div className="border-travel-gray overflow-hidden rounded-sm border bg-white p-6">
         <form
           onSubmit={handleSubmit(handleWebsiteInfoForm)}
           className="grid grid-cols-1 gap-6 md:grid-cols-2"
         >
-          <FormInput
+          <BaseInput
             id="fullName"
             label="Họ tên"
             register={register("fullName")}
@@ -89,7 +98,7 @@ export const SettingAccountAdminEdit = () => {
             isRequired
           />
 
-          <FormInput
+          <BaseInput
             id="email"
             label="Email"
             register={register("email")}
@@ -97,7 +106,7 @@ export const SettingAccountAdminEdit = () => {
             isRequired
           />
 
-          <FormInput
+          <BaseInput
             id="phone"
             label="Số điện thoại"
             register={register("phone")}
@@ -105,27 +114,21 @@ export const SettingAccountAdminEdit = () => {
             isRequired
           />
 
-          <div>
-            <label
-              htmlFor="status"
-              className="text-travel-label mb-1 block text-sm font-semibold"
-            >
-              Nhóm quyền
-            </label>
-            <select
-              {...register("role")}
-              className="select bg-travel-three text-travel-secondary h-12 w-full px-5 text-sm font-medium"
-            >
-              <option value="">Chọn nhóm quyền</option>
-              {roleList.map((item) => (
-                <option key={item.id} value={item.id}>
-                  {item.name}
-                </option>
-              ))}
-            </select>
-          </div>
+          <BaseSelect
+            id="role"
+            label="Nhóm quyền"
+            register={register("role")}
+            error={errors.role}
+          >
+            <option value="">Chọn nhóm quyền</option>
+            {roleList.map((item) => (
+              <option key={item.id} value={item.id}>
+                {item.name}
+              </option>
+            ))}
+          </BaseSelect>
 
-          <FormInput
+          <BaseInput
             id="positionCompany"
             label="Chức vụ"
             register={register("positionCompany")}
@@ -133,33 +136,26 @@ export const SettingAccountAdminEdit = () => {
             isRequired
           />
 
-          <div>
-            <label
-              htmlFor="status"
-              className="text-travel-label mb-1 block text-sm font-semibold"
-            >
-              Trạng thái
-            </label>
-            <select
-              {...register("status")}
-              className="select bg-travel-three text-travel-secondary h-12 w-full px-5 text-sm font-medium"
-            >
-              <option value="initial">Khởi tạo</option>
-              <option value="active">Hoạt động</option>
-              <option value="inactive">Tạm dừng</option>
-            </select>
-          </div>
+          <BaseSelect
+            id="status"
+            label="Trạng thái"
+            register={register("status")}
+            error={errors.status}
+          >
+            <option value="initial">Khởi tạo</option>
+            <option value="active">Hoạt động</option>
+            <option value="inactive">Tạm dừng</option>
+          </BaseSelect>
 
-          <FormInput
+          <BaseInput
             id="password"
             label="Mật khẩu"
             register={register("password")}
             error={errors.password}
-            isRequired
           />
 
-          <FormFileUpload
-            name="avatar"
+          <FileUploader
+            id="avatar"
             label="Ảnh đại diện"
             files={avatars}
             setFiles={setAvatars}

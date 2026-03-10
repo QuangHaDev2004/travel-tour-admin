@@ -4,16 +4,17 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useState } from "react";
 import { accountAdminSchema, type AccountAdminInputs } from "@/types";
 import { PageTitle } from "@/components/pageTitle/PageTitle";
-import { useRoleList } from "../hooks/useRoleList";
-import { useAccountAdminCreate } from "../hooks/useAccountAdminCreate";
 import { ButtonSubmit } from "@/components/form/ButtonSubmit";
 import type { RoleItem } from "@/types/setting";
 import { ButtonBack } from "@/components/button/ActionButtons";
 import { BaseInput } from "@/components/form/BaseInput";
 import { BaseSelect } from "@/components/form/BaseSelect";
 import { FileUploader } from "@/components/form/FileUploader";
+import { useRoleList } from "../../hooks/useRoleList";
+import { useAccountAdminCreate } from "../../hooks/useAccountAdminCreate";
 
 export const AccountAdminCreate = () => {
+  // State để lưu trữ ảnh đại diện
   const [avatars, setAvatars] = useState<any[]>([]);
 
   // Lấy danh sách nhóm quyền để hiển thị trong select
