@@ -10,8 +10,8 @@ import {
 import type { MultiActionItem } from "@/components/table/TableChangeMulti";
 import type { AccountAdminItem } from "@/types/account";
 import { columns } from "./AccountAdminColumns";
+import { useChangeMultiAccountAdmin } from "../../hooks/useChangeMultiAccountAdmin";
 import { AccountAdminToolbar } from "./AccountAdminToolbar";
-import { useChangeMultiAccountAdmin } from "../hooks/useChangeMultiAccountAdmin";
 
 export const AccountAdminTable = ({
   data,

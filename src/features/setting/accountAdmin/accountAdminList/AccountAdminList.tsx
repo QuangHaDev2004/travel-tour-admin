@@ -3,7 +3,7 @@ import { pathAdmin } from "@/config/path";
 import { ButtonCreate } from "@/components/button/ActionButtons";
 import { AccountAdminTable } from "./AccountAdminTable";
 import { useAccountAdminList } from "@/hooks/useAccountAdminList";
-import { useDeleteAccountAdmin } from "../hooks/useDeleteAccountAdmin";
+import { useDeleteAccountAdmin } from "../../hooks/useDeleteAccountAdmin";
 
 export const AccountAdminList = () => {
   // Lấy danh sách tài khoản quản trị
