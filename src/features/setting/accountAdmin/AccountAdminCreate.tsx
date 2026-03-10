@@ -9,12 +9,15 @@ import { FormFileUpload } from "@/components/form/FormFileUpload";
 import { ButtonSubmit } from "@/components/button/ButtonSubmit";
 import { ContextLink } from "@/components/common/ContextLink";
 import { pathAdmin } from "@/config/path";
-import { useAccountAdminCreate } from "./hooks/useAccountAdminCreate";
-import { useRoleList } from "./hooks/useRoleList";
+import { useRoleList } from "../hooks/useRoleList";
+import { useAccountAdminCreate } from "../hooks/useAccountAdminCreate";
 
-export const SettingAccountAdminCreate = () => {
+export const AccountAdminCreate = () => {
   const [avatars, setAvatars] = useState<any[]>([]);
-  const { roleList } = useRoleList();
+
+  // Lấy danh sách nhóm quyền để hiển thị trong select
+  const { data } = useRoleList();
+  const roleList = data?.roleList ?? [];
 
   const {
     register,
