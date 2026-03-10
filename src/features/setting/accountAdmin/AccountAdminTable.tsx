@@ -1,31 +1,37 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-import { columns } from "./CategoryListColumns";
 import { BaseTable } from "@/components/table/BaseTable";
 import type { PaginationDetail } from "@/types/pagination";
-import { CategoryListToolbar } from "./CategoryListToolbar";
-import { Circle, CircleArrowUp, CircleOff, Trash2 } from "lucide-react";
-import { useCategoryChangeMulti } from "../hooks/useCategoryChangeMulti";
+import {
+  Circle,
+  CircleArrowUp,
+  CircleDashed,
+  CircleOff,
+  Trash2,
+} from "lucide-react";
 import type { MultiActionItem } from "@/components/table/TableChangeMulti";
-import type { CategoryItem } from "@/types/category";
+import type { AccountAdminItem } from "@/types/account";
+import { columns } from "./AccountAdminColumns";
+import { AccountAdminToolbar } from "./AccountAdminToolbar";
+import { useChangeMultiAccountAdmin } from "../hooks/useChangeMultiAccountAdmin";
 
-export const CategoryListTable = ({
+export const AccountAdminTable = ({
   data,
   isLoading,
-  categoryDelete,
-  isPendingCategoryDelete,
   pagination,
+  tableActions,
 }: {
-  data: CategoryItem[];
+  data: AccountAdminItem[];
   isLoading: boolean;
-  categoryDelete: any;
-  isPendingCategoryDelete: boolean;
   pagination: PaginationDetail;
+  tableActions: {
+    deleteItem: (id: string) => void;
+    isDeletingItem: boolean;
+  };
 }) => {
-  // Hook gọi API thay đổi nhiều tour
+  // Hook gọi API thay đổi nhiều tài khoản
   const {
-    mutate: categoryChangeMulti,
-    isPending: isPendingCategoryChangeMulti,
-  } = useCategoryChangeMulti();
+    mutate: changeMultiAccountAdmin,
+    isPending: isChangingMultiAccountAdmin,
+  } = useChangeMultiAccountAdmin();
 
   // Hàm xử lý khi chọn 1 action
   const handleChangeMulti = (
@@ -33,17 +39,22 @@ export const CategoryListTable = ({
     ids: string[],
     options: { onSuccess: () => void },
   ) => {
-    categoryChangeMulti({ action, ids }, { onSuccess: options.onSuccess });
+    changeMultiAccountAdmin({ action, ids }, { onSuccess: options.onSuccess });
   };
 
   // Danh sách hành động
-  const categoryListActions: MultiActionItem[] = [
+  const accountAdminListActions: MultiActionItem[] = [
     {
       type: "dropdown",
       key: "status",
       icon: <CircleArrowUp className="text-travel-secondary size-4" />,
       tooltip: "Cập nhật trạng thái",
       items: [
+        {
+          key: "initial",
+          label: "Khởi tạo",
+          icon: <CircleDashed />,
+        },
         {
           key: "active",
           label: "Hoạt động",
@@ -76,14 +87,11 @@ export const CategoryListTable = ({
       isLoading={isLoading}
       columns={columns}
       pagination={pagination}
-      isMultiPending={isPendingCategoryChangeMulti}
-      meta={{
-        isPendingTourDelete: isPendingCategoryDelete,
-        categoryDelete: categoryDelete,
-      }}
-      toolbar={<CategoryListToolbar />}
+      meta={{ ...tableActions }}
+      toolbar={<AccountAdminToolbar />}
       onMultiAction={handleChangeMulti}
-      multiActions={categoryListActions}
+      isMultiPending={isChangingMultiAccountAdmin}
+      multiActions={accountAdminListActions}
     />
   );
 };

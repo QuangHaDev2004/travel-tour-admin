@@ -5,9 +5,7 @@ import { Dashboard } from "@/features/dashboard";
 import { UserList } from "@/features/user";
 import { ContactList } from "@/features/contact";
 import {
-  SettingAccountAdminCreate,
   SettingAccountAdminEdit,
-  SettingAccountAdminList,
   SettingRoleCreate,
   SettingRoleEdit,
   SettingRoleList,
@@ -37,8 +35,12 @@ import {
   CategoryListPage,
 } from "@/pages/category";
 import { OrderEditPage, OrderListPage } from "@/pages/order";
-import { SettingListPage } from "@/pages/setting";
-import { WebsiteInfoPage } from "@/pages/setting/WebsiteInfoPage";
+import {
+  AccountAdminCreatePage,
+  AccountAdminListPage,
+  SettingListPage,
+  WebsiteInfoPage,
+} from "@/pages/setting";
 
 export const router = createBrowserRouter([
   {
@@ -107,11 +109,11 @@ export const router = createBrowserRouter([
       },
       {
         path: `/${pathAdmin}/setting/account-admin/list`,
-        element: <SettingAccountAdminList />,
+        element: <AccountAdminListPage />,
       },
       {
         path: `/${pathAdmin}/setting/account-admin/create`,
-        element: <SettingAccountAdminCreate />,
+        element: <AccountAdminCreatePage />,
       },
       {
         path: `/${pathAdmin}/setting/account-admin/edit/:id`,

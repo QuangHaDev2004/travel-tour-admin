@@ -1,8 +1,10 @@
 import { pathAdmin } from "@/config/path";
 import { api } from "@/libs/axios";
 
-export const getAccounAdminList = async () => {
-  const res = await api.get(`/${pathAdmin}/setting/account-admin/list`);
+export const getAccounAdminList = async (params: Record<string, string>) => {
+  const res = await api.get(`/${pathAdmin}/setting/account-admin/list`, {
+    params,
+  });
   return res.data;
 };
 
@@ -26,6 +28,24 @@ export const accountAdminEditService = async (
   const res = await api.patch(
     `/${pathAdmin}/setting/account-admin/edit/${id}`,
     dataFinal,
+  );
+  return res.data;
+};
+
+export const changeMultiAccountAdmin = async (dataFinal: {
+  action: string;
+  ids: string[];
+}) => {
+  const res = await api.patch(
+    `/${pathAdmin}/setting/account-admin/change-multi`,
+    dataFinal,
+  );
+  return res.data;
+};
+
+export const deleteAccountAdmin = async (id: string) => {
+  const res = await api.patch(
+    `/${pathAdmin}/setting/account-admin/delete/${id}`,
   );
   return res.data;
 };

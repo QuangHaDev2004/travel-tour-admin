@@ -7,7 +7,8 @@ import { useAccountAdminList } from "@/hooks/useAccountAdminList";
 import { statusList } from "@/constants/status";
 
 export const AccountAdminTable = () => {
-  const { accountAdminList } = useAccountAdminList();
+  const { data, isLoading } = useAccountAdminList();
+  const accountAdminList = data?.accountAdminList ?? [];
 
   return (
     <>
