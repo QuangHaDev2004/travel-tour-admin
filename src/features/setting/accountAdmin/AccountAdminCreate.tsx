@@ -4,20 +4,21 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useState } from "react";
 import { accountAdminSchema, type AccountAdminInputs } from "@/types";
 import { PageTitle } from "@/components/pageTitle/PageTitle";
-import { FormInput } from "@/components/form/FormInput";
-import { FormFileUpload } from "@/components/form/FormFileUpload";
-import { ButtonSubmit } from "@/components/button/ButtonSubmit";
-import { ContextLink } from "@/components/common/ContextLink";
-import { pathAdmin } from "@/config/path";
 import { useRoleList } from "../hooks/useRoleList";
 import { useAccountAdminCreate } from "../hooks/useAccountAdminCreate";
+import { ButtonSubmit } from "@/components/form/ButtonSubmit";
+import type { RoleItem } from "@/types/setting";
+import { ButtonBack } from "@/components/button/ActionButtons";
+import { BaseInput } from "@/components/form/BaseInput";
+import { BaseSelect } from "@/components/form/BaseSelect";
+import { FileUploader } from "@/components/form/FileUploader";
 
 export const AccountAdminCreate = () => {
   const [avatars, setAvatars] = useState<any[]>([]);
 
   // Lấy danh sách nhóm quyền để hiển thị trong select
   const { data } = useRoleList();
-  const roleList = data?.roleList ?? [];
+  const roleList: RoleItem[] = data?.roleList ?? [];
 
   const {
     register,
@@ -54,19 +55,16 @@ export const AccountAdminCreate = () => {
 
   return (
     <>
-      <div className="mb-6 flex flex-wrap items-center justify-between gap-2">
+      <div className="mb-4 flex flex-wrap items-center justify-between gap-2">
         <PageTitle title="Tạo tài khoản quản trị" />
-        <ContextLink
-          text="Quay lại danh sách"
-          to={`/${pathAdmin}/setting/account-admin/list`}
-        />
+        <ButtonBack />
       </div>
-      <div className="border-travel-secondary/20 overflow-hidden rounded-md border bg-white p-6 shadow-md">
+      <div className="border-travel-gray overflow-hidden rounded-sm border bg-white p-6">
         <form
           onSubmit={handleSubmit(handleWebsiteInfoForm)}
           className="grid grid-cols-1 gap-6 md:grid-cols-2"
         >
-          <FormInput
+          <BaseInput
             id="fullName"
             label="Họ tên"
             register={register("fullName")}
@@ -74,7 +72,7 @@ export const AccountAdminCreate = () => {
             isRequired
           />
 
-          <FormInput
+          <BaseInput
             id="email"
             label="Email"
             register={register("email")}
@@ -82,7 +80,7 @@ export const AccountAdminCreate = () => {
             isRequired
           />
 
-          <FormInput
+          <BaseInput
             id="phone"
             label="Số điện thoại"
             register={register("phone")}
@@ -90,27 +88,21 @@ export const AccountAdminCreate = () => {
             isRequired
           />
 
-          <div>
-            <label
-              htmlFor="status"
-              className="text-travel-label mb-1 block text-sm font-semibold"
-            >
-              Nhóm quyền
-            </label>
-            <select
-              {...register("role")}
-              className="select bg-travel-three text-travel-secondary h-12 w-full px-5 text-sm font-medium"
-            >
-              <option value="">Chọn nhóm quyền</option>
-              {roleList.map((item) => (
-                <option key={item.id} value={item.id}>
-                  {item.name}
-                </option>
-              ))}
-            </select>
-          </div>
+          <BaseSelect
+            id="role"
+            label="Nhóm quyền"
+            register={register("role")}
+            error={errors.role}
+          >
+            <option value="">Chọn nhóm quyền</option>
+            {roleList.map((item) => (
+              <option key={item.id} value={item.id}>
+                {item.name}
+              </option>
+            ))}
+          </BaseSelect>
 
-          <FormInput
+          <BaseInput
             id="positionCompany"
             label="Chức vụ"
             register={register("positionCompany")}
@@ -118,24 +110,18 @@ export const AccountAdminCreate = () => {
             isRequired
           />
 
-          <div>
-            <label
-              htmlFor="status"
-              className="text-travel-label mb-1 block text-sm font-semibold"
-            >
-              Trạng thái
-            </label>
-            <select
-              {...register("status")}
-              className="select bg-travel-three text-travel-secondary h-12 w-full px-5 text-sm font-medium"
-            >
-              <option value="initial">Khởi tạo</option>
-              <option value="active">Hoạt động</option>
-              <option value="inactive">Tạm dừng</option>
-            </select>
-          </div>
+          <BaseSelect
+            id="status"
+            label="Trạng thái"
+            register={register("status")}
+            error={errors.status}
+          >
+            <option value="initial">Khởi tạo</option>
+            <option value="active">Hoạt động</option>
+            <option value="inactive">Tạm dừng</option>
+          </BaseSelect>
 
-          <FormInput
+          <BaseInput
             id="password"
             label="Mật khẩu"
             register={register("password")}
@@ -143,14 +129,17 @@ export const AccountAdminCreate = () => {
             isRequired
           />
 
-          <FormFileUpload
-            name="avatar"
+          <FileUploader
+            id="avatar"
             label="Ảnh đại diện"
             files={avatars}
             setFiles={setAvatars}
           />
 
-          <ButtonSubmit isPending={isPendingAccountAdminCreate} />
+          <ButtonSubmit
+            text="Tạo mới"
+            isPending={isPendingAccountAdminCreate}
+          />
         </form>
       </div>
     </>
