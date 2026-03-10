@@ -89,31 +89,31 @@ export type WebsiteInfoInputs = z.infer<typeof websiteInfoSchema>;
 export const accountAdminSchema = z.object({
   fullName: z
     .string()
-    .min(1, "Vui lòng nhập họ tên!")
-    .min(5, "Họ tên phải có ít nhất 5 ký tự!")
-    .max(50, "Họ tên không được vượt quá 50 ký tự!"),
+    .min(1, "Vui lòng nhập họ tên.")
+    .min(5, "Họ tên phải có ít nhất 5 ký tự.")
+    .max(50, "Họ tên không được vượt quá 50 ký tự."),
   email: z
     .string()
-    .min(1, "Vui lòng nhập email!")
-    .email("Email không đúng định dạng!"),
+    .min(1, "Vui lòng nhập email.")
+    .email("Email không đúng định dạng."),
   phone: z
     .string()
-    .min(1, "Vui lòng nhập số điện thoại!")
+    .min(1, "Vui lòng nhập số điện thoại")
     .regex(
       /^(0|\+84)(3[2-9]|5[6|8|9]|7[0|6-9]|8[1-6|8|9]|9[0-9])[0-9]{7}$/,
-      "Số điện thoại không đúng định dạng!",
+      "Số điện thoại không đúng định dạng.",
     ),
   role: z.string().optional(),
-  positionCompany: z.string().min(1, "Vui lòng nhập chức vụ!"),
+  positionCompany: z.string().min(1, "Vui lòng nhập chức vụ."),
   status: z.string().optional(),
   password: z
     .string()
-    .min(1, "Vui lòng nhập mật khẩu!")
-    .min(8, "Mật khẩu phải chứa ít nhất 8 ký tự!")
-    .regex(/[A-Z]/, "Mật khẩu phải chứa ký tự viết hoa!")
-    .regex(/[a-z]/, "Mật khẩu phải chứa ký tự viết thường!")
-    .regex(/[0-9]/, "Mật khẩu phải chứa chữ số!")
-    .regex(/[^a-zA-Z0-9\s]/, "Mật khẩu phải chứa ký tự đặc biệt!"),
+    .min(1, "Vui lòng nhập mật khẩu.")
+    .min(8, "Mật khẩu phải chứa ít nhất 8 ký tự.")
+    .regex(/[A-Z]/, "Mật khẩu phải chứa ký tự viết hoa.")
+    .regex(/[a-z]/, "Mật khẩu phải chứa ký tự viết thường.")
+    .regex(/[0-9]/, "Mật khẩu phải chứa chữ số.")
+    .regex(/[^a-zA-Z0-9\s]/, "Mật khẩu phải chứa ký tự đặc biệt."),
   avatar: z.any(),
 });
 

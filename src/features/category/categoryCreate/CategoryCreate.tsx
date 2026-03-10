@@ -1,6 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { useRef, useState } from "react";
-import { pathAdmin } from "@/config/path";
 import { renderOptions } from "@/utils/renderOptions";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { BaseInput } from "@/components/form/BaseInput";
@@ -59,7 +58,7 @@ export const CategoryCreate = () => {
     <>
       <div className="mb-4 flex flex-wrap items-center justify-between gap-2">
         <PageTitle title="Tạo danh mục" />
-        <ButtonBack to={`/${pathAdmin}/category/list`} />
+        <ButtonBack />
       </div>
       <div className="border-travel-gray overflow-hidden rounded-sm border bg-white p-6">
         <form
