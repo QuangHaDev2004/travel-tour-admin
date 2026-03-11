@@ -5,10 +5,15 @@ import { ButtonEdit } from "@/components/button/ButtonEdit";
 import { EmptyTableRow } from "@/components/table/EmptyTableRow";
 import { Search } from "@/components/common/Search";
 import { useRoleList } from "../hooks/useRoleList";
-import { useState } from "react";
+import { useMemo, useState } from "react";
+import type { RoleItem } from "@/types/setting";
 
 export const RoleTable = () => {
-  const { roleList } = useRoleList();
+  const { data } = useRoleList();
+  const roleList: RoleItem[] = useMemo(
+    () => data?.roleList ?? [],
+    [data?.roleList],
+  );
   const [selectedIds, setSelectedIds] = useState<string[]>([]);
   const [action, setAction] = useState<string>("");
 
@@ -109,7 +114,9 @@ export const RoleTable = () => {
                   </td>
                   <td className="border-travel-four border-b px-4 py-2 text-left text-sm font-semibold">
                     <div className="border-travel-four inline-flex items-center rounded-lg border bg-[#FAFBFD]">
-                      <ButtonEdit to={`/${pathAdmin}/setting/role/edit/${item.id}`} />
+                      <ButtonEdit
+                        to={`/${pathAdmin}/setting/role/edit/${item.id}`}
+                      />
                       <ButtonDelete
                         endpoint={`/${pathAdmin}/setting/role/delete`}
                       />

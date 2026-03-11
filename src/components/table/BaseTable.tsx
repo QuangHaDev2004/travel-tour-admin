@@ -88,6 +88,9 @@ export function BaseTable<TData extends { id: string }>({
       columnVisibility,
       rowSelection,
     },
+
+    // Không tự reset về trang đầu
+    autoResetPageIndex: false,
   });
 
   // Lấy danh sách id của các dòng đang được chọn
