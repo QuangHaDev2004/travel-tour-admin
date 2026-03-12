@@ -8,5 +8,4 @@ export * from "./accountAdmin/accountAdminEdit/AccountAdminEdit";
 
 export * from "./role/roleList/RoleList";
 export * from "./role/roleCreate/RoleCreate";
-
-export * from "./SettingRoleEdit";
+export * from "./role/roleEdit/RoleEdit";
