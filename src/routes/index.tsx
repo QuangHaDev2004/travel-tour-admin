@@ -4,7 +4,6 @@ import { DefaultLayout } from "@/layouts/DefaultLayout";
 import { Dashboard } from "@/features/dashboard";
 import { UserList } from "@/features/user";
 import { ContactList } from "@/features/contact";
-import { SettingRoleEdit } from "@/features/setting";
 import { ProfileChangePassword, ProfileEdit } from "@/features/profile";
 import { Template } from "@/features/template";
 import { NotFound } from "@/features/error";
@@ -35,6 +34,7 @@ import {
   AccountAdminEditPage,
   AccountAdminListPage,
   RoleCreatePage,
+  RoleEditPage,
   RoleListPage,
   SettingListPage,
   WebsiteInfoPage,
@@ -127,7 +127,7 @@ export const router = createBrowserRouter([
       },
       {
         path: `/${pathAdmin}/setting/role/edit/:id`,
-        element: <SettingRoleEdit />,
+        element: <RoleEditPage />,
       },
       {
         path: `/${pathAdmin}/profile/edit`,
