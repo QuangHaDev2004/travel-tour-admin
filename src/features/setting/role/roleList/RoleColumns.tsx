@@ -36,7 +36,7 @@ export const columns: ColumnDef<RoleItem>[] = [
     accessorKey: "name",
     id: "Tên nhóm quyền",
     header: () => <div className="font-semibold">Tên nhóm quyền</div>,
-    cell: ({ row }) => <div className="capitalize">{row.original.name}</div>,
+    cell: ({ row }) => <div>{row.original.name}</div>,
   },
   {
     accessorKey: "description",

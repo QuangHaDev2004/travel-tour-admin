@@ -1,6 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { useRef, useState } from "react";
-import { pathAdmin } from "@/config/path";
 import { useCityList } from "../hooks/useCityList";
 import { useAuthStore } from "@/stores/useAuthStore";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -20,7 +19,7 @@ import { ButtonSubmit } from "@/components/form/ButtonSubmit";
 import { ButtonBack } from "@/components/button/ActionButtons";
 import { NoPermission } from "@/components/common/NoPermission";
 import { FileMultiUploader } from "@/components/form/FileMultiUploader";
-import { LocationCheckboxList } from "../components/LocationCheckboxList";
+import { CheckboxList } from "@/components/form/CheckboxList";
 
 export const TourCreate = () => {
   const { data } = useCategoryList();
@@ -139,7 +138,7 @@ export const TourCreate = () => {
         <>
           <div className="mb-4 flex flex-wrap items-center justify-between gap-2">
             <PageTitle title="Tạo tour" />
-            <ButtonBack to={`/${pathAdmin}/tour/list`} />
+            <ButtonBack />
           </div>
           <div className="border-travel-gray overflow-hidden rounded-sm border bg-white p-6">
             <form
@@ -227,16 +226,20 @@ export const TourCreate = () => {
                 />
               </div>
 
-              <LocationCheckboxList
+              <CheckboxList
                 label="Điểm khởi hành"
-                cityList={cityList}
+                list={cityList}
+                valueKey="_id"
+                labelKey="name"
                 selectedValues={locationsFrom}
                 onToggle={handleToggleForm}
               />
 
-              <LocationCheckboxList
+              <CheckboxList
                 label="Điểm đến"
-                cityList={cityList}
+                list={cityList}
+                valueKey="_id"
+                labelKey="name"
                 selectedValues={locationsTo}
                 onToggle={handleToggleTo}
               />

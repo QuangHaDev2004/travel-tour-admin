@@ -19,7 +19,7 @@ import { TourInputGroup } from "../components/TourInputGroup";
 import { ButtonSubmit } from "@/components/form/ButtonSubmit";
 import { ButtonBack } from "@/components/button/ActionButtons";
 import { FileMultiUploader } from "@/components/form/FileMultiUploader";
-import { LocationCheckboxList } from "../components/LocationCheckboxList";
+import { CheckboxList } from "@/components/form/CheckboxList";
 
 export const TourEdit = () => {
   const { id } = useParams();
@@ -264,16 +264,20 @@ export const TourEdit = () => {
             />
           </div>
 
-          <LocationCheckboxList
+          <CheckboxList
             label="Điểm khởi hành"
-            cityList={cityList}
+            list={cityList}
+            valueKey="_id"
+            labelKey="name"
             selectedValues={locationsFrom}
             onToggle={handleToggleForm}
           />
 
-          <LocationCheckboxList
+          <CheckboxList
             label="Điểm đến"
-            cityList={cityList}
+            list={cityList}
+            valueKey="_id"
+            labelKey="name"
             selectedValues={locationsTo}
             onToggle={handleToggleTo}
           />

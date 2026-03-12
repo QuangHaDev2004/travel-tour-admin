@@ -7,3 +7,4 @@ export * from "./AccountAdminCreatePage";
 export * from "./AccountAdminEditPage";
 
 export * from "./RoleListPage";
+export * from "./RoleCreatePage";
