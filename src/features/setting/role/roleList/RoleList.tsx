@@ -4,10 +4,14 @@ import { ButtonCreate } from "@/components/button/ActionButtons";
 import { useRoleList } from "../../hooks/useRoleList";
 import type { RoleItem } from "@/types/setting";
 import { RoleTable } from "./RoleTable";
+import { useDeleteRole } from "../../hooks/useDeleteRole";
 
 export const RoleList = () => {
   const { data, isLoading } = useRoleList();
   const roleList: RoleItem[] = data?.roleList ?? [];
+  const pagination = data?.pagination ?? {};
+
+  const { mutate: deleteRole, isPending: isDeletingRole } = useDeleteRole();
 
   return (
     <>
@@ -16,9 +20,15 @@ export const RoleList = () => {
         <ButtonCreate to={`/${pathAdmin}/setting/role/create`} />
       </div>
 
-      <RoleTable data={roleList} isLoading={isLoading} />
-
-      {/* <RoleTable /> */}
+      <RoleTable
+        data={roleList}
+        isLoading={isLoading}
+        pagination={pagination}
+        tableActions={{
+          deleteItem: deleteRole,
+          isDeletingItem: isDeletingRole,
+        }}
+      />
     </>
   );
 };

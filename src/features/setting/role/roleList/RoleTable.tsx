@@ -2,10 +2,10 @@ import { BaseTable } from "@/components/table/BaseTable";
 import type { PaginationDetail } from "@/types/pagination";
 import { Trash2 } from "lucide-react";
 import type { MultiActionItem } from "@/components/table/TableChangeMulti";
-import { useChangeMultiAccountAdmin } from "../../hooks/useChangeMultiAccountAdmin";
 import type { RoleItem } from "@/types/setting";
 import { columns } from "./RoleColumns";
 import { RoleToolbar } from "./RoleToolbar";
+import { useChangeMultiRole } from "../../hooks/useChangeMultiRole";
 
 export const RoleTable = ({
   data,
@@ -22,10 +22,8 @@ export const RoleTable = ({
   };
 }) => {
   // Hook gọi API thay đổi nhiều tài khoản
-  const {
-    mutate: changeMultiAccountAdmin,
-    isPending: isChangingMultiAccountAdmin,
-  } = useChangeMultiAccountAdmin();
+  const { mutate: changeMultiRole, isPending: isChangingMultiRole } =
+    useChangeMultiRole();
 
   // Hàm xử lý khi chọn 1 action
   const handleChangeMulti = (
@@ -33,7 +31,7 @@ export const RoleTable = ({
     ids: string[],
     options: { onSuccess: () => void },
   ) => {
-    changeMultiAccountAdmin({ action, ids }, { onSuccess: options.onSuccess });
+    changeMultiRole({ action, ids }, { onSuccess: options.onSuccess });
   };
 
   // Danh sách hành động
@@ -61,7 +59,7 @@ export const RoleTable = ({
       meta={{ ...tableActions }}
       toolbar={<RoleToolbar />}
       onMultiAction={handleChangeMulti}
-      isMultiPending={isChangingMultiAccountAdmin}
+      isMultiPending={isChangingMultiRole}
       multiActions={roleListActions}
     />
   );

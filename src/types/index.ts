@@ -155,7 +155,7 @@ export type AccountAdminEditInputs = z.infer<typeof accountAdminEditSchema>;
 
 // Setting Role
 export const roleSchema = z.object({
-  name: z.string().min(1, "Vui lòng nhập nhóm quyền!"),
+  name: z.string().min(1, "Vui lòng nhập nhóm quyền."),
   description: z.string().optional(),
   permissions: z.array(z.string()).optional(),
 });

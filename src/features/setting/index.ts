@@ -7,5 +7,6 @@ export * from "./accountAdmin/accountAdminCreate/AccountAdminCreate";
 export * from "./accountAdmin/accountAdminEdit/AccountAdminEdit";
 
 export * from "./role/roleList/RoleList";
-export * from "./SettingRoleCreate";
+export * from "./role/roleCreate/RoleCreate";
+
 export * from "./SettingRoleEdit";

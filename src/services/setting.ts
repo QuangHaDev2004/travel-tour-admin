@@ -69,8 +69,8 @@ export const roleCreateService = async (dataFinal: {
   return res.data;
 };
 
-export const roleListService = async () => {
-  const res = await api.get(`/${pathAdmin}/setting/role/list`);
+export const roleList = async (params: Record<string, string>) => {
+  const res = await api.get(`/${pathAdmin}/setting/role/list`, { params });
   return res.data;
 };
 
@@ -89,6 +89,22 @@ export const roleEditService = async (
 ) => {
   const res = await api.patch(
     `/${pathAdmin}/setting/role/edit/${id}`,
+    dataFinal,
+  );
+  return res.data;
+};
+
+export const deleteRole = async (id: string) => {
+  const res = await api.patch(`/${pathAdmin}/setting/role/delete/${id}`);
+  return res.data;
+};
+
+export const changeMultiRole = async (dataFinal: {
+  action: string;
+  ids: string[];
+}) => {
+  const res = await api.patch(
+    `/${pathAdmin}/setting/role/change-multi`,
     dataFinal,
   );
   return res.data;
