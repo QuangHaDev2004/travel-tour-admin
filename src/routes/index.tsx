@@ -3,8 +3,6 @@ import { pathAdmin } from "@/config/path";
 import { DefaultLayout } from "@/layouts/DefaultLayout";
 import { Dashboard } from "@/features/dashboard";
 import { UserList } from "@/features/user";
-import { ProfileChangePassword, ProfileEdit } from "@/features/profile";
-import { NotFound } from "@/features/error";
 import { AccountLayout } from "@/layouts/AccountLayout";
 import {
   ForgotPassword,
@@ -39,6 +37,9 @@ import {
 } from "@/pages/setting";
 import { TemplatePage } from "@/pages/template";
 import { ContactListPage } from "@/pages/contact";
+import { NotFoundPage } from "@/pages/error";
+import { NotFound } from "@/features/error";
+import { ProfileChangePasswordPage, ProfileEditPage } from "@/pages/profile";
 
 export const router = createBrowserRouter([
   {
@@ -47,7 +48,7 @@ export const router = createBrowserRouter([
         <DefaultLayout />
       </ProtectedRoute>
     ),
-    errorElement: <NotFound />,
+    errorElement: <NotFoundPage />,
     children: [
       {
         path: `/${pathAdmin}/dashboard`,
@@ -131,11 +132,11 @@ export const router = createBrowserRouter([
       },
       {
         path: `/${pathAdmin}/profile/edit`,
-        element: <ProfileEdit />,
+        element: <ProfileEditPage />,
       },
       {
         path: `/${pathAdmin}/profile/change-password`,
-        element: <ProfileChangePassword />,
+        element: <ProfileChangePasswordPage />,
       },
       {
         path: `/${pathAdmin}/template`,
