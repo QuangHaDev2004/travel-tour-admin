@@ -1,17 +1,17 @@
 import { getContactList } from "@/services/contact";
-import type { ContactDetail } from "@/types/contact";
 import { useQuery } from "@tanstack/react-query";
+import { useSearchParams } from "react-router";
 
 export const useContactList = () => {
-  const { data, isPending } = useQuery({
-    queryKey: ["contactList"],
-    queryFn: getContactList,
+  const [searchParams] = useSearchParams();
+
+  const params: Record<string, string> = {};
+  searchParams.forEach((value, key) => {
+    if (value) params[key] = value;
   });
 
-  const contactList: ContactDetail[] = data?.contactList ?? [];
-
-  return {
-    contactList,
-    isPending,
-  };
+  return useQuery({
+    queryKey: ["contactList", params],
+    queryFn: () => getContactList(params),
+  });
 };

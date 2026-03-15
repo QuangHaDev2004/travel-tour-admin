@@ -3,7 +3,6 @@ import { pathAdmin } from "@/config/path";
 import { DefaultLayout } from "@/layouts/DefaultLayout";
 import { Dashboard } from "@/features/dashboard";
 import { UserList } from "@/features/user";
-import { ContactList } from "@/features/contact";
 import { ProfileChangePassword, ProfileEdit } from "@/features/profile";
 import { NotFound } from "@/features/error";
 import { AccountLayout } from "@/layouts/AccountLayout";
@@ -39,6 +38,7 @@ import {
   WebsiteInfoPage,
 } from "@/pages/setting";
 import { TemplatePage } from "@/pages/template";
+import { ContactListPage } from "@/pages/contact";
 
 export const router = createBrowserRouter([
   {
@@ -95,7 +95,7 @@ export const router = createBrowserRouter([
       },
       {
         path: `/${pathAdmin}/contact/list`,
-        element: <ContactList />,
+        element: <ContactListPage />,
       },
       {
         path: `/${pathAdmin}/setting/list`,
