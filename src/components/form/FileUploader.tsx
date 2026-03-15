@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { FilePond } from "react-filepond";
-import "@/libs/filepond";
+import "@/lib/filepond";
 
 type FileUploaderProps = {
   id: string;

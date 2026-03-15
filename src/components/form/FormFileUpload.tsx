@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import "../../libs/filepondConfig";
+import "../../lib/filepondConfig";
 import { FilePond } from "react-filepond";
 
 type FormFileUploadProps = {
