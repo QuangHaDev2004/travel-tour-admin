@@ -4,13 +4,13 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useEffect, useState } from "react";
 import { profileEditSchema, type ProfileEditInputs } from "@/types";
 import { PageTitle } from "@/components/pageTitle/PageTitle";
-import { FormInput } from "@/components/form/FormInput";
-import { FormFileUpload } from "@/components/form/FormFileUpload";
-import { ButtonSubmit } from "@/components/button/ButtonSubmit";
-import { ContextLink } from "@/components/common/ContextLink";
 import { pathAdmin } from "@/config/path";
 import { useProfileDetail } from "./hooks/useProfileDetail";
 import { useProfileEdit } from "./hooks/useProfileEdit";
+import { ButtonSubmit } from "@/components/form/ButtonSubmit";
+import { BaseInput } from "@/components/form/BaseInput";
+import { FileUploader } from "@/components/form/FileUploader";
+import { ButtonNext } from "@/components/button/ActionButtons";
 
 export const ProfileEdit = () => {
   const [avatars, setAvatars] = useState<any[]>([]);
@@ -58,19 +58,19 @@ export const ProfileEdit = () => {
 
   return (
     <>
-      <div className="mb-6 flex flex-wrap items-center justify-between gap-2">
+      <div className="mb-4 flex flex-wrap items-center justify-between gap-2">
         <PageTitle title="Thông tin cá nhân" />
-        <ContextLink
-          text="Đổi mật khẩu"
+        <ButtonNext
+          label="Đổi mật khẩu"
           to={`/${pathAdmin}/profile/change-password`}
         />
       </div>
-      <div className="border-travel-secondary/20 overflow-hidden rounded-md border bg-white p-6 shadow-md">
+      <div className="border-travel-gray overflow-hidden rounded-sm border bg-white p-6">
         <form
           onSubmit={handleSubmit(handleProfileEditForm)}
           className="grid grid-cols-1 gap-6 md:grid-cols-2"
         >
-          <FormInput
+          <BaseInput
             id="fullName"
             label="Họ tên"
             register={register("fullName")}
@@ -78,7 +78,7 @@ export const ProfileEdit = () => {
             isRequired
           />
 
-          <FormInput
+          <BaseInput
             id="email"
             label="Email"
             register={register("email")}
@@ -86,7 +86,7 @@ export const ProfileEdit = () => {
             isRequired
           />
 
-          <FormInput
+          <BaseInput
             id="phone"
             label="Số điện thoại"
             register={register("phone")}
@@ -94,22 +94,22 @@ export const ProfileEdit = () => {
             isRequired
           />
 
-          <FormInput
+          <BaseInput
             id="positionCompany"
             label="Chức vụ"
-            readOnly
             defaultValue={profileDetail?.positionCompany}
+            readOnly
           />
 
-          <FormInput
+          <BaseInput
             id="role"
             label="Nhóm quyền"
+            defaultValue={profileDetail?.fullName}
             readOnly
-            defaultValue={profileDetail?.roleName}
           />
 
-          <FormFileUpload
-            name="avatar"
+          <FileUploader
+            id="avatar"
             label="Ảnh đại diện"
             files={avatars}
             setFiles={setAvatars}

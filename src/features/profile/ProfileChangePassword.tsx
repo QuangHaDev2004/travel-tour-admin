@@ -1,13 +1,14 @@
 import { useForm, type SubmitHandler } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { PageTitle } from "@/components/pageTitle/PageTitle";
-import { FormInput } from "@/components/form/FormInput";
-import { ButtonSubmit } from "@/components/button/ButtonSubmit";
 import {
   profileChangePasswordSchema,
   type ProfileChangePasswordInputs,
 } from "@/types";
 import { useProfileChangePassword } from "./hooks/useProfileChangePassword";
+import { ButtonBack } from "@/components/button/ActionButtons";
+import { BaseInput } from "@/components/form/BaseInput";
+import { ButtonSubmit } from "@/components/form/ButtonSubmit";
 
 export const ProfileChangePassword = () => {
   const {
@@ -35,15 +36,16 @@ export const ProfileChangePassword = () => {
 
   return (
     <>
-      <div className="mb-6 flex flex-wrap items-center justify-between gap-2">
+      <div className="mb-4 flex flex-wrap items-center justify-between gap-2">
         <PageTitle title="Đổi mật khẩu" />
+        <ButtonBack />
       </div>
-      <div className="border-travel-secondary/20 overflow-hidden rounded-md border bg-white p-6 shadow-md">
+      <div className="border-travel-gray overflow-hidden rounded-sm border bg-white p-6">
         <form
           onSubmit={handleSubmit(handleProfileChangePasswordForm)}
           className="grid grid-cols-1 gap-6 md:grid-cols-2"
         >
-          <FormInput
+          <BaseInput
             id="password"
             label="Mật khẩu"
             register={register("password")}
@@ -51,7 +53,7 @@ export const ProfileChangePassword = () => {
             isRequired
           />
 
-          <FormInput
+          <BaseInput
             id="confirmPassword"
             label="Nhập lại mật khẩu mới"
             register={register("confirmPassword")}

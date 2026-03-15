@@ -2,12 +2,13 @@ import { useForm, type SubmitHandler } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { templateSchema, type TemplateInputs } from "@/types";
 import { PageTitle } from "@/components/pageTitle/PageTitle";
-import { ButtonSubmit } from "@/components/button/ButtonSubmit";
 import { useCategoryList } from "../../hooks/useCategoryList";
 import { renderOptions } from "@/utils/renderOptions";
 import { useTemplateEdit } from "./hook/useTemplateEdit";
 import { useTemplateDetail } from "./hook/useTemplateDetail";
 import { useEffect, useMemo } from "react";
+import { ButtonSubmit } from "@/components/form/ButtonSubmit";
+import { BaseSelect } from "@/components/form/BaseSelect";
 
 export const Template = () => {
   const { data } = useCategoryList();
@@ -19,7 +20,12 @@ export const Template = () => {
   const { mutate: mutateTemplateEdit, isPending: pendingTemplateEdit } =
     useTemplateEdit();
 
-  const { register, reset, handleSubmit } = useForm<TemplateInputs>({
+  const {
+    register,
+    reset,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<TemplateInputs>({
     resolver: zodResolver(templateSchema),
   });
 
@@ -39,45 +45,33 @@ export const Template = () => {
 
   return (
     <>
-      <div className="mb-6 flex flex-wrap items-center justify-between gap-2">
+      <div className="mb-4 flex flex-wrap items-center justify-between gap-2">
         <PageTitle title="Thiết lập giao diện" />
       </div>
-      <div className="border-travel-secondary/20 overflow-hidden rounded-md border bg-white p-6 shadow-md">
+      <div className="border-travel-gray overflow-hidden rounded-sm border bg-white p-6">
         <form
           onSubmit={handleSubmit(handleTemplateForm)}
           className="grid grid-cols-1 gap-6 md:grid-cols-2"
         >
-          <div>
-            <label
-              htmlFor="dataTourListOne"
-              className="text-travel-label mb-1 block text-sm font-semibold"
-            >
-              Dữ liệu Home Tour List One
-            </label>
-            <select
-              {...register("dataTourListOne")}
-              className="select bg-travel-three text-travel-secondary h-12 w-full px-5 text-sm font-medium"
-            >
-              <option value="">-- Chọn danh mục --</option>
-              {renderOptions(categoryTree)}
-            </select>
-          </div>
+          <BaseSelect
+            id="dataTourListOne"
+            label="Dữ liệu Home Tour List One"
+            register={register("dataTourListOne")}
+            error={errors.dataTourListOne}
+          >
+            <option value="">-- Chọn danh mục --</option>
+            {renderOptions(categoryTree)}
+          </BaseSelect>
 
-          <div>
-            <label
-              htmlFor="dataTourListTwo"
-              className="text-travel-label mb-1 block text-sm font-semibold"
-            >
-              Dữ liệu Home Tour List Two
-            </label>
-            <select
-              {...register("dataTourListTwo")}
-              className="select bg-travel-three text-travel-secondary h-12 w-full px-5 text-sm font-medium"
-            >
-              <option value="">-- Chọn danh mục --</option>
-              {renderOptions(categoryTree)}
-            </select>
-          </div>
+          <BaseSelect
+            id="dataTourListTwo"
+            label="Dữ liệu Home Tour List Two"
+            register={register("dataTourListTwo")}
+            error={errors.dataTourListTwo}
+          >
+            <option value="">-- Chọn danh mục --</option>
+            {renderOptions(categoryTree)}
+          </BaseSelect>
 
           <ButtonSubmit text="Cập nhật" isPending={pendingTemplateEdit} />
         </form>

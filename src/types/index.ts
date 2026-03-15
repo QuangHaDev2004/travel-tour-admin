@@ -67,15 +67,15 @@ export type OrderFormInputs = z.infer<typeof orderFormSchema>;
 
 // Setting Website Info
 export const websiteInfoSchema = z.object({
-  websiteName: z.string().min(1, "Vui lòng nhập tên website!"),
+  websiteName: z.string().min(1, "Vui lòng nhập tên website."),
   phone: z
     .string()
     .regex(
       /^(0|\+84)(3[2-9]|5[6|8|9]|7[0|6-9]|8[1-6|8|9]|9[0-9])[0-9]{7}$/,
-      "Số điện thoại không đúng định dạng!",
+      "Số điện thoại không đúng định dạng.",
     )
     .or(z.literal("")),
-  email: z.string().email("Email không đúng định dạng!").or(z.literal("")),
+  email: z.string().email("Email không đúng định dạng.").or(z.literal("")),
   address: z.string().optional(),
   facebook: z.string().optional(),
   zalo: z.string().optional(),
@@ -166,19 +166,19 @@ export type RoleInputs = z.infer<typeof roleSchema>;
 export const profileEditSchema = z.object({
   fullName: z
     .string()
-    .min(1, "Vui lòng nhập họ tên!")
-    .min(5, "Họ tên phải có ít nhất 5 ký tự!")
-    .max(50, "Họ tên không được vượt quá 50 ký tự!"),
+    .min(1, "Vui lòng nhập họ tên.")
+    .min(5, "Họ tên phải có ít nhất 5 ký tự.")
+    .max(50, "Họ tên không được vượt quá 50 ký tự."),
   email: z
     .string()
-    .min(1, "Vui lòng nhập email!")
-    .email("Email không đúng định dạng!"),
+    .min(1, "Vui lòng nhập email.")
+    .email("Email không đúng định dạng."),
   phone: z
     .string()
-    .min(1, "Vui lòng nhập số điện thoại!")
+    .min(1, "Vui lòng nhập số điện thoại.")
     .regex(
       /^(0|\+84)(3[2-9]|5[6|8|9]|7[0|6-9]|8[1-6|8|9]|9[0-9])[0-9]{7}$/,
-      "Số điện thoại không đúng định dạng!",
+      "Số điện thoại không đúng định dạng.",
     ),
   avatar: z.any(),
 });
@@ -189,17 +189,17 @@ export const profileChangePasswordSchema = z
   .object({
     password: z
       .string()
-      .min(1, "Vui lòng nhập mật khẩu!")
-      .min(8, "Mật khẩu phải chứa ít nhất 8 ký tự!")
-      .regex(/[A-Z]/, "Mật khẩu phải chứa ký tự viết hoa!")
-      .regex(/[a-z]/, "Mật khẩu phải chứa ký tự viết thường!")
-      .regex(/[0-9]/, "Mật khẩu phải chứa chữ số!")
-      .regex(/[^a-zA-Z0-9\s]/, "Mật khẩu phải chứa ký tự đặc biệt!"),
-    confirmPassword: z.string().min(1, "Vui lòng nhập xác nhận mật khẩu!"),
+      .min(1, "Vui lòng nhập mật khẩu.")
+      .min(8, "Mật khẩu phải chứa ít nhất 8 ký tự.")
+      .regex(/[A-Z]/, "Mật khẩu phải chứa ký tự viết hoa.")
+      .regex(/[a-z]/, "Mật khẩu phải chứa ký tự viết thường.")
+      .regex(/[0-9]/, "Mật khẩu phải chứa chữ số.")
+      .regex(/[^a-zA-Z0-9\s]/, "Mật khẩu phải chứa ký tự đặc biệt."),
+    confirmPassword: z.string().min(1, "Vui lòng nhập xác nhận mật khẩu."),
   })
   .refine((data) => data.password === data.confirmPassword, {
     path: ["confirmPassword"], // báo lỗi tại trường confirmPassword
-    error: "Mật khẩu xác nhận không khớp!",
+    error: "Mật khẩu xác nhận không khớp.",
   });
 
 export type ProfileChangePasswordInputs = z.infer<
@@ -218,9 +218,9 @@ export type TemplateInputs = z.infer<typeof templateSchema>;
 export const loginSchema = z.object({
   email: z
     .string()
-    .min(1, "Vui lòng nhập email!")
-    .email("Email không đúng định dạng!"),
-  password: z.string().min(1, "Vui lòng nhập mật khẩu!"),
+    .min(1, "Vui lòng nhập email.")
+    .email("Email không đúng định dạng."),
+  password: z.string().min(1, "Vui lòng nhập mật khẩu."),
   rememberPassword: z.boolean().optional(),
 });
 
@@ -230,23 +230,23 @@ export type LoginInputs = z.infer<typeof loginSchema>;
 export const registerSchema = z.object({
   fullName: z
     .string()
-    .min(1, "Vui lòng nhập họ tên!")
-    .min(5, "Họ tên phải có ít nhất 5 ký tự!")
-    .max(50, "Họ tên không được vượt quá 50 ký tự!"),
+    .min(1, "Vui lòng nhập họ tên.")
+    .min(5, "Họ tên phải có ít nhất 5 ký tự.")
+    .max(50, "Họ tên không được vượt quá 50 ký tự."),
   email: z
     .string()
-    .min(1, "Vui lòng nhập email!")
-    .email("Email không đúng định dạng!"),
+    .min(1, "Vui lòng nhập email.")
+    .email("Email không đúng định dạng."),
   password: z
     .string()
-    .min(1, "Vui lòng nhập mật khẩu!")
-    .min(8, "Mật khẩu phải chứa ít nhất 8 ký tự!")
-    .regex(/[A-Z]/, "Mật khẩu phải chứa ký tự viết hoa!")
-    .regex(/[a-z]/, "Mật khẩu phải chứa ký tự viết thường!")
-    .regex(/[0-9]/, "Mật khẩu phải chứa chữ số!")
-    .regex(/[^a-zA-Z0-9\s]/, "Mật khẩu phải chứa ký tự đặc biệt!"),
+    .min(1, "Vui lòng nhập mật khẩu.")
+    .min(8, "Mật khẩu phải chứa ít nhất 8 ký tự.")
+    .regex(/[A-Z]/, "Mật khẩu phải chứa ký tự viết hoa.")
+    .regex(/[a-z]/, "Mật khẩu phải chứa ký tự viết thường.")
+    .regex(/[0-9]/, "Mật khẩu phải chứa chữ số.")
+    .regex(/[^a-zA-Z0-9\s]/, "Mật khẩu phải chứa ký tự đặc biệt."),
   agree: z.boolean().refine((value) => value === true, {
-    error: "Bạn phải đồng ý với các điều khoản và điều kiện!",
+    error: "Bạn phải đồng ý với các điều khoản và điều kiện.",
   }),
 });
 
@@ -256,15 +256,15 @@ export type RegisterInputs = z.infer<typeof registerSchema>;
 export const forgotPasswordSchema = z.object({
   email: z
     .string()
-    .min(1, "Vui lòng nhập email!")
-    .email("Email không đúng định dạng!"),
+    .min(1, "Vui lòng nhập email.")
+    .email("Email không đúng định dạng."),
 });
 
 export type ForgotPasswordInputs = z.infer<typeof forgotPasswordSchema>;
 
 // OTP Password
 export const otpPasswordSchema = z.object({
-  otp: z.string().min(1, "Vui lòng nhập mã OTP!"),
+  otp: z.string().min(1, "Vui lòng nhập mã OTP."),
 });
 
 export type otpPasswordInputs = z.infer<typeof otpPasswordSchema>;
@@ -274,17 +274,17 @@ export const resetPasswordSchema = z
   .object({
     password: z
       .string()
-      .min(1, "Vui lòng nhập mật khẩu!")
-      .min(8, "Mật khẩu phải chứa ít nhất 8 ký tự!")
-      .regex(/[A-Z]/, "Mật khẩu phải chứa ký tự viết hoa!")
-      .regex(/[a-z]/, "Mật khẩu phải chứa ký tự viết thường!")
-      .regex(/[0-9]/, "Mật khẩu phải chứa chữ số!")
-      .regex(/[^a-zA-Z0-9\s]/, "Mật khẩu phải chứa ký tự đặc biệt!"),
-    confirmPassword: z.string().min(1, "Vui lòng nhập xác nhận mật khẩu!"),
+      .min(1, "Vui lòng nhập mật khẩu.")
+      .min(8, "Mật khẩu phải chứa ít nhất 8 ký tự.")
+      .regex(/[A-Z]/, "Mật khẩu phải chứa ký tự viết hoa.")
+      .regex(/[a-z]/, "Mật khẩu phải chứa ký tự viết thường.")
+      .regex(/[0-9]/, "Mật khẩu phải chứa chữ số.")
+      .regex(/[^a-zA-Z0-9\s]/, "Mật khẩu phải chứa ký tự đặc biệt."),
+    confirmPassword: z.string().min(1, "Vui lòng nhập xác nhận mật khẩu."),
   })
   .refine((data) => data.password === data.confirmPassword, {
     path: ["confirmPassword"], // báo lỗi tại trường confirmPassword
-    error: "Mật khẩu xác nhận không khớp!",
+    error: "Mật khẩu xác nhận không khớp.",
   });
 
 export type ResetPasswordInputs = z.infer<typeof resetPasswordSchema>;
