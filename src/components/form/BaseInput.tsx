@@ -46,7 +46,7 @@ export const BaseInput = ({
         onWheel={(e) => e.currentTarget.blur()}
         className={`text-travel-secondary bg-travel-gray-3 h-11 w-full rounded-sm border px-4 text-sm font-medium ${
           readOnly
-            ? "border-travel-gray cursor-not-allowed"
+            ? "border-travel-gray cursor-not-allowed opacity-70"
             : error
               ? "border-travel-error"
               : "border-travel-gray focus:border-travel-primary hover:border-travel-primary"

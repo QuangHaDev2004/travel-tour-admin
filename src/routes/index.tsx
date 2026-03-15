@@ -5,7 +5,6 @@ import { Dashboard } from "@/features/dashboard";
 import { UserList } from "@/features/user";
 import { ContactList } from "@/features/contact";
 import { ProfileChangePassword, ProfileEdit } from "@/features/profile";
-import { Template } from "@/features/template";
 import { NotFound } from "@/features/error";
 import { AccountLayout } from "@/layouts/AccountLayout";
 import {
@@ -39,6 +38,7 @@ import {
   SettingListPage,
   WebsiteInfoPage,
 } from "@/pages/setting";
+import { TemplatePage } from "@/pages/template";
 
 export const router = createBrowserRouter([
   {
@@ -139,7 +139,7 @@ export const router = createBrowserRouter([
       },
       {
         path: `/${pathAdmin}/template`,
-        element: <Template />,
+        element: <TemplatePage />,
       },
     ],
   },

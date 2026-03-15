@@ -1,4 +1,4 @@
-import { MoveLeft, Plus, RefreshCw, Trash2 } from "lucide-react";
+import { MoveLeft, MoveRight, Plus, RefreshCw, Trash2 } from "lucide-react";
 import { BaseButton } from "./BaseButton";
 import { useNavigate } from "react-router";
 
@@ -32,6 +32,15 @@ export const ButtonBack = () => {
     />
   );
 };
+
+export const ButtonNext = ({ label, to }: { label: string; to: string }) => (
+  <BaseButton
+    to={to}
+    label={label}
+    icon={<MoveRight size={16} />}
+    variant="primary"
+  />
+);
 
 export const ButtonRefresh = ({ onClick }: { onClick: () => void }) => (
   <BaseButton

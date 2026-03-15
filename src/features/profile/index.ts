@@ -1,2 +1,2 @@
-export * from "./ProfileEdit"
-export * from "./ProfileChangePassword"
+export * from "./ProfileEdit";
+export * from "./ProfileChangePassword";

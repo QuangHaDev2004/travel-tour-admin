@@ -13,7 +13,7 @@ export const SettingList = () => {
           <Link
             key={item.id}
             to={item.to}
-            className="flex items-center justify-center gap-5 rounded-[14px] bg-white p-6.25 transition-all duration-300 hover:scale-[1.02] hover:shadow-md"
+            className="flex items-center justify-center gap-5 rounded-sm bg-white p-6.25 transition-all duration-300 hover:shadow-md"
           >
             <div className="flex h-17.5 w-17.5 items-center justify-center rounded-full bg-[#E7EDFF]">
               <item.icon className="text-travel-primary text-[30px]" />
