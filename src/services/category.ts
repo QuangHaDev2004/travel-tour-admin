@@ -1,5 +1,5 @@
 import { pathAdmin } from "@/config/path";
-import { api } from "@/libs/axios";
+import { api } from "@/lib/axios";
 
 export const createCategory = async (dataFinal: FormData) => {
   const res = await api.post(`/${pathAdmin}/category/create`, dataFinal);

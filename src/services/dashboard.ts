@@ -1,5 +1,5 @@
 import { pathAdmin } from "@/config/path";
-import { api } from "@/libs/axios";
+import { api } from "@/lib/axios";
 
 export const getDashboard = async () => {
   const res = await api.get(`/${pathAdmin}/dashboard`);

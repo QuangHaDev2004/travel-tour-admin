@@ -1,5 +1,5 @@
 import { pathAdmin } from "@/config/path";
-import { api } from "@/libs/axios";
+import { api } from "@/lib/axios";
 
 export const getOrderList = async (params?: Record<string, string>) => {
   const res = await api.get(`/${pathAdmin}/order/list`, { params });
