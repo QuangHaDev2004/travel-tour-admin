@@ -1,16 +1,16 @@
-import { changeMultiRole } from "@/services/setting";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
-import type { AxiosError } from "axios";
 import { toast } from "sonner";
+import type { AxiosError } from "axios";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { changeMultiContact } from "@/services/contact";
 
-export const useChangeMultiRole = () => {
+export const useChangeMultiContact = () => {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: changeMultiRole,
+    mutationFn: changeMultiContact,
     onSuccess: (data) => {
       toast.success(data.message);
-      queryClient.invalidateQueries({ queryKey: ["roleList"] });
+      queryClient.invalidateQueries({ queryKey: ["contactList"] });
     },
     onError: (errors: AxiosError<{ message: string }>) => {
       toast.error(

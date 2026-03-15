@@ -43,14 +43,7 @@ type TableChangeMultiProps = {
 };
 
 /**
- * TableChangeMulti
  * Component hiển thị action bar cố định phía dưới màn hình khi user chọn nhiều item trong table.
- *
- * Chức năng:
- * - Hiển thị số lượng item đã chọn
- * - Cho phép cập nhật trạng thái
- * - Cho phép xoá nhiều item
- * - Cho phép clear selection
  */
 export const TableChangeMulti = ({
   selectedCount,
