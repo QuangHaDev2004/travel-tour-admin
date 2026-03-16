@@ -1,8 +1,8 @@
 import { pathAdmin } from "@/config/path";
-import { AuthBottomLink } from "./components/AuthBottomLink";
-import { AuthDescription } from "./components/AuthDescription";
-import { AuthTitle } from "./components/AuthTitle";
-import { FormForgotPassword } from "./components/form/FormForgotPassword";
+import { AuthBottomLink } from "../components/common/AuthBottomLink";
+import { AuthDescription } from "../components/common/AuthDescription";
+import { AuthTitle } from "../components/common/AuthTitle";
+import { FormForgotPassword } from "../components/form/FormForgotPassword";
 
 export const ForgotPassword = () => {
   return (

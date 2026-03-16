@@ -1,8 +1,8 @@
 import { pathAdmin } from "@/config/path";
-import { AuthBottomLink } from "./components/AuthBottomLink";
-import { AuthDescription } from "./components/AuthDescription";
-import { AuthTitle } from "./components/AuthTitle";
-import { FormLogin } from "./components/form/FormLogin";
+import { AuthTitle } from "../components/common/AuthTitle";
+import { AuthDescription } from "../components/common/AuthDescription";
+import { FormLogin } from "../components/form/FormLogin";
+import { AuthBottomLink } from "../components/common/AuthBottomLink";
 
 export const Login = () => {
   return (

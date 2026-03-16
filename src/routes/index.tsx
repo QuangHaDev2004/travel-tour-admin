@@ -4,14 +4,6 @@ import { DefaultLayout } from "@/layouts/DefaultLayout";
 import { Dashboard } from "@/features/dashboard";
 import { UserList } from "@/features/user";
 import { AccountLayout } from "@/layouts/AccountLayout";
-import {
-  ForgotPassword,
-  Login,
-  OtpPassword,
-  Register,
-  RegisterInitial,
-  ResetPassword,
-} from "@/features/auth";
 import { ProtectedRoute } from "@/features/auth/components/ProtectedRoute";
 import {
   TourCreatePage,
@@ -38,8 +30,15 @@ import {
 import { TemplatePage } from "@/pages/template";
 import { ContactListPage } from "@/pages/contact";
 import { NotFoundPage } from "@/pages/error";
-import { NotFound } from "@/features/error";
 import { ProfileChangePasswordPage, ProfileEditPage } from "@/pages/profile";
+import {
+  ForgotPasswordPage,
+  LoginPage,
+  OtpPasswordPage,
+  RegisterInitialPage,
+  RegisterPage,
+  ResetPasswordPage,
+} from "@/pages/auth";
 
 export const router = createBrowserRouter([
   {
@@ -146,31 +145,31 @@ export const router = createBrowserRouter([
   },
   {
     element: <AccountLayout />,
-    errorElement: <NotFound />,
+    errorElement: <NotFoundPage />,
     children: [
       {
         path: `/${pathAdmin}/account/login`,
-        element: <Login />,
+        element: <LoginPage />,
       },
       {
         path: `/${pathAdmin}/account/register`,
-        element: <Register />,
+        element: <RegisterPage />,
       },
       {
         path: `/${pathAdmin}/account/forgot-password`,
-        element: <ForgotPassword />,
+        element: <ForgotPasswordPage />,
       },
       {
         path: `/${pathAdmin}/account/otp-password`,
-        element: <OtpPassword />,
+        element: <OtpPasswordPage />,
       },
       {
         path: `/${pathAdmin}/account/reset-password`,
-        element: <ResetPassword />,
+        element: <ResetPasswordPage />,
       },
       {
         path: `/${pathAdmin}/account/register-initial`,
-        element: <RegisterInitial />,
+        element: <RegisterInitialPage />,
       },
     ],
   },
