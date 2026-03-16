@@ -29,7 +29,10 @@ export const FormRegister = () => {
       navigate(`/${pathAdmin}/account/register-initial`);
     },
     onError: (errors: AxiosError<{ message: string }>) => {
-      toast.error(errors?.response?.data?.message);
+      toast.error(
+        errors?.response?.data?.message ||
+          "Đã có lỗi xảy ra, vui lòng thử lại.",
+      );
     },
   });
 
@@ -70,16 +73,18 @@ export const FormRegister = () => {
       />
 
       <div>
-        <label className="label flex items-center gap-4">
+        <label className="flex items-center gap-4">
           <input
             type="checkbox"
             {...register("agree")}
-            className="checkbox checkbox-primary"
+            className="checkbox checkbox-primary border-travel-gray hover:border-travel-primary h-5 w-5 rounded-sm border"
           />
-          Tôi chấp nhận các điều khoản và điều kiện
+          <span className="text-travel-secondary/60 text-sm font-semibold">
+            Tôi chấp nhận các điều khoản và điều kiện
+          </span>
         </label>
         {errors.agree && (
-          <p className="text-travel-error mt-1 text-sm font-semibold">
+          <p className="text-travel-error mt-1 text-xs font-semibold">
             {errors.agree.message}
           </p>
         )}

@@ -67,14 +67,14 @@ export const FormLogin = () => {
         error={errors.password}
       />
 
-      <div className="text-travel-secondary/60 flex flex-wrap justify-between gap-4 text-lg font-semibold">
-        <label className="label flex items-center gap-4">
+      <div className="text-travel-secondary/60 flex flex-wrap justify-between gap-4 text-sm font-semibold">
+        <label className="flex items-center gap-4">
           <input
             type="checkbox"
             {...register("rememberPassword")}
-            className="checkbox checkbox-primary w-5 h-5 rounded-md"
+            className="checkbox checkbox-primary border-travel-gray hover:border-travel-primary h-5 w-5 rounded-sm border"
           />
-          Nhớ mật khẩu
+          <span>Nhớ mật khẩu</span>
         </label>
         <Link
           to={`/${pathAdmin}/account/forgot-password`}

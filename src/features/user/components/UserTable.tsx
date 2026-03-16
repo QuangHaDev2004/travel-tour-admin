@@ -1,4 +1,4 @@
-import { Badge } from "@/components/badge/Badge";
+// import { Badge } from "@/components/badge/Badge";
 import { ButtonDelete } from "@/components/button/ButtonDelete";
 import { ButtonEdit } from "@/components/button/ButtonEdit";
 // import { CustomCheckbox } from "@/components/checkbox/Checkbox";
@@ -60,10 +60,10 @@ export const UserTable = () => {
               Số 123, đường ABC,...
             </td>
             <td className="border-b border-[#D5D5D5] px-[15px] py-[8px] text-left text-sm font-semibold">
-              <Badge
+              {/* <Badge
                 className="inline-block rounded-[4.5px] bg-[rgba(0,182,155,0.2)] px-[16px] py-[6px] text-xs font-bold text-[#00B69B]"
                 content="Hoạt động"
-              />
+              /> */}
             </td>
             <td className="border-b border-[#D5D5D5] px-[15px] py-[8px] text-left text-sm font-semibold">
               <div className="inline-flex items-center rounded-lg border border-[#D5D5D5] bg-[#FAFBFD]">
