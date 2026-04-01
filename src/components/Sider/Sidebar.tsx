@@ -43,7 +43,7 @@ export const Sidebar = ({
                   to={item.to}
                   className={`nav-item ${isActive ? "active bg-travel-primary text-white" : "text-travel-dark"}`}
                 >
-                  <item.icon className="text-lg" />
+                  <item.icon size={18} />
                   {item.label}
                 </Link>
               </li>

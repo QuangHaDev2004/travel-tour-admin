@@ -1,3 +1,4 @@
+import { ChartSpline } from "lucide-react";
 import {
   FaDisplay,
   FaGaugeHigh,
@@ -40,6 +41,11 @@ export const mainMenus = [
     to: "/admin/contact/list",
     label: "Thông tin liên hệ",
     icon: FaUserGroup,
+  },
+  {
+    to: "/admin/report",
+    label: "Báo cáo",
+    icon: ChartSpline,
   },
 ];
 
