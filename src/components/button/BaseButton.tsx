@@ -19,7 +19,7 @@ export const BaseButton = ({
   className = "",
 }: BaseButtonProps) => {
   const variants = {
-    default: "border-travel-secondary text-travel-secondary hover:bg-gray-100",
+    default: "border-travel-secondary/10 text-travel-secondary hover:bg-gray-100",
     primary: "border-travel-primary text-travel-primary hover:bg-blue-50",
     danger: "border-travel-red text-travel-red hover:bg-red-50",
     success: "border-green-600 text-green-600 hover:bg-green-50",

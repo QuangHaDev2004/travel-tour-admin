@@ -39,6 +39,7 @@ import {
   RegisterPage,
   ResetPasswordPage,
 } from "@/pages/auth";
+import { ReportPage } from "@/pages/report";
 
 export const router = createBrowserRouter([
   {
@@ -140,6 +141,10 @@ export const router = createBrowserRouter([
       {
         path: `/${pathAdmin}/template`,
         element: <TemplatePage />,
+      },
+      {
+        path: `/${pathAdmin}/report`,
+        element: <ReportPage />,
       },
     ],
   },
