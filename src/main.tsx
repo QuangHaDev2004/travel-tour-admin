@@ -17,6 +17,6 @@ const queryClient = new QueryClient({
 createRoot(document.getElementById("root")!).render(
   <QueryClientProvider client={queryClient}>
     <RouterProvider router={router} />
-    <Toaster richColors />
+    <Toaster richColors closeButton />
   </QueryClientProvider>,
 );
