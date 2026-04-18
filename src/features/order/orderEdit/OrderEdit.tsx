@@ -20,8 +20,13 @@ import { ButtonBack } from "@/components/button/ActionButtons";
 import { BaseInput } from "@/components/form/BaseInput";
 import { BaseSelect } from "@/components/form/BaseSelect";
 import { ButtonSubmit } from "@/components/form/ButtonSubmit";
+import { useAuthStore } from "@/stores/useAuthStore";
+import { NoPermission } from "@/components/common/NoPermission";
 
 export const OrderEdit = () => {
+  const { account } = useAuthStore();
+  const permissions = account?.permissions;
+
   const { id } = useParams();
   const editorRef = useRef<any>(null);
   const { data } = useOrderDetail({ id: id! });
@@ -51,97 +56,103 @@ export const OrderEdit = () => {
 
   return (
     <>
-      <div className="mb-4 flex flex-wrap items-center justify-between gap-2">
-        <PageTitle title={`Đơn hàng: ${orderDetail.orderCode}`} />
-        <ButtonBack />
-      </div>
-      <div className="border-travel-gray overflow-hidden rounded-sm border bg-white p-6">
-        {orderDetail && (
-          <form
-            onSubmit={handleSubmit(handleOrderForm)}
-            className="grid grid-cols-1 gap-6 md:grid-cols-2"
-          >
-            <BaseInput
-              id="fullName"
-              label="Tên khách hàng"
-              defaultValue={orderDetail.fullName}
-              readOnly
-            />
+      {permissions?.includes("order-edit") ? (
+        <>
+          <div className="mb-4 flex flex-wrap items-center justify-between gap-2">
+            <PageTitle title={`Đơn hàng: ${orderDetail.orderCode}`} />
+            <ButtonBack />
+          </div>
+          <div className="border-travel-gray overflow-hidden rounded-sm border bg-white p-6">
+            {orderDetail && (
+              <form
+                onSubmit={handleSubmit(handleOrderForm)}
+                className="grid grid-cols-1 gap-6 md:grid-cols-2"
+              >
+                <BaseInput
+                  id="fullName"
+                  label="Tên khách hàng"
+                  defaultValue={orderDetail.fullName}
+                  readOnly
+                />
 
-            <BaseInput
-              id="phone"
-              label="Số điện thoại"
-              defaultValue={orderDetail.phone}
-              readOnly
-            />
+                <BaseInput
+                  id="phone"
+                  label="Số điện thoại"
+                  defaultValue={orderDetail.phone}
+                  readOnly
+                />
 
-            <div className="col-span-1 flex flex-col gap-1 md:col-span-2">
-              <label className="text-travel-label block text-sm font-medium">
-                Ghi chú
-              </label>
+                <div className="col-span-1 flex flex-col gap-1 md:col-span-2">
+                  <label className="text-travel-label block text-sm font-medium">
+                    Ghi chú
+                  </label>
 
-              <EditorMCE
-                id="note"
-                value={orderDetail.note}
-                editorRef={editorRef}
-              />
-            </div>
+                  <EditorMCE
+                    id="note"
+                    value={orderDetail.note}
+                    editorRef={editorRef}
+                  />
+                </div>
 
-            <BaseSelect
-              id="paymentMethod"
-              label="Phương thức thanh toán"
-              register={register("paymentMethod")}
-              error={errors.paymentMethod}
-            >
-              {paymentMethodList.map((item) => (
-                <option key={item.value} value={item.value}>
-                  {item.label}
-                </option>
-              ))}
-            </BaseSelect>
+                <BaseSelect
+                  id="paymentMethod"
+                  label="Phương thức thanh toán"
+                  register={register("paymentMethod")}
+                  error={errors.paymentMethod}
+                >
+                  {paymentMethodList.map((item) => (
+                    <option key={item.value} value={item.value}>
+                      {item.label}
+                    </option>
+                  ))}
+                </BaseSelect>
 
-            <BaseSelect
-              id="paymentStatus"
-              label="Trạng thái thanh toán"
-              register={register("paymentStatus")}
-              error={errors.paymentStatus}
-            >
-              {paymentStatusList.map((item) => (
-                <option key={item.value} value={item.value}>
-                  {item.label}
-                </option>
-              ))}
-            </BaseSelect>
+                <BaseSelect
+                  id="paymentStatus"
+                  label="Trạng thái thanh toán"
+                  register={register("paymentStatus")}
+                  error={errors.paymentStatus}
+                >
+                  {paymentStatusList.map((item) => (
+                    <option key={item.value} value={item.value}>
+                      {item.label}
+                    </option>
+                  ))}
+                </BaseSelect>
 
-            <BaseSelect
-              id="status"
-              label="Trạng thái đơn hàng"
-              register={register("status")}
-              error={errors.status}
-            >
-              {orderStatusList.map((item) => (
-                <option key={item.value} value={item.value}>
-                  {item.label}
-                </option>
-              ))}
-            </BaseSelect>
+                <BaseSelect
+                  id="status"
+                  label="Trạng thái đơn hàng"
+                  register={register("status")}
+                  error={errors.status}
+                >
+                  {orderStatusList.map((item) => (
+                    <option key={item.value} value={item.value}>
+                      {item.label}
+                    </option>
+                  ))}
+                </BaseSelect>
 
-            <BaseInput
-              id="createAt"
-              label="Ngày đặt"
-              type="datetime-local"
-              defaultValue={orderDetail.createdAtFormat}
-              readOnly
-            />
+                <BaseInput
+                  id="createAt"
+                  label="Ngày đặt"
+                  type="datetime-local"
+                  defaultValue={orderDetail.createdAtFormat}
+                  readOnly
+                />
 
-            <OrderTourList orderDetail={orderDetail} />
+                <OrderTourList orderDetail={orderDetail} />
 
-            <OrderSummary orderDetail={orderDetail} />
+                <OrderSummary orderDetail={orderDetail} />
 
-            <ButtonSubmit text="Cập nhật" isPending={isPending} />
-          </form>
-        )}
-      </div>
+                <ButtonSubmit text="Cập nhật" isPending={isPending} />
+              </form>
+            )}
+          </div>
+        </>
+      ) : (
+        <NoPermission />
+      )}
     </>
   );
 };

@@ -11,8 +11,13 @@ import { ButtonBack } from "@/components/button/ActionButtons";
 import { ButtonSubmit } from "@/components/form/ButtonSubmit";
 import { BaseInput } from "@/components/form/BaseInput";
 import { CheckboxList } from "@/components/form/CheckboxList";
+import { useAuthStore } from "@/stores/useAuthStore";
+import { NoPermission } from "@/components/common/NoPermission";
 
 export const RoleEdit = () => {
+  const { account } = useAuthStore();
+  const permissionsAcc = account?.permissions;
+
   const { id } = useParams();
   const [permissions, setPermissions] = useState<string[]>([]);
   const { roleDetail } = useRoleDetail({ id: id! });
@@ -60,42 +65,48 @@ export const RoleEdit = () => {
 
   return (
     <>
-      <div className="mb-4 flex flex-wrap items-center justify-between gap-2">
-        <PageTitle title="Chỉnh sửa nhóm quyền" />
-        <ButtonBack />
-      </div>
-      <div className="border-travel-gray overflow-hidden rounded-sm border bg-white p-6">
-        <form
-          onSubmit={handleSubmit(handleRoleForm)}
-          className="grid grid-cols-1 gap-6 md:grid-cols-2"
-        >
-          <BaseInput
-            id="name"
-            label="Tên nhóm quyền"
-            register={register("name")}
-            error={errors.name}
-            isRequired
-          />
+      {permissionsAcc?.includes("role-edit") ? (
+        <>
+          <div className="mb-4 flex flex-wrap items-center justify-between gap-2">
+            <PageTitle title="Chỉnh sửa nhóm quyền" />
+            <ButtonBack />
+          </div>
+          <div className="border-travel-gray overflow-hidden rounded-sm border bg-white p-6">
+            <form
+              onSubmit={handleSubmit(handleRoleForm)}
+              className="grid grid-cols-1 gap-6 md:grid-cols-2"
+            >
+              <BaseInput
+                id="name"
+                label="Tên nhóm quyền"
+                register={register("name")}
+                error={errors.name}
+                isRequired
+              />
 
-          <BaseInput
-            id="description"
-            label="Mô tả ngắn"
-            register={register("description")}
-            error={errors.description}
-          />
+              <BaseInput
+                id="description"
+                label="Mô tả ngắn"
+                register={register("description")}
+                error={errors.description}
+              />
 
-          <CheckboxList
-            label="Phân quyền"
-            list={permissionList}
-            valueKey="value"
-            labelKey="label"
-            selectedValues={permissions}
-            onToggle={handlePermission}
-          />
+              <CheckboxList
+                label="Phân quyền"
+                list={permissionList}
+                valueKey="value"
+                labelKey="label"
+                selectedValues={permissions}
+                onToggle={handlePermission}
+              />
 
-          <ButtonSubmit text="Cập nhật" isPending={isPendingRoleEdit} />
-        </form>
-      </div>
+              <ButtonSubmit text="Cập nhật" isPending={isPendingRoleEdit} />
+            </form>
+          </div>
+        </>
+      ) : (
+        <NoPermission />
+      )}
     </>
   );
 };

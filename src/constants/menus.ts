@@ -6,7 +6,7 @@ import {
   FaList,
   FaListCheck,
   FaTable,
-  FaUser,
+  // FaUser,
   FaUserGear,
   FaUserGroup,
 } from "react-icons/fa6";
@@ -32,11 +32,11 @@ export const mainMenus = [
     label: "Quản lý đơn hàng",
     icon: FaListCheck,
   },
-  {
-    to: "/admin/user/list",
-    label: "Quản lý người dùng",
-    icon: FaUser,
-  },
+  // {
+  //   to: "/admin/user/list",
+  //   label: "Quản lý người dùng",
+  //   icon: FaUser,
+  // },
   {
     to: "/admin/contact/list",
     label: "Thông tin liên hệ",

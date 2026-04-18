@@ -20,8 +20,13 @@ import { ButtonSubmit } from "@/components/form/ButtonSubmit";
 import { ButtonBack } from "@/components/button/ActionButtons";
 import { FileMultiUploader } from "@/components/form/FileMultiUploader";
 import { CheckboxList } from "@/components/form/CheckboxList";
+import { useAuthStore } from "@/stores/useAuthStore";
+import { NoPermission } from "@/components/common/NoPermission";
 
 export const TourEdit = () => {
+  const { account } = useAuthStore();
+  const permissions = account?.permissions;
+
   const { id } = useParams();
   const informationRef = useRef<any>(null);
   const [avatars, setAvatars] = useState<any[]>([]);
@@ -175,142 +180,151 @@ export const TourEdit = () => {
 
   return (
     <>
-      <div className="mb-4 flex flex-wrap items-center justify-between gap-2">
-        <PageTitle title="Chỉnh sửa tour" />
-        <ButtonBack />
-      </div>
-      <div className="border-travel-gray overflow-hidden rounded-sm border bg-white p-6">
-        <form
-          onSubmit={handleSubmit(handleTourForm)}
-          className="grid grid-cols-1 gap-6 md:grid-cols-2"
-        >
-          <BaseInput
-            id="name"
-            label="Tên tour"
-            register={register("name")}
-            error={errors.name}
-            isRequired
-          />
-
-          <BaseSelect
-            id="category"
-            label="Danh mục"
-            register={register("category")}
-            error={errors.category}
-          >
-            <option value="">-- Chọn danh mục --</option>
-            {renderOptions(categoryTree)}
-          </BaseSelect>
-
-          <BaseInput
-            id="position"
-            label="Vị trí"
-            type="number"
-            register={register("position")}
-            error={errors.position}
-            placeholder="Note: Tự động tăng"
-          />
-
-          <BaseSelect
-            id="status"
-            label="Trạng thái"
-            register={register("status")}
-            error={errors.status}
-          >
-            <option value="active">Hoạt động</option>
-            <option value="inactive">Tạm dừng</option>
-          </BaseSelect>
-
-          <FileUploader
-            id="avatar"
-            label="Ảnh đại diện"
-            files={avatars}
-            setFiles={setAvatars}
-          />
-
-          <FileMultiUploader
-            id="images"
-            label="Danh sách ảnh"
-            files={images}
-            setFiles={setImages}
-          />
-
-          <TourInputGroup
-            title="Giá cũ"
-            namePrefix="price"
-            register={register}
-          />
-
-          <TourInputGroup
-            title="Giá mới"
-            namePrefix="priceNew"
-            register={register}
-          />
-
-          <TourInputGroup
-            title="Còn lại"
-            namePrefix="stock"
-            register={register}
-          />
-
-          <div className="col-span-1 flex flex-col gap-1 md:col-span-2">
-            <label className="text-travel-label block text-sm font-medium">
-              Thông tin tour
-            </label>
-            <EditorMCE
-              id="description"
-              editorRef={informationRef}
-              value={tourDetail.information}
-            />
+      {permissions?.includes("tour-edit") ? (
+        <>
+          <div className="mb-4 flex flex-wrap items-center justify-between gap-2">
+            <PageTitle title="Chỉnh sửa tour" />
+            <ButtonBack />
           </div>
+          <div className="border-travel-gray overflow-hidden rounded-sm border bg-white p-6">
+            <form
+              onSubmit={handleSubmit(handleTourForm)}
+              className="grid grid-cols-1 gap-6 md:grid-cols-2"
+            >
+              <BaseInput
+                id="name"
+                label="Tên tour"
+                register={register("name")}
+                error={errors.name}
+                isRequired
+              />
 
-          <CheckboxList
-            label="Điểm khởi hành"
-            list={cityList}
-            valueKey="_id"
-            labelKey="name"
-            selectedValues={locationsFrom}
-            onToggle={handleToggleForm}
-          />
+              <BaseSelect
+                id="category"
+                label="Danh mục"
+                register={register("category")}
+                error={errors.category}
+              >
+                <option value="">-- Chọn danh mục --</option>
+                {renderOptions(categoryTree)}
+              </BaseSelect>
 
-          <CheckboxList
-            label="Điểm đến"
-            list={cityList}
-            valueKey="_id"
-            labelKey="name"
-            selectedValues={locationsTo}
-            onToggle={handleToggleTo}
-          />
+              <BaseInput
+                id="position"
+                label="Vị trí"
+                type="number"
+                register={register("position")}
+                error={errors.position}
+                placeholder="Note: Tự động tăng"
+              />
 
-          <BaseInput
-            id="time"
-            label="Thời gian"
-            register={register("time")}
-            error={errors.time}
-            placeholder="Ví dụ: 3N2Đ"
-          />
+              <BaseSelect
+                id="status"
+                label="Trạng thái"
+                register={register("status")}
+                error={errors.status}
+              >
+                <option value="active">Hoạt động</option>
+                <option value="inactive">Tạm dừng</option>
+              </BaseSelect>
 
-          <BaseInput
-            id="vehicle"
-            label="Phương tiện"
-            register={register("vehicle")}
-            error={errors.vehicle}
-            placeholder="Ví dụ: Xe, Máy bay"
-          />
+              <FileUploader
+                id="avatar"
+                label="Ảnh đại diện"
+                files={avatars}
+                setFiles={setAvatars}
+              />
 
-          <BaseInput
-            id="departureDate"
-            label="Ngày khởi hành"
-            register={register("departureDate")}
-            error={errors.departureDate}
-            type="date"
-          />
+              <FileMultiUploader
+                id="images"
+                label="Danh sách ảnh"
+                files={images}
+                setFiles={setImages}
+              />
 
-          <TourSchedules schedules={schedules} setSchedules={setSchedules} />
+              <TourInputGroup
+                title="Giá cũ"
+                namePrefix="price"
+                register={register}
+              />
 
-          <ButtonSubmit isPending={isPendingTourEdit} text="Cập nhật" />
-        </form>
-      </div>
+              <TourInputGroup
+                title="Giá mới"
+                namePrefix="priceNew"
+                register={register}
+              />
+
+              <TourInputGroup
+                title="Còn lại"
+                namePrefix="stock"
+                register={register}
+              />
+
+              <div className="col-span-1 flex flex-col gap-1 md:col-span-2">
+                <label className="text-travel-label block text-sm font-medium">
+                  Thông tin tour
+                </label>
+                <EditorMCE
+                  id="description"
+                  editorRef={informationRef}
+                  value={tourDetail.information}
+                />
+              </div>
+
+              <CheckboxList
+                label="Điểm khởi hành"
+                list={cityList}
+                valueKey="_id"
+                labelKey="name"
+                selectedValues={locationsFrom}
+                onToggle={handleToggleForm}
+              />
+
+              <CheckboxList
+                label="Điểm đến"
+                list={cityList}
+                valueKey="_id"
+                labelKey="name"
+                selectedValues={locationsTo}
+                onToggle={handleToggleTo}
+              />
+
+              <BaseInput
+                id="time"
+                label="Thời gian"
+                register={register("time")}
+                error={errors.time}
+                placeholder="Ví dụ: 3N2Đ"
+              />
+
+              <BaseInput
+                id="vehicle"
+                label="Phương tiện"
+                register={register("vehicle")}
+                error={errors.vehicle}
+                placeholder="Ví dụ: Xe, Máy bay"
+              />
+
+              <BaseInput
+                id="departureDate"
+                label="Ngày khởi hành"
+                register={register("departureDate")}
+                error={errors.departureDate}
+                type="date"
+              />
+
+              <TourSchedules
+                schedules={schedules}
+                setSchedules={setSchedules}
+              />
+
+              <ButtonSubmit isPending={isPendingTourEdit} text="Cập nhật" />
+            </form>
+          </div>
+        </>
+      ) : (
+        <NoPermission />
+      )}
     </>
   );
 };

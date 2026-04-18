@@ -14,8 +14,13 @@ import { BaseInput } from "@/components/form/BaseInput";
 import { BaseSelect } from "@/components/form/BaseSelect";
 import { FileUploader } from "@/components/form/FileUploader";
 import { ButtonSubmit } from "@/components/form/ButtonSubmit";
+import { useAuthStore } from "@/stores/useAuthStore";
+import { NoPermission } from "@/components/common/NoPermission";
 
 export const AccountAdminEdit = () => {
+  const { account } = useAuthStore();
+  const permissions = account?.permissions;
+
   // Lấy id tài khoản quản trị từ params
   const { id } = useParams();
 
@@ -81,89 +86,98 @@ export const AccountAdminEdit = () => {
 
   return (
     <>
-      <div className="mb-4 flex flex-wrap items-center justify-between gap-2">
-        <PageTitle title="Chỉnh sửa tài khoản quản trị" />
-        <ButtonBack />
-      </div>
-      <div className="border-travel-gray overflow-hidden rounded-sm border bg-white p-6">
-        <form
-          onSubmit={handleSubmit(handleWebsiteInfoForm)}
-          className="grid grid-cols-1 gap-6 md:grid-cols-2"
-        >
-          <BaseInput
-            id="fullName"
-            label="Họ tên"
-            register={register("fullName")}
-            error={errors.fullName}
-            isRequired
-          />
+      {permissions?.includes("account-admin-edit") ? (
+        <>
+          <div className="mb-4 flex flex-wrap items-center justify-between gap-2">
+            <PageTitle title="Chỉnh sửa tài khoản quản trị" />
+            <ButtonBack />
+          </div>
+          <div className="border-travel-gray overflow-hidden rounded-sm border bg-white p-6">
+            <form
+              onSubmit={handleSubmit(handleWebsiteInfoForm)}
+              className="grid grid-cols-1 gap-6 md:grid-cols-2"
+            >
+              <BaseInput
+                id="fullName"
+                label="Họ tên"
+                register={register("fullName")}
+                error={errors.fullName}
+                isRequired
+              />
 
-          <BaseInput
-            id="email"
-            label="Email"
-            register={register("email")}
-            error={errors.email}
-            isRequired
-          />
+              <BaseInput
+                id="email"
+                label="Email"
+                register={register("email")}
+                error={errors.email}
+                isRequired
+              />
 
-          <BaseInput
-            id="phone"
-            label="Số điện thoại"
-            register={register("phone")}
-            error={errors.phone}
-            isRequired
-          />
+              <BaseInput
+                id="phone"
+                label="Số điện thoại"
+                register={register("phone")}
+                error={errors.phone}
+                isRequired
+              />
 
-          <BaseSelect
-            id="role"
-            label="Nhóm quyền"
-            register={register("role")}
-            error={errors.role}
-          >
-            <option value="">Chọn nhóm quyền</option>
-            {roleList.map((item) => (
-              <option key={item.id} value={item.id}>
-                {item.name}
-              </option>
-            ))}
-          </BaseSelect>
+              <BaseSelect
+                id="role"
+                label="Nhóm quyền"
+                register={register("role")}
+                error={errors.role}
+              >
+                <option value="">Chọn nhóm quyền</option>
+                {roleList.map((item) => (
+                  <option key={item.id} value={item.id}>
+                    {item.name}
+                  </option>
+                ))}
+              </BaseSelect>
 
-          <BaseInput
-            id="positionCompany"
-            label="Chức vụ"
-            register={register("positionCompany")}
-            error={errors.positionCompany}
-            isRequired
-          />
+              <BaseInput
+                id="positionCompany"
+                label="Chức vụ"
+                register={register("positionCompany")}
+                error={errors.positionCompany}
+                isRequired
+              />
 
-          <BaseSelect
-            id="status"
-            label="Trạng thái"
-            register={register("status")}
-            error={errors.status}
-          >
-            <option value="initial">Khởi tạo</option>
-            <option value="active">Hoạt động</option>
-            <option value="inactive">Tạm dừng</option>
-          </BaseSelect>
+              <BaseSelect
+                id="status"
+                label="Trạng thái"
+                register={register("status")}
+                error={errors.status}
+              >
+                <option value="initial">Khởi tạo</option>
+                <option value="active">Hoạt động</option>
+                <option value="inactive">Tạm dừng</option>
+              </BaseSelect>
 
-          <BaseInput
-            id="password"
-            label="Mật khẩu"
-            register={register("password")}
-            error={errors.password}
-          />
+              <BaseInput
+                id="password"
+                label="Mật khẩu"
+                register={register("password")}
+                error={errors.password}
+              />
 
-          <FileUploader
-            id="avatar"
-            label="Ảnh đại diện"
-            files={avatars}
-            setFiles={setAvatars}
-          />
+              <FileUploader
+                id="avatar"
+                label="Ảnh đại diện"
+                files={avatars}
+                setFiles={setAvatars}
+              />
 
-          <ButtonSubmit text="Cập nhật" isPending={isPendingAccountAdminEdit} />
-        </form>
-      </div>
+              <ButtonSubmit
+                text="Cập nhật"
+                isPending={isPendingAccountAdminEdit}
+              />
+            </form>
+          </div>
+        </>
+      ) : (
+        <NoPermission />
+      )}
     </>
   );
 };

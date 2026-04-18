@@ -13,8 +13,13 @@ import { ButtonSubmit } from "@/components/form/ButtonSubmit";
 import { ButtonBack } from "@/components/button/ActionButtons";
 import { useCreateCategory } from "../hooks/useCreateCategory";
 import { categoryFormSchema, type CategoryFormInputs } from "@/types";
+import { useAuthStore } from "@/stores/useAuthStore";
+import { NoPermission } from "@/components/common/NoPermission";
 
 export const CategoryCreate = () => {
+  const { account } = useAuthStore();
+  const permissions = account?.permissions;
+
   const editorRef = useRef<any>(null);
   const [avatars, setAvatars] = useState<any[]>([]);
 
@@ -56,70 +61,76 @@ export const CategoryCreate = () => {
 
   return (
     <>
-      <div className="mb-4 flex flex-wrap items-center justify-between gap-2">
-        <PageTitle title="Tạo danh mục" />
-        <ButtonBack />
-      </div>
-      <div className="border-travel-gray overflow-hidden rounded-sm border bg-white p-6">
-        <form
-          onSubmit={handleSubmit(handleCategoryForm)}
-          className="grid grid-cols-1 gap-6 md:grid-cols-2"
-        >
-          <BaseInput
-            id="name"
-            label="Tên danh mục"
-            register={register("name")}
-            error={errors.name}
-            isRequired
-          />
-
-          <BaseSelect
-            id="parent"
-            label="Danh mục cha"
-            register={register("parent")}
-            error={errors.parent}
-          >
-            <option value="">-- Chọn danh mục --</option>
-            {renderOptions(categoryTree)}
-          </BaseSelect>
-
-          <BaseInput
-            id="position"
-            label="Vị trí"
-            type="number"
-            register={register("position")}
-            error={errors.position}
-            placeholder="Note: Tự động tăng"
-          />
-
-          <BaseSelect
-            id="status"
-            label="Trạng thái"
-            register={register("status")}
-            error={errors.status}
-          >
-            <option value="active">Hoạt động</option>
-            <option value="inactive">Tạm dừng</option>
-          </BaseSelect>
-
-          <FileUploader
-            id="avatar"
-            label="Ảnh đại diện"
-            files={avatars}
-            setFiles={setAvatars}
-          />
-
-          <div className="col-span-1 flex flex-col gap-1 md:col-span-2">
-            <label className="text-travel-label block text-sm font-medium">
-              Mô tả
-            </label>
-
-            <EditorMCE id="description" value="" editorRef={editorRef} />
+      {permissions?.includes("category-create") ? (
+        <>
+          <div className="mb-4 flex flex-wrap items-center justify-between gap-2">
+            <PageTitle title="Tạo danh mục" />
+            <ButtonBack />
           </div>
+          <div className="border-travel-gray overflow-hidden rounded-sm border bg-white p-6">
+            <form
+              onSubmit={handleSubmit(handleCategoryForm)}
+              className="grid grid-cols-1 gap-6 md:grid-cols-2"
+            >
+              <BaseInput
+                id="name"
+                label="Tên danh mục"
+                register={register("name")}
+                error={errors.name}
+                isRequired
+              />
 
-          <ButtonSubmit isPending={isPending} text="Tạo mới" />
-        </form>
-      </div>
+              <BaseSelect
+                id="parent"
+                label="Danh mục cha"
+                register={register("parent")}
+                error={errors.parent}
+              >
+                <option value="">-- Chọn danh mục --</option>
+                {renderOptions(categoryTree)}
+              </BaseSelect>
+
+              <BaseInput
+                id="position"
+                label="Vị trí"
+                type="number"
+                register={register("position")}
+                error={errors.position}
+                placeholder="Note: Tự động tăng"
+              />
+
+              <BaseSelect
+                id="status"
+                label="Trạng thái"
+                register={register("status")}
+                error={errors.status}
+              >
+                <option value="active">Hoạt động</option>
+                <option value="inactive">Tạm dừng</option>
+              </BaseSelect>
+
+              <FileUploader
+                id="avatar"
+                label="Ảnh đại diện"
+                files={avatars}
+                setFiles={setAvatars}
+              />
+
+              <div className="col-span-1 flex flex-col gap-1 md:col-span-2">
+                <label className="text-travel-label block text-sm font-medium">
+                  Mô tả
+                </label>
+
+                <EditorMCE id="description" value="" editorRef={editorRef} />
+              </div>
+
+              <ButtonSubmit isPending={isPending} text="Tạo mới" />
+            </form>
+          </div>
+        </>
+      ) : (
+        <NoPermission />
+      )}
     </>
   );
 };
