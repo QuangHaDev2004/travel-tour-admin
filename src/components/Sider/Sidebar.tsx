@@ -27,7 +27,7 @@ export const Sidebar = ({
   return (
     <>
       <nav
-        className={`border-travel-gray-300 fixed overflow-y-auto border-r bg-white py-4 transition-transform duration-300 ease-in-out ${isOpen ? "top-0 left-0 z-[999] h-full w-[280px]" : "top-[70px] left-0 h-[calc(100vh-70px)] w-60 -translate-x-full lg:translate-x-0"}`}
+        className={`border-travel-gray-300 fixed overflow-y-auto border-r bg-white py-4 transition-transform duration-300 ease-in-out ${isOpen ? "top-0 left-0 z-999 h-full w-70" : "top-17.5 left-0 h-[calc(100vh-70px)] w-60 -translate-x-full lg:translate-x-0"}`}
       >
         <ul>
           {mainMenus.map((item) => {
@@ -53,6 +53,11 @@ export const Sidebar = ({
         <hr className="border-travel-gray-300 my-4 border" />
         <ul>
           {settingMenus.map((item) => {
+            const needPermission = menuPermissionsMap[item.to];
+            if (needPermission && !permissions?.includes(needPermission)) {
+              return null;
+            }
+
             const isActive = checkActive(pathname, item.to);
             return (
               <li key={item.to}>
@@ -77,7 +82,7 @@ export const Sidebar = ({
       {/* Overlay */}
       {isOpen && (
         <div
-          className="fixed inset-0 z-[998] bg-[#00000088] lg:hidden"
+          className="fixed inset-0 z-998 bg-[#00000088] lg:hidden"
           onClick={onClose}
         ></div>
       )}
