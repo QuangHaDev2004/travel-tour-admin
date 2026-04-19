@@ -12,6 +12,17 @@ import { ReportTitle } from "./ReportTitle";
 import { ButtonRefresh } from "@/components/button/ActionButtons";
 import { useTopTourQuantity } from "../hooks/useTopTourQuantity";
 import { useTopTourRevenue } from "../hooks/useTopTourRevenue";
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import type { FilterType } from "@/types/report";
+import { useState } from "react";
+import { TableLoading } from "@/components/table/TableLoading";
 
 ChartJS.register(CategoryScale, LinearScale, BarElement, Tooltip, Legend);
 
@@ -66,7 +77,27 @@ interface TopTourBarChartProps {
   labelKey: string; // Tên field lấy giá trị số
   xAxisLabel: string; // Nhãn trục X
   datasetLabel: string; // Nhãn dataset
+  type: FilterType;
+  setType: (value: FilterType) => void;
 }
+
+/**
+ * Hàm chuyển đổi giá trị type thành nhãn hiển thị trên Select trigger
+ */
+const getTypeLabel = (type: FilterType) => {
+  switch (type) {
+    case "day":
+      return "ngày";
+    case "week":
+      return "tuần";
+    case "month":
+      return "tháng";
+    case "year":
+      return "năm";
+    default:
+      return "";
+  }
+};
 
 /**
  * Component biểu đồ cột ngang
@@ -79,6 +110,8 @@ const TopTourBarChart = ({
   labelKey,
   xAxisLabel,
   datasetLabel,
+  type,
+  setType,
 }: TopTourBarChartProps) => {
   const labels = data?.map((_, index: number) => `Top ${index + 1}`) || [];
   const values = data?.map((item: any) => item[labelKey]) || [];
@@ -100,12 +133,33 @@ const TopTourBarChart = ({
       {/* Header */}
       <div className="mb-4 flex flex-wrap items-center justify-between gap-2">
         <ReportTitle title={title} />
-        <ButtonRefresh onClick={refetch} />
+
+        <div className="flex flex-wrap items-center gap-2">
+          <ButtonRefresh onClick={refetch} />
+          <Select
+            value={type}
+            onValueChange={(value) => setType(value as FilterType)}
+          >
+            <SelectTrigger className="focus-visible:border-travel-primary hover:border-travel-primary w-30 rounded-sm focus-visible:ring-0">
+              <SelectValue placeholder="Lọc theo" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectGroup>
+                <SelectItem value="day">Ngày</SelectItem>
+                <SelectItem value="week">Tuần</SelectItem>
+                <SelectItem value="month">Tháng</SelectItem>
+                <SelectItem value="year">Năm</SelectItem>
+              </SelectGroup>
+            </SelectContent>
+          </Select>
+        </div>
       </div>
 
       {/* Chart */}
       {isLoading ? (
-        <div>Đang tải...</div>
+        <div className="flex h-72 items-center justify-center">
+          <TableLoading />
+        </div>
       ) : (
         <div className="h-72">
           <Bar
@@ -119,20 +173,25 @@ const TopTourBarChart = ({
   );
 };
 
+/** Component chính */
 export const TopTourChart = () => {
-  /** Top 5 theo số lượng */
+  // State lưu loại bộ lọc hiện tại, mặc định là "month"
+  const [typeQty, setTypeQty] = useState<FilterType>("month");
+  const [typeRev, setTypeRev] = useState<FilterType>("month");
+
+  // Top 5 theo số lượng
   const {
     data: quantityData,
     isLoading: loadingQty,
     refetch: refetchQty,
-  } = useTopTourQuantity();
+  } = useTopTourQuantity({ type: typeQty });
 
-  /** Top 5 theo doanh thu */
+  // Top 5 theo doanh thu
   const {
     data: revenueData,
     isLoading: loadingRev,
     refetch: refetchRev,
-  } = useTopTourRevenue();
+  } = useTopTourRevenue({ type: typeRev });
 
   const topTourQuantity = quantityData?.topTourQuantity ?? [];
   const topTourRevenue = revenueData?.topTourRevenue ?? [];
@@ -146,8 +205,10 @@ export const TopTourChart = () => {
         isLoading={loadingQty}
         refetch={refetchQty}
         labelKey="totalQuantity"
-        xAxisLabel="Số lượng (vé)"
+        xAxisLabel={`Số lượng (vé) - theo ${getTypeLabel(typeQty)}`}
         datasetLabel="Số lượng bán"
+        type={typeQty}
+        setType={setTypeQty}
       />
 
       {/* Biểu đồ 2: Theo doanh thu */}
@@ -158,8 +219,10 @@ export const TopTourChart = () => {
           isLoading={loadingRev}
           refetch={refetchRev}
           labelKey="totalRevenue"
-          xAxisLabel="Doanh thu (VNĐ)"
+          xAxisLabel={`Doanh thu (VNĐ) - theo ${getTypeLabel(typeRev)}`}
           datasetLabel="Doanh thu"
+          type={typeRev}
+          setType={setTypeRev}
         />
       </div>
     </>

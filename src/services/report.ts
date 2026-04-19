@@ -7,12 +7,12 @@ export const getRevenueReport = async (payload: any) => {
   return res.data;
 };
 
-export const getTopTourQuantity = async () => {
-  const res = await api.get(`/${pathAdmin}/report/top-tour-quantity`);
+export const getTopTourQuantity = async (payload: any) => {
+  const res = await api.post(`/${pathAdmin}/report/top-tour-quantity`, payload);
   return res.data;
 };
 
-export const getTopTourRevenue = async () => {
-  const res = await api.get(`/${pathAdmin}/report/top-tour-revenue`);
+export const getTopTourRevenue = async (payload: any) => {
+  const res = await api.post(`/${pathAdmin}/report/top-tour-revenue`, payload);
   return res.data;
 };
