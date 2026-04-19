@@ -23,6 +23,8 @@ import {
 } from "chart.js";
 import { useMemo, useState } from "react";
 import { useRevenueReport } from "../hooks/useRevenueReport";
+import { TableLoading } from "@/components/table/TableLoading";
+import type { FilterType } from "@/types/report";
 
 ChartJS.register(
   CategoryScale,
@@ -32,9 +34,6 @@ ChartJS.register(
   Tooltip,
   Legend,
 );
-
-/** Các loại bộ lọc thời gian */
-type FilterType = "day" | "week" | "month" | "year";
 
 /** Nhãn hiển thị trên trục X tương ứng với từng loại bộ lọc */
 const xAxisLabelMap: Record<FilterType, string> = {
@@ -116,7 +115,7 @@ export const RevenueChart = () => {
   };
 
   return (
-    <div className="rounded-sm bg-white p-6 mb-6">
+    <div className="mb-6 rounded-sm bg-white p-6">
       {/* Header */}
       <div className="mb-4 flex flex-wrap items-center justify-between gap-2">
         <ReportTitle title="Biểu đồ báo cáo doanh thu" />
@@ -144,7 +143,9 @@ export const RevenueChart = () => {
 
       {/* Chart */}
       {isLoading ? (
-        <div className="">Đang tải...</div>
+        <div className="flex h-100 items-center justify-center">
+          <TableLoading />
+        </div>
       ) : (
         <div className="h-100">
           <Line

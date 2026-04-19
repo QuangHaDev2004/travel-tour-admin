@@ -7,11 +7,11 @@ export const DashboardTable = ({ orderNew }: { orderNew: OrderDetail[] }) => {
   return (
     <>
       <div className="rounded-md bg-white p-6 sm:p-8">
-        <h2 className="text-travel-secondary mb-[30px] text-2xl font-semibold">
+        <h2 className="text-travel-secondary mb-7.5 text-2xl font-semibold">
           Đơn hàng mới
         </h2>
         <div className="srcoll-table overflow-x-auto">
-          <table className="text-travel-secondary w-full min-w-[1076px] border-collapse">
+          <table className="text-travel-secondary w-full min-w-269 border-collapse">
             <thead>
               <tr>
                 <th className="bg-travel-gray-50 rounded-tl-xl rounded-bl-xl px-4 py-4 text-left text-sm font-semibold">
@@ -57,17 +57,17 @@ export const DashboardTable = ({ orderNew }: { orderNew: OrderDetail[] }) => {
                             key={item.tourId}
                             className="flex items-start gap-2.5"
                           >
-                            <div className="h-[76px] w-[76px] overflow-hidden rounded-md">
+                            <div className="h-19 w-19 overflow-hidden rounded-md">
                               <img
                                 src={item.avatar || imageDefault}
                                 className="h-full w-full object-cover"
                               />
                             </div>
                             <div className="w-40 flex-1">
-                              <div className="mb-[3px] line-clamp-1 text-sm font-medium">
+                              <div className="mb-0.75 line-clamp-1 text-sm font-medium">
                                 {item.name}
                               </div>
-                              <div className="flex flex-col gap-[3px]">
+                              <div className="flex flex-col gap-0.75">
                                 <div className="text-[12px] font-medium">
                                   Người lớn: {item.quantityAdult} x{" "}
                                   {item.priceNewAdult.toLocaleString("vi-VN")}đ
