@@ -68,9 +68,9 @@ export const columns: ColumnDef<TourItem>[] = [
 
       return (
         <>
-          <div>NL: {priceNewAdult.toLocaleString("vi-VN")}đ</div>
-          <div>TE: {priceNewChildren.toLocaleString("vi-VN")}đ</div>
-          <div>EB: {priceNewBaby.toLocaleString("vi-VN")}đ</div>
+          <div>NL: {priceNewAdult?.toLocaleString("vi-VN")}đ</div>
+          <div>TE: {priceNewChildren?.toLocaleString("vi-VN")}đ</div>
+          <div>EB: {priceNewBaby?.toLocaleString("vi-VN")}đ</div>
         </>
       );
     },

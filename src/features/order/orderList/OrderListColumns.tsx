@@ -14,7 +14,7 @@ export const columns: ColumnDef<OrderDetail>[] = [
     id: "Mã",
     header: () => <div className="font-semibold">Mã</div>,
     cell: ({ row }) => (
-      <div className="text-travel-primary w-36 truncate capitalize font-medium">
+      <div className="text-travel-primary w-30 truncate font-medium capitalize">
         {row.original.orderCode}
       </div>
     ),
@@ -60,15 +60,15 @@ export const columns: ColumnDef<OrderDetail>[] = [
                   <div className="flex flex-col gap-0.75">
                     <div className="text-xs">
                       Người lớn: {item.quantityAdult} x{" "}
-                      {item.priceNewAdult.toLocaleString("vi-VN")}đ
+                      {item.priceNewAdult?.toLocaleString("vi-VN")}đ
                     </div>
                     <div className="text-xs">
                       Trẻ em: {item.quantityChildren} x{" "}
-                      {item.priceNewChildren.toLocaleString("vi-VN")}đ
+                      {item.priceNewChildren?.toLocaleString("vi-VN")}đ
                     </div>
                     <div className="text-xs">
                       Em bé: {item.quantityBaby} x{" "}
-                      {item.priceNewBaby.toLocaleString("vi-VN")}đ
+                      {item.priceNewBaby?.toLocaleString("vi-VN")}đ
                     </div>
                   </div>
                 </div>
@@ -94,9 +94,9 @@ export const columns: ColumnDef<OrderDetail>[] = [
 
       return (
         <>
-          <div>Tạm tính: {subTotal.toLocaleString("vi-VN")}đ</div>
-          <div>Giảm: {discount.toLocaleString("vi-VN")}đ</div>
-          <div>Tổng tiền: {total.toLocaleString("vi-VN")}đ</div>
+          <div>Tạm tính: {subTotal?.toLocaleString("vi-VN")}đ</div>
+          <div>Giảm: {discount?.toLocaleString("vi-VN")}đ</div>
+          <div>Tổng tiền: {total?.toLocaleString("vi-VN")}đ</div>
           <div>PTTT: {paymentMethodName}</div>
           <div>TTTT: {paymentStatusName}</div>
         </>
@@ -138,15 +138,20 @@ export const columns: ColumnDef<OrderDetail>[] = [
     cell: ({ row, table }) => {
       const item = row.original;
       const meta = table.options.meta as any;
+      const isPaid = item.paymentStatusName === "Đã thanh toán";
 
       return (
-        <div className="border-travel-gray bg-travel-gray-2 inline-flex items-center rounded-sm border">
-          <ButtonEdit to={`/${pathAdmin}/order/edit/${item.id}`} />
-          <ButtonDelete
-            id={item.id}
-            isPending={meta?.isDeletingOrder}
-            onDelete={(id) => meta?.deleteOrder(id)}
-          />
+        <div className="flex items-center justify-center">
+          <div className="border-travel-gray bg-travel-gray-2 inline-flex items-center rounded-sm border">
+            <ButtonEdit to={`/${pathAdmin}/order/edit/${item.id}`} />
+            {!isPaid && (
+              <ButtonDelete
+                id={item.id}
+                isPending={meta?.isDeletingOrder}
+                onDelete={(id) => meta?.deleteOrder(id)}
+              />
+            )}
+          </div>
         </div>
       );
     },

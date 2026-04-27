@@ -47,7 +47,7 @@ const options = (xLabel: string, rawData: any[]) => ({
           return `#${index + 1} - ${item?.tourName}`;
         },
         label: (context: any) => {
-          return `${xLabel}: ${context.raw.toLocaleString()}`; // context.raw: giá trị số của bar đang hover
+          return `${xLabel}: ${context.raw?.toLocaleString()}`; // context.raw: giá trị số của bar đang hover
         },
       },
     },

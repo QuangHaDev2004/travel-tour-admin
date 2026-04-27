@@ -15,16 +15,17 @@ export const OrderListToolbar = () => {
   };
 
   return (
-    <div className="flex items-center gap-2 flex-wrap">
+    <div className="flex flex-wrap items-center gap-2">
       <Search placeholder="Tìm mã đơn hàng..." />
 
       <TableFilter
         label="Trạng thái đơn hàng"
         filterKey="orderStatus"
         options={[
-          { label: "Khởi tạo", value: "initial" },
+          { label: "Chờ xác nhận", value: "pending_confirm" },
           { label: "Hoàn thành", value: "done" },
           { label: "Đã hủy", value: "cancel" },
+          { label: "Hủy tự động", value: "cancel_expired" },
         ]}
         customStyle="w-48"
       />
@@ -34,8 +35,8 @@ export const OrderListToolbar = () => {
         filterKey="paymentMethod"
         options={[
           { label: "Tiền mặt", value: "money" },
-          { label: "Chuyển khoản", value: "bank" },
-          { label: "VNPay", value: "vnpay" },
+          // { label: "Chuyển khoản", value: "bank" },
+          // { label: "VNPay", value: "vnpay" },
           { label: "ZaloPay", value: "zalopay" },
         ]}
         customStyle="w-54"
