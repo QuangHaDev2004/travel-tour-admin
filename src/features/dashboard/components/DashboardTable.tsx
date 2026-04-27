@@ -70,18 +70,18 @@ export const DashboardTable = ({ orderNew }: { orderNew: OrderDetail[] }) => {
                               <div className="flex flex-col gap-0.75">
                                 <div className="text-[12px] font-medium">
                                   Người lớn: {item.quantityAdult} x{" "}
-                                  {item.priceNewAdult.toLocaleString("vi-VN")}đ
+                                  {item.priceNewAdult?.toLocaleString("vi-VN")}đ
                                 </div>
                                 <div className="text-[12px] font-medium">
                                   Trẻ em: {item.quantityChildren} x{" "}
-                                  {item.priceNewChildren.toLocaleString(
+                                  {item.priceNewChildren?.toLocaleString(
                                     "vi-VN",
                                   )}
                                   đ
                                 </div>
                                 <div className="text-[12px] font-medium">
                                   Em bé: {item.quantityBaby} x{" "}
-                                  {item.priceNewBaby.toLocaleString("vi-VN")}đ
+                                  {item.priceNewBaby?.toLocaleString("vi-VN")}đ
                                 </div>
                               </div>
                             </div>
@@ -91,15 +91,15 @@ export const DashboardTable = ({ orderNew }: { orderNew: OrderDetail[] }) => {
                     </td>
                     <td className="border-travel-gray-500 border-b px-4 py-2.5 text-sm font-medium">
                       <div>
-                        Tạm tính: {orderDetail.subTotal.toLocaleString("vi-VN")}
+                        Tạm tính: {orderDetail.subTotal?.toLocaleString("vi-VN")}
                         đ
                       </div>
                       <div>
-                        Giảm: {orderDetail.discount.toLocaleString("vi-VN")}đ
+                        Giảm: {orderDetail.discount?.toLocaleString("vi-VN")}đ
                       </div>
                       {/* <div>Mã giảm: TOURMUAHE2024</div> */}
                       <div>
-                        Thanh toán: {orderDetail.total.toLocaleString("vi-VN")}đ
+                        Thanh toán: {orderDetail.total?.toLocaleString("vi-VN")}đ
                       </div>
                       <div>PTTT: {orderDetail.paymentMethodName}</div>
                       <div>TTTT: {orderDetail.paymentStatusName}</div>

@@ -37,7 +37,7 @@ export const ButtonDelete = ({
     <button
       disabled={isPending}
       onClick={handleDelete}
-      className="cursor-pointer px-4 py-2.5"
+      className="border-travel-four cursor-pointer border-l px-4 py-2.5"
     >
       <FaTrashCan className="text-error text-[15px]" />
     </button>

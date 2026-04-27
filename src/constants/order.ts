@@ -1,7 +1,7 @@
 export const orderStatusList = [
   {
-    label: "Khởi tạo",
-    value: "initial",
+    label: "Chờ xác nhận",
+    value: "pending_confirm",
     color: "#ffa756",
     colorBg: "rgba(255, 167, 86, 0.2)",
   },
@@ -17,6 +17,12 @@ export const orderStatusList = [
     color: "#ef3826",
     colorBg: "rgba(239, 56, 38, 0.2)",
   },
+  {
+    label: "Hủy tự động",
+    value: "cancel_expired",
+    color: "#ef3826",
+    colorBg: "rgba(239, 56, 38, 0.2)",
+  },
 ];
 
 export const paymentMethodList = [
@@ -24,19 +30,19 @@ export const paymentMethodList = [
     label: "Tiền mặt",
     value: "money",
   },
-  {
-    label: "Chuyển khoản",
-    value: "bank",
-  },
+  // {
+  //   label: "Chuyển khoản",
+  //   value: "bank",
+  // },
 
   {
     label: "ZaloPay",
     value: "zalopay",
   },
-  {
-    label: "VNPay",
-    value: "vnpay",
-  },
+  // {
+  //   label: "VNPay",
+  //   value: "vnpay",
+  // },
 ];
 
 export const paymentStatusList = [

@@ -23,15 +23,15 @@ export const OrderTourList = ({
                 </div>
                 <div className="text-travel-secondary/80 text-xs font-medium">
                   Người lớn: {item.quantityAdult} x{" "}
-                  {item.priceNewAdult.toLocaleString("vi-VN")}đ
+                  {item.priceNewAdult?.toLocaleString("vi-VN")}đ
                 </div>
                 <div className="text-travel-secondary/80 text-xs font-medium">
                   Trẻ em: {item.quantityChildren} x{" "}
-                  {item.priceNewChildren.toLocaleString("vi-VN")}đ
+                  {item.priceNewChildren?.toLocaleString("vi-VN")}đ
                 </div>
                 <div className="text-travel-secondary/80 text-xs font-medium">
                   Em bé: {item.quantityBaby} x{" "}
-                  {item.priceNewBaby.toLocaleString("vi-VN")}đ
+                  {item.priceNewBaby?.toLocaleString("vi-VN")}đ
                 </div>
                 <div className="text-travel-secondary/80 text-xs font-medium">
                   Ngày khởi hành: {item.departureDateFormat}
